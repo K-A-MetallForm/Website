@@ -11,12 +11,12 @@ const Startsite = () => {
       <div className="hero">
         <div className="overlay">
           <h1 className="hero-title">Ihr Metallbau Unternehmen</h1>
-          <p className="hero-subtitle">
-            Ihr Spezialist wenn es um Metall geht
-          </p>
-          <a href="#angebot" className="hero-button">
+          <h1 className="hero-subtitle">
+            Diese Website befindet sich in Arbeit
+          </h1>
+          {/* <a href="#angebot" className="hero-button">
             Jetzt Angebot einholen
-          </a>
+          </a> */}
         </div>
       </div>
     </div>
