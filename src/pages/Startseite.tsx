@@ -1,13 +1,11 @@
-import NavBar from './NavBar';
-import './Startsite.css';
+import './Startseite.css';
 
 /**
  * Startseite mit vollem Hintergrundbild und CTA
  */
-const Startsite = () => {
+const Startseite = () => {
   return (
     <div className="startseite">
-      <NavBar />
       <div className="hero">
         <div className="overlay">
           <h1 className="hero-title">Ihr Metallbau Unternehmen</h1>
@@ -23,4 +21,4 @@ const Startsite = () => {
   );
 };
 
-export default Startsite;
+export default Startseite;

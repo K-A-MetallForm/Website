@@ -1,16 +1,27 @@
 //import { useState } from 'react'
 import './App.css'
-import Startsite from './Startsite'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import NavBar from './components/NavBar';
+import Startseite from './pages/Startseite.tsx';
+import Leistungen from './pages/Leistungen';
+import Vorteile from './pages/Vorteile.tsx';
+import Beratung from './pages/Beratung.tsx';
+import MetallForm from './pages/MetallForm.tsx';
+
 
 function App() {
-
   return (
-    <>
-      <div>
-        <Startsite></Startsite>
-      </div>
-    </>
-  )
-}
+    <Router>
+      <NavBar />
+      <Routes>
+        <Route path="/" element={<Startseite />} />
+        <Route path="/leistungen" element={<Leistungen />} />
+        <Route path="/vorteile" element={<Vorteile />} />
+        <Route path="/beratung" element={<Beratung />} />
+        <Route path="/metallform" element={<MetallForm />} />
+      </Routes>
+    </Router>
+  );
+} 
 
 export default App
