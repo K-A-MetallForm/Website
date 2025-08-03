@@ -1,0 +1,20 @@
+/* Footer.css */
+.footer {
+  background: #2e2e2e;
+  color: #cccccc;
+  padding: 2rem 0;
+}
+.footer-inner {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+.footer a {
+  color: #cccccc;
+  text-decoration: none;
+  margin: 0 0.5rem;
+}
+.footer a:hover {
+  color: #ffffff;
+}

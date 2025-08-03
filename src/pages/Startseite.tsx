@@ -35,15 +35,8 @@ const Startseite = () => {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="footer">
-        <div className="container footer-inner">
-          <p>© 2025 MetallForm GmbH. Alle Rechte vorbehalten.</p>
-          <p><a href="#impressum">Impressum</a> | <a href="#datenschutz">Datenschutz</a></p>
-        </div>
-      </footer>
-    </div>
-  );
-};
+      </div>
+    );
+  };
 
 export default Startseite;
