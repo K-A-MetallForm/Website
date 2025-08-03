@@ -1,63 +1,55 @@
 import './Leistungen.css';
-import { FaIndustry, FaWrench, FaStream, FaTruck } from 'react-icons/fa';
-import type { ReactNode } from 'react';
 
-interface Service {
-  icon: ReactNode;
+interface Category {
   title: string;
-  text: string;
-  items: string[];
+  images: string[];
 }
 
-const services: Service[] = [
+const categories: Category[] = [
   {
-    icon: <FaIndustry />,
-    title: 'Stahlkonstruktionen',
-    text: 'Individuelle Lösungen aus Stahl für jedes Projekt.',
-    items: ['Projekt A', 'Projekt B', 'Projekt C'],
+    title: 'Tore',
+    images: ['/Tor_1.jpg', '/Tor_2.jpg', '/Tor_3.jpg'],
   },
   {
-    icon: <FaWrench />,
-    title: 'Schweißarbeiten',
-    text: 'Präzise Schweißnähte für hohe Belastungen.',
-    items: ['Arbeit A', 'Arbeit B', 'Arbeit C'],
+    title: 'Geländer',
+    images: ['/Geländer_1.jpg', '/Geländer_2.jpg', '/Geländer_3.jpg'],
   },
   {
-    icon: <FaStream />,
-    title: 'Treppen & Geländer',
-    text: 'Sichere und formschöne Aufstiege.',
-    items: ['Treppenprojekt 1', 'Geländerprojekt 2', 'Treppenprojekt 3'],
+    title: 'Treppen',
+    images: ['/Treppe_1.jpg', '/Treppe_2.jpg'],
   },
   {
-    icon: <FaTruck />,
-    title: 'Fahrzeugbau',
-    text: 'Aufbauten und Anpassungen nach Wunsch.',
-    items: ['Fahrzeug A', 'Fahrzeug B', 'Fahrzeug C'],
+    title: 'Vitrinen',
+    images: ['/Vitrinen_1.jpg', '/Vitrinen_2.jpg', '/Vitrinen_3.jpg'],
+  },
+  {
+    title: 'Sonstiges',
+    images: [
+      '/IMG-20250802-WA0009.jpg',
+      '/IMG-20250802-WA0014.jpg',
+      '/IMG-20250802-WA0016.jpg',
+    ],
   },
 ];
 
-const ServiceCard = ({ icon, title, text, items }: Service) => (
-  <article className="p-4 border rounded flex flex-col gap-2">
-    <div className="text-3xl">{icon}</div>
-    <h3 className="text-xl">{title}</h3>
-    <p>{text}</p>
-    <ul className="list-disc pl-5">
-      {items.map((item) => (
-        <li key={item}>{item}</li>
+const CategoryBlock = ({ title, images }: Category) => (
+  <div className="category">
+    <h3>{title}</h3>
+    <div className="image-grid">
+      {images.map((src) => (
+        <img key={src} src={src} alt={title} />
       ))}
-    </ul>
-  </article>
+    </div>
+  </div>
 );
 
 export default function LeistungenSection() {
   return (
-    <section className="p-8" id="leistungen">
-      <h2 className="text-2xl mb-4">Leistungen</h2>
-      <div className="grid gap-8 md:grid-cols-2">
-        {services.map((service) => (
-          <ServiceCard key={service.title} {...service} />
-        ))}
-      </div>
+    <section className="leistungen-section" id="leistungen">
+      <h2>Leistungen</h2>
+      {categories.map((category) => (
+        <CategoryBlock key={category.title} {...category} />
+      ))}
     </section>
   );
 }

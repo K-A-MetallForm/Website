@@ -1,4 +1,5 @@
 import './Startseite.css';
+import { Link } from 'react-router-dom';
 
 /**
  * Startseite mit vollem Hintergrundbild und CTA
@@ -11,7 +12,7 @@ const Startseite = () => {
         <div className="container hero-content">
           <h2>Präzision in Stahl</h2>
           <p>Ihr Partner fürs Metallhandwerk – von der Idee bis zur Montage.</p>
-          <a href="#beratung" className="cta-button hero-cta">Jetzt Angebot anfragen</a>
+          <Link to="/beratung" className="cta-button hero-cta">Jetzt Angebot anfragen</Link>
         </div>
       </section>
 
