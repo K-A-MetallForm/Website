@@ -22,7 +22,7 @@ const NavBar = () => {
           <li><Link to="/metallform" onClick={closeMenu} className="nav-link">MetallForm</Link></li>
         </ul>
         <div className="actions">
-          <Link to="/" className="cta-button">Zum Angebot</Link>
+          <Link to="/beratung" className="cta-button">Zum Angebot</Link>
           <a href="tel:0721*******" className="phone-link"><FaPhoneAlt />0721 *******</a>
           <button onClick={toggleMenu} className="menu-button">
             {menuOpen ? <FaTimes /> : <FaBars />}
