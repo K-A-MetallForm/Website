@@ -13,15 +13,19 @@ import MetallForm from './pages/MetallForm.tsx';
 function App() {
   return (
     <Router>
-      <NavBar />
-      <Routes>
-        <Route path="/" element={<Startseite />} />
-        <Route path="/leistungen" element={<Leistungen />} />
-        <Route path="/vorteile" element={<Vorteile />} />
-        <Route path="/beratung" element={<Beratung />} />
-        <Route path="/metallform" element={<MetallForm />} />
-      </Routes>
-      <Footer />
+      <div className="min-h-screen flex flex-col">
+        <NavBar />
+        <main className="flex-grow">
+          <Routes>
+            <Route path="/" element={<Startseite />} />
+            <Route path="/leistungen" element={<Leistungen />} />
+            <Route path="/vorteile" element={<Vorteile />} />
+            <Route path="/beratung" element={<Beratung />} />
+            <Route path="/metallform" element={<MetallForm />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
     </Router>
   );
 }
