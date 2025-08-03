@@ -1,59 +1,89 @@
-/* Startseite.css */
-.startseite {
-  width: 100%;
-  min-height: 100vh;    /* deckt mindestens den Viewport ab */
-}
+/* HomePage.css */
 
-/* Hero-Bereich */
-.hero {
-  position: relative;
-  width: 100%;
-  height: 40vh;        /* volle Viewport-Höhe */
-  background: url('/image_001.jpg') center/cover;
-}
-
-.overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.4);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+/* Utility container */
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
   padding: 0 1rem;
 }
 
-.hero-title {
-  color: #fff;
+/* Hero Section */
+.hero {
+  position: relative;
+  background-image: url('/image_001.jpg');
+  background-position: center;
+  height:60vh;
+  max-height: 500px;
+  display: flex;
+  align-items: center;
+}
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+.hero-content {
+  position: relative;
+  color: #ffffff;
+  max-width: 600px;
+}
+.hero-content h2 {
   font-size: 3rem;
   margin-bottom: 1rem;
 }
+.hero-content p {
+  font-size: 1.125rem;
+  margin-bottom: 1.5rem;
+}
+.hero-cta {
+  display: inline-block;
+}
 
-.hero-subtitle {
-  color: #fff;
+/* Intro Section */
+.intro-section {
+  background: #ffffff;
+  padding: 4rem 0;
+  text-align: center;
+}
+.intro-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+}
+.intro-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.intro-icon {
+  font-size: 2.5rem;
+  color: #ff6a00;
+  margin-bottom: 0.75rem;
+}
+.intro-item h3 {
   font-size: 1.25rem;
-  margin-bottom: 2rem;
+  margin-bottom: 0.5rem;
+}
+.intro-item p {
+  font-size: 1rem;
+  color: #555555;
 }
 
-.hero-button {
-  background: #2563eb;
-  color: #fff;
-  padding: .75rem 1.5rem;
-  border-radius: .5rem;
+/* Footer */
+.footer {
+  background: #2e2e2e;
+  color: #cccccc;
+  padding: 2rem 0;
+}
+.footer-inner {
+  text-align: center;
+}
+.footer a {
+  color: #cccccc;
   text-decoration: none;
-  transition: background .2s;
+  margin: 0 0.5rem;
 }
-.hero-button:hover {
-  background: #1e40af;
-}
-
-/* Responsive */
-@media (min-width: 768px) {
-  .hero-title {
-    font-size: 4rem;
-  }
-  .hero-subtitle {
-    font-size: 1.5rem;
-  }
+.footer a:hover {
+  color: #ffffff;
 }

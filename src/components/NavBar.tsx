@@ -12,9 +12,9 @@ const NavBar = () => {
     <nav className="navbar">
       <div className="navbar-container">
         <Link to="/" className="logo">
-          <img src="/logo-montama.svg" alt="Logo" />
+          <img src="/Logo-Photoroom.png" alt="Logo" />
         </Link>
-        <ul className={`nav-links ${menuOpen ? 'open' : ''}`}>          
+        <ul className={`nav-links ${menuOpen ? 'open' : ''}`}>
           <li><Link to="/" onClick={closeMenu} className="nav-link">Home</Link></li>
           <li><Link to="/leistungen" onClick={closeMenu} className="nav-link">Leistungen</Link></li>
           <li><Link to="/vorteile" onClick={closeMenu} className="nav-link">Vorteile</Link></li>
