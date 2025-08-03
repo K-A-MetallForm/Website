@@ -2,6 +2,7 @@
 import './App.css'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import NavBar from './components/NavBar';
+import Footer from './components/Footer';
 import Startseite from './pages/Startseite.tsx';
 import Leistungen from './pages/Leistungen';
 import Vorteile from './pages/Vorteile.tsx';
@@ -20,8 +21,10 @@ function App() {
         <Route path="/beratung" element={<Beratung />} />
         <Route path="/metallform" element={<MetallForm />} />
       </Routes>
+      <Footer />
     </Router>
   );
-} 
+}
 
 export default App
+
