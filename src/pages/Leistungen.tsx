@@ -35,11 +35,13 @@ const categories: Category[] = [
 const CategoryBlock = ({ title, images }: Category) => (
   <div className="category">
     <h3>{title}</h3>
-    <div className="image-grid">
-      {images.map((src) => (
-        <img key={src} src={src} alt={title} />
-      ))}
-    </div>
+    {images.map((src, index) => (
+      <div key={src} className="image-row">
+        <img src={src} alt={`${title} Bild ${index + 1}`} />
+        <p>{`${title} Bild ${index + 1}`}</p>
+      </div>
+    ))}
+
   </div>
 );
 

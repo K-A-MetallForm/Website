@@ -16,16 +16,22 @@
   margin-bottom: 0.75rem;
 }
 
-.image-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+.image-row {
+  display: flex;
+  align-items: center;
   gap: 1rem;
+  margin-bottom: 1rem;
 }
 
-.image-grid img {
-  width: 100%;
-  height: auto;
+.image-row img {
+  width: 200px;
+  height: 200px;
   border-radius: 8px;
   object-fit: cover;
 }
+
+.image-row p {
+  margin: 0;
+}
+
 
