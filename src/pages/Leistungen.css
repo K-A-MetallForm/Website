@@ -1,2 +1,36 @@
-/* Platzhalter für zukünftige Styles der Leistungen-Section */
+.leistungen-section {
+  padding: 2rem;
+}
+
+.leistungen-section h2 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.category {
+  margin-bottom: 2rem;
+}
+
+.category h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.image-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.image-row img {
+  width: 200px;
+  height: 200px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.image-row p {
+  margin: 0;
+}
 

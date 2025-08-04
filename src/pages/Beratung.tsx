@@ -8,11 +8,11 @@ const steps = [
 ];
 
 const Timeline = () => (
-  <ol className="flex flex-wrap gap-4 justify-between">
+  <ol className="timeline">
     {steps.map((step, index) => (
-      <li key={step} className="flex items-center gap-2">
+      <li key={step}>
         <span>{step}</span>
-        {index < steps.length - 1 && <span>→</span>}
+        {index < steps.length - 1 && <span className="arrow">→</span>}
       </li>
     ))}
   </ol>
@@ -20,36 +20,36 @@ const Timeline = () => (
 
 export default function BeratungSection() {
   return (
-    <section className="p-8" id="beratung">
-      <h2 className="text-2xl mb-4">Beratung</h2>
+    <section className="beratung-section" id="beratung">
+      <h2>Beratung</h2>
       <Timeline />
-      <form className="grid gap-4 mt-8">
-        <div className="grid gap-2">
+      <form className="beratung-form">
+        <div className="form-field">
           <label htmlFor="name">Name</label>
-          <input id="name" type="text" className="p-2" />
+          <input id="name" type="text" />
         </div>
-        <div className="grid gap-2">
+        <div className="form-field">
           <label htmlFor="email">E-Mail</label>
-          <input id="email" type="email" className="p-2" />
+          <input id="email" type="email" />
         </div>
-        <div className="grid gap-2">
+        <div className="form-field">
           <label htmlFor="phone">Telefon</label>
-          <input id="phone" type="tel" className="p-2" />
+          <input id="phone" type="tel" />
         </div>
-        <div className="grid gap-2">
+        <div className="form-field">
           <label htmlFor="service">Leistung</label>
-          <select id="service" className="p-2">
+          <select id="service">
             <option>Stahlkonstruktionen</option>
             <option>Schweißarbeiten</option>
             <option>Treppen & Geländer</option>
             <option>Fahrzeugbau</option>
           </select>
         </div>
-        <div className="grid gap-2">
+        <div className="form-field">
           <label htmlFor="message">Freitext</label>
-          <textarea id="message" rows={4} className="p-2" />
+          <textarea id="message" rows={4} />
         </div>
-        <button type="submit" className="p-2">Absenden</button>
+        <button type="submit" className="submit-button">Absenden</button>
       </form>
     </section>
   );

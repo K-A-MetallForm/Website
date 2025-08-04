@@ -32,18 +32,18 @@ const benefits: Benefit[] = [
 ];
 
 const BenefitCard = ({ icon, title, text }: Benefit) => (
-  <article className="p-4 border rounded flex flex-col items-start gap-2">
-    <div className="text-3xl">{icon}</div>
-    <h3 className="text-xl">{title}</h3>
+  <article className="benefit-card">
+    <div className="icon">{icon}</div>
+    <h3>{title}</h3>
     <p>{text}</p>
   </article>
 );
 
 export default function VorteileSection() {
   return (
-    <section className="p-8" id="vorteile">
-      <h2 className="text-2xl mb-4">Vorteile</h2>
-      <div className="grid gap-8 md:grid-cols-2">
+    <section className="vorteile-section" id="vorteile">
+      <h2>Vorteile</h2>
+      <div className="benefit-grid">
         {benefits.map((benefit) => (
           <BenefitCard key={benefit.title} {...benefit} />
         ))}
