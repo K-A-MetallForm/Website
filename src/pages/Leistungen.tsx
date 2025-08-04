@@ -32,16 +32,33 @@ const categories: Category[] = [
   },
 ];
 
-const CategoryBlock = ({ title, images }: Category) => (
-  <div className="category">
-    <h3>{title}</h3>
-    {images.map((src, index) => (
-      <div key={src} className="image-row">
-        <img src={src} alt={`${title} Bild ${index + 1}`} />
-        <p>{`${title} Bild ${index + 1}`}</p>
-      </div>
-    ))}
+interface CategoryBlockProps extends Category {
+  variant: 'gray' | 'white';
+}
 
+const CategoryBlock = ({ title, images, variant }: CategoryBlockProps) => (
+  <div className={`service-area ${variant}`}>
+    <div className="service-text">
+      <h3>{title}</h3>
+    </div>
+    <div className="service-images">
+      {images[0] && (
+        <img
+          className="main-image"
+          src={images[0]}
+          alt={`${title} Bild 1`}
+        />
+      )}
+      <div className="thumbnail-row">
+        {images.slice(1, 5).map((src, index) => (
+          <img
+            key={src}
+            src={src}
+            alt={`${title} Bild ${index + 2}`}
+          />
+        ))}
+      </div>
+    </div>
   </div>
 );
 
@@ -49,8 +66,12 @@ export default function LeistungenSection() {
   return (
     <section className="leistungen-section" id="leistungen">
       <h2>Leistungen</h2>
-      {categories.map((category) => (
-        <CategoryBlock key={category.title} {...category} />
+      {categories.map((category, index) => (
+        <CategoryBlock
+          key={category.title}
+          {...category}
+          variant={index % 2 === 0 ? 'gray' : 'white'}
+        />
       ))}
     </section>
   );
