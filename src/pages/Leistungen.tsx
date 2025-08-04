@@ -58,6 +58,9 @@ const CategoryBlock = ({ title, description, images, variant }: CategoryBlockPro
           <p>{description}</p>
         </div>
       </div>
+
+
+
       <div className="thumbnail-row">
         {images.slice(1, 5).map((src, index) => (
           <img
@@ -77,6 +80,7 @@ export default function LeistungenSection() {
       <div className="leistungen-header">
         <h2>Leistungen</h2>
       </div>
+
       {categories.map((category, index) => (
         <CategoryBlock
           key={category.title}
