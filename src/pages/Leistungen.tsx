@@ -41,6 +41,7 @@ const CategoryBlock = ({ title, images }: Category) => (
         <p>{`${title} Bild ${index + 1}`}</p>
       </div>
     ))}
+
   </div>
 );
 
