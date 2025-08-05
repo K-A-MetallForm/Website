@@ -7,7 +7,7 @@ const Hero: React.FC = () => (
   <section className="hero" id="hero">
     <div className="hero-overlay" />
     <img
-      src="/image_002.jpg"
+      src="/image_003.jpg"
       alt="Metallbau Präzision"
       className="hero__img"
     />

@@ -31,7 +31,7 @@
 }
 .hero__content {
   position: absolute;
-  top: 25%;              /* 25 % von der Oberkante der Hero-Section */
+  top: 20%;              /* 25 % von der Oberkante der Hero-Section */
   left: 50%;             /* zentriert horizontal */
   transform: translateX(-50%);
   z-index: 2;
