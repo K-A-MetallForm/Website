@@ -1,11 +1,23 @@
+:root {
+  --color-bg: #ffffff; /* Hintergrundfarbe weiß */
+  --color-primary: #4682b4;
+  --color-accent: #f39c12;
+  --color-light: #2e2e2e;
+  --font-base: 'Helvetica, Arial, sans-serif';
+  --spacing: 1rem;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: var(--font-base);
 }
 
 html, body, #root {
   width: 100%;
   height: 100%;
   overflow-x: hidden;
+  background-color: var(--color-bg);
+  color: var(--color-light);
 }

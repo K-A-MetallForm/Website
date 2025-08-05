@@ -77,9 +77,6 @@ const CategoryBlock = ({ title, description, images, variant }: CategoryBlockPro
 export default function LeistungenSection() {
   return (
     <section className="leistungen-section" id="leistungen">
-      <div className="leistungen-header">
-        <h2>Leistungen</h2>
-      </div>
 
       {categories.map((category, index) => (
         <CategoryBlock

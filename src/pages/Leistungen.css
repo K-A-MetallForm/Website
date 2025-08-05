@@ -2,11 +2,6 @@
   width: 100%;
 }
 
-.leistungen-header {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1rem;
-}
 
 .leistungen-header h2 {
   font-size: 2rem;
@@ -62,7 +57,7 @@
 .thumbnail-row {
   display: flex;
   gap: 1rem;
-  justify-content: center;
+  justify-content: left;
 }
 
 .thumbnail-row img {

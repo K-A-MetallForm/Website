@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FaPhoneAlt, FaBars, FaTimes } from 'react-icons/fa';
+import { FaBars, FaTimes } from 'react-icons/fa';
 import './NavBar.css';
 
 const NavBar = () => {
@@ -22,8 +22,6 @@ const NavBar = () => {
           <li><Link to="/metallform" onClick={closeMenu} className="nav-link">MetallForm</Link></li>
         </ul>
         <div className="actions">
-          <Link to="/beratung" className="cta-button">Zum Angebot</Link>
-          <a href="tel:0721*******" className="phone-link"><FaPhoneAlt />0721 *******</a>
           <button onClick={toggleMenu} className="menu-button">
             {menuOpen ? <FaTimes /> : <FaBars />}
           </button>
