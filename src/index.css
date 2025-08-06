@@ -5,10 +5,10 @@
   --color-light: #2e2e2e;
   --font-base: 'Helvetica, Arial, sans-serif';
   --spacing: 1rem;
-  --footer-bg: #1a1a1a;
-  --footer-text: #e0e0e0;
-  --footer-link: #cccccc;
-  --footer-link-hover: #ffffff;
+  --footer-bg: #0000000d;
+  --footer-text: #000000;
+  --footer-link: #000000;
+  --footer-link-hover: #0073e6;
   --footer-accent: #0073e6;
 }
 

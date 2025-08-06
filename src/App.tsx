@@ -5,7 +5,6 @@ import NavBar from './components/NavBar';
 import Footer from './components/Footer';
 import Startseite from './pages/Startseite.tsx';
 import Leistungen from './pages/Leistungen';
-import Vorteile from './pages/Vorteile.tsx';
 import Beratung from './pages/Beratung.tsx';
 import MetallForm from './pages/MetallForm.tsx';
 
@@ -19,7 +18,6 @@ function App() {
           <Routes>
             <Route path="/" element={<Startseite />} />
             <Route path="/leistungen" element={<Leistungen />} />
-            <Route path="/vorteile" element={<Vorteile />} />
             <Route path="/beratung" element={<Beratung />} />
             <Route path="/metallform" element={<MetallForm />} />
           </Routes>
