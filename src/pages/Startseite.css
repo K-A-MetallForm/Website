@@ -7,23 +7,35 @@
 }
 
 /* Hero */
-.hero {
+/* .hero {
   position: relative;
   text-align: center;
-  height: 80vh;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
   background-color: var(--color-bg); /* weiß */
+
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  display: flex;        /* oder flex, wenn du das Centering brauchst */
 }
-.hero__img,
+.hero__img {
+  width: 100%;
+  height: 75%;
+  display: block;        /* entfernt evtl. unerwünschte inline-Spacing */
+  object-fit: cover; 
+  max-height: 50vh;    /* falls der Container doch mal begrenzt wird */
+}
+
 .hero-overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 75%;
   object-fit: cover;
 }
 .hero-overlay {
@@ -31,7 +43,7 @@
 }
 .hero__content {
   position: absolute;
-  top: 15%;              /* 25 % von der Oberkante der Hero-Section */
+  top: 10%;              /* 25 % von der Oberkante der Hero-Section */
   left: 50%;             /* zentriert horizontal */
   transform: translateX(-50%);
   z-index: 2;
@@ -68,6 +80,9 @@
   padding: 4rem 0;
   text-align: center;
   background-color: var(--color-bg); /* weiß */
+}
+.features__intro {
+  padding: 2rem;
 }
 .features h2 {
   font-size: 2rem;

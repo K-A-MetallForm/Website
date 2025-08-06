@@ -14,7 +14,7 @@ const Hero: React.FC = () => (
     <div className="hero__content container">
       <h1>Präzision in Stahl & Technik</h1>
       <p>Individuelle Metalllösungen von Planung bis Montage.</p>
-      <Link to="/angebot" className="btn btn--accent">
+      <Link to="/beratung" className="btn btn--accent">
         Jetzt Angebot anfordern
       </Link>
     </div>
@@ -44,6 +44,10 @@ const Features: React.FC = () => {
   return (
     <section className="features container">
       <h2>Unsere Stärken</h2>
+      <div className='features__intro'>
+        <p>Mit 15 Jahren Erfahrung, einem staatlich geprüften Metallbaumeister, vereinen wir traditionelles Handwerk mit zeitgemäßen Fertigungsverfahren. 
+           Ihr Projekt schöpft bei uns von der ersten Skizze bis zur finalen Montage das volle Potenzial aus – termingenau, in zertifizierter Qualität und mit höchster Verlässlichkeit.</p>
+      </div>
       <div className="features__grid">
         {items.map((f, i) => (
           <div key={i} className="feature">
@@ -58,29 +62,6 @@ const Features: React.FC = () => {
 };
 
 // References-Komponente
-const References: React.FC = () => {
-  const logos = [
-    '/logos/kunde1.png',
-    '/logos/kunde2.png',
-    '/logos/kunde3.png',
-    '/logos/kunde4.png',
-  ];
-
-  return (
-    <section className="references container">
-      <h2>Vertrauen der Branche</h2>
-      <div className="references__logos">
-        {logos.map((src, i) => (
-          <img key={i} src={src} alt={`Kundenlogo ${i + 1}`} />
-        ))}
-      </div>
-      <div className="certificates">
-        <img src="/certs/iso9001.svg" alt="ISO 9001 Zertifikat" />
-        <img src="/certs/qr-code.svg" alt="Qualitätssiegel" />
-      </div>
-    </section>
-  );
-};
 
 // Startseite-Komponente ohne Footer
 const Startseite: React.FC = () => (
@@ -90,7 +71,6 @@ const Startseite: React.FC = () => (
     </header>
     <main>
       <Features />
-      <References />
     </main>
   </div>
 );

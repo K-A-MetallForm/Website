@@ -1,10 +1,15 @@
 :root {
   --color-bg: #ffffff; /* Hintergrundfarbe weiß */
-  --color-primary: #4682b4;
-  --color-accent: #f39c12;
+  --color-primary: #3498db;
+  --color-accent: #163be1;
   --color-light: #2e2e2e;
   --font-base: 'Helvetica, Arial, sans-serif';
   --spacing: 1rem;
+  --footer-bg: #1a1a1a;
+  --footer-text: #e0e0e0;
+  --footer-link: #cccccc;
+  --footer-link-hover: #ffffff;
+  --footer-accent: #0073e6;
 }
 
 * {

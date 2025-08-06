@@ -1,13 +1,30 @@
-#root {
-  width: 100%;
-  max-width: none; 
-  margin: 0;            
-  padding: 0;           
-  text-align: center;   
+/* Reset & Grundlayout */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
+#root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
 
+/* Flex-Layout: Header – Content – Footer */
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* volle Viewport-Höhe */
+}
 
+.app__content {
+  flex: 1; /* füllt den verfügbaren Raum */
+}
+
+/* Bestehende Styles beibehalten */
 @media (prefers-reduced-motion: no-preference) {
   a:nth-of-type(2) .logo {
     animation: logo-spin infinite 20s linear;

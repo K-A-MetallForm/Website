@@ -13,9 +13,9 @@ import MetallForm from './pages/MetallForm.tsx';
 function App() {
   return (
     <Router>
-      <div className="min-h-screen flex flex-col">
+      <div className="app">
         <NavBar />
-        <main className="flex-grow">
+        <main className="app_content">
           <Routes>
             <Route path="/" element={<Startseite />} />
             <Route path="/leistungen" element={<Leistungen />} />
