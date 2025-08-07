@@ -76,8 +76,11 @@ const CategoryBlock = ({ title, description, images, variant }: CategoryBlockPro
 
 export default function LeistungenSection() {
   return (
-    <section className="leistungen-section" id="leistungen">
-
+    <section
+      className="leistungen-section"
+      id="leistungen"
+      style={{ scrollSnapType: 'y mandatory', overflowY: 'scroll', height: '100vh' }}
+    >
       {categories.map((category, index) => (
         <CategoryBlock
           key={category.title}
