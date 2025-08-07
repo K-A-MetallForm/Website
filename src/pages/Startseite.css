@@ -40,7 +40,7 @@
   max-width: 800px;
   border-radius: 8px;
   background: none;
-  color: white;
+  color: var(--color-text);
 }
 .hero__content h1 {
   font-size: 2.5rem;
@@ -59,7 +59,7 @@
 }
 .btn--accent {
   background-color: var(--color-accent);
-  color: var(--color-bg);
+  color: var(--color-text);
 }
 .btn--accent:hover {
   transform: translateY(-3px);
@@ -109,7 +109,7 @@
 .references h2 {
   font-size: 2rem;
   margin-bottom: 2rem;
-  color: var(--color-light);
+  color: var(--color-text);
 }
 .references__logos {
   display: flex;

@@ -73,11 +73,11 @@ color: var(--footer-accent);
 }
 
 .footer__bottom {
-text-align: center;
-margin-top: 2rem;
-border-top: 1px solid #333;
-padding-top: 1rem;
-font-size: 0.8rem;
+  text-align: center;
+  margin-top: 2rem;
+  border-top: 1px solid var(--color-text);
+  padding-top: 1rem;
+  font-size: 0.8rem;
 }
 
 /* Responsive */

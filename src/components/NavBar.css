@@ -4,7 +4,7 @@
   top: 0;
   z-index: 50;
   width: 100%;
-  background: #fff;
+  background: var(--color-bg);
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 .navbar-container {
@@ -27,12 +27,12 @@
   display: block;
 }
 
-.logo:hover { 
-  filter: drop-shadow(0 0 2em #2D2D2D);
-} 
+.logo:hover {
+  filter: drop-shadow(0 0 2em var(--color-text));
+}
 
-.logo.react:hover { 
-  filter: drop-shadow(0 0 2em #61dafbaa); 
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em var(--color-accent));
 }
 
 /* Desktop-Nav */
@@ -48,11 +48,11 @@
 }
 .nav-link {
   text-decoration: none;
-  color: #374151;
+  color: var(--color-text);
   transition: color .2s;
 }
 .nav-link:hover {
-  color: #2563eb;
+  color: var(--color-accent);
 }
 
 /* Aktionen */
@@ -63,26 +63,26 @@
   margin-left: auto;
 }
 .cta-button {
-  background: #2563eb;
-  color: #fff;
+  background: var(--color-accent);
+  color: var(--color-text);
   padding: .5rem 1rem;
   border-radius: .5rem;
   text-decoration: none;
   transition: background .2s;
 }
 .cta-button:hover {
-  background: #1e40af;
+  background: var(--color-accent-hover);
 }
 .phone-link {
   display: flex;
   align-items: center;
   gap: .5rem;
   text-decoration: none;
-  color: #374151;
+  color: var(--color-text);
   transition: color .2s;
 }
 .phone-link:hover {
-  color: #2563eb;
+  color: var(--color-accent);
 }
 
 /* Mobile-Button */
@@ -90,12 +90,12 @@
   background: none;
   border: none;
   cursor: pointer;
-  color: #374151;
+  color: var(--color-text);
 }
 
 /* Mobile-Menü */
 .mobile-menu {
-  background: #fff;
+  background: var(--color-bg);
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 .mobile-menu ul {
@@ -108,21 +108,21 @@
 .mobile-link,
 .mobile-cta {
   text-decoration: none;
-  color: #374151;
+  color: var(--color-text);
 }
 .mobile-link:hover {
-  color: #2563eb;
+  color: var(--color-accent);
 }
 .mobile-cta {
-  background: #2563eb;
-  color: #fff;
+  background: var(--color-accent);
+  color: var(--color-text);
   padding: .5rem 1rem;
   border-radius: .5rem;
   text-align: center;
   transition: background .2s;
 }
 .mobile-cta:hover {
-  background: #1e40af;
+  background: var(--color-accent-hover);
 }
 
 /* Breakpoint */

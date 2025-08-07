@@ -38,20 +38,20 @@
 .form-field select,
 .form-field textarea {
   padding: 0.5rem;
-  border: 1px solid #ccc;
+  border: 1px solid var(--color-text);
   border-radius: 4px;
 }
 
 .submit-button {
   padding: 0.75rem;
-  background: #ff6a00;
-  color: #fff;
+  background: var(--color-accent);
+  color: var(--color-text);
   border: none;
   border-radius: 4px;
   cursor: pointer;
 }
 
 .submit-button:hover {
-  background: #e65f00;
+  background: var(--color-accent-hover);
 }
 
