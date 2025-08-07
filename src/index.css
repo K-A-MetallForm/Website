@@ -15,11 +15,13 @@
 :root {
   --color-bg: #eaeaee;
   --color-text: #000000;
-  --color-accent: #8eb6dc;
-  --color-accent-hover: #6c9ac7;
+  --color-accent: #2a5d96;
+  --color-accent-hover: #1e4b7d;
   --font-base: 'Newsreader', serif;
   --font-heading: 'Instrument Serif', serif;
-  --spacing: 1rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 2rem;
   --footer-bg: var(--color-bg);
   --footer-text: var(--color-text);
   --footer-link: var(--color-text);
@@ -40,13 +42,13 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: var(--font-heading)
+  font-family: var(--font-heading);
 }
 
 html, body, #root {
   width: 100%;
   height: 100%;
-  overflow: hidden;
+  overflow-x: hidden;
   background-color: var(--color-bg);
   color: var(--color-text);
 }

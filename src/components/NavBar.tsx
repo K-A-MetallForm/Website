@@ -10,18 +10,18 @@ const NavBar = () => {
 
   return (
     <nav className="navbar">
-      <div className="navbar-container">
-        <Link to="/" className="logo">
+      <div className="navbar__container">
+        <Link to="/" className="navbar__logo">
           <img src="/Logo-Photoroom.png" alt="Logo" />
         </Link>
-        <ul className={`nav-links ${menuOpen ? 'open' : ''}`}>
-          <li><Link to="/" onClick={closeMenu} className="nav-link">Home</Link></li>
-          <li><Link to="/leistungen" onClick={closeMenu} className="nav-link">Leistungen</Link></li>
-          <li><Link to="/beratung" onClick={closeMenu} className="nav-link">Beratung</Link></li>
-          <li><Link to="/metallform" onClick={closeMenu} className="nav-link">MetallForm</Link></li>
+        <ul className={`navbar__links ${menuOpen ? 'open' : ''}`}>
+          <li><Link to="/" onClick={closeMenu} className="navbar__link">Home</Link></li>
+          <li><Link to="/leistungen" onClick={closeMenu} className="navbar__link">Leistungen</Link></li>
+          <li><Link to="/beratung" onClick={closeMenu} className="navbar__link">Beratung</Link></li>
+          <li><Link to="/metallform" onClick={closeMenu} className="navbar__link">MetallForm</Link></li>
         </ul>
-        <div className="actions">
-          <button onClick={toggleMenu} className="menu-button">
+        <div className="navbar__actions">
+          <button onClick={toggleMenu} className="navbar__menu-button">
             {menuOpen ? <FaTimes /> : <FaBars />}
           </button>
         </div>
