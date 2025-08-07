@@ -36,5 +36,5 @@ html, body {
 }
 
 .read-the-docs {
-  color: #888;
+  color: var(--color-text);
 }

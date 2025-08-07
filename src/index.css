@@ -1,15 +1,15 @@
 :root {
-  --color-bg: #eaeaee; /* Hintergrundfarbe weiß */
-  --color-primary: #3498db;
-  --color-accent: #163be1;
-  --color-light: #2e2e2e;
+  --color-bg: #eaeaee;
+  --color-text: #000000;
+  --color-accent: #8eb6dc;
+  --color-accent-hover: #6c9ac7;
   --font-base: 'Helvetica, Arial, sans-serif';
   --spacing: 1rem;
-  --footer-bg: #0000000d;
-  --footer-text: #000000;
-  --footer-link: #000000;
-  --footer-link-hover: #0073e6;
-  --footer-accent: #0073e6;
+  --footer-bg: var(--color-bg);
+  --footer-text: var(--color-text);
+  --footer-link: var(--color-text);
+  --footer-link-hover: var(--color-accent);
+  --footer-accent: var(--color-accent);
 }
 
 * {
@@ -24,5 +24,5 @@ html, body, #root {
   height: 100%;
   overflow-x: hidden;
   background-color: var(--color-bg);
-  color: var(--color-light);
+  color: var(--color-text);
 }

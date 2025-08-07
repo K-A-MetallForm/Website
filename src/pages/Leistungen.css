@@ -14,11 +14,11 @@
 }
 
 .service-area.gray {
-  background-color: #f5f5f5;
+  background-color: var(--color-bg);
 }
 
 .service-area.white {
-  background-color: #ffffff;
+  background-color: var(--color-bg);
 }
 
 .service-inner {
@@ -45,12 +45,12 @@
 }
 
 .service-text h3 {
-  color: #0056b3;
+  color: var(--color-text);
   margin-bottom: 1rem;
 }
 
 .service-text p {
-  color: #333333;
+  color: var(--color-text);
   line-height: 1.6;
 }
 
