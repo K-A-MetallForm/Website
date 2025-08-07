@@ -28,7 +28,7 @@
 }
 
 .logo:hover {
-  filter: drop-shadow(0 0 2em var(--color-text));
+  filter: drop-shadow(0 0 2em var(--color-accent-hover));
 }
 
 .logo.react:hover {
