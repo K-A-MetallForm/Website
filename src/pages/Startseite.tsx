@@ -88,10 +88,10 @@ const CTA: React.FC = () => (
 // Startseite-Komponente ohne Footer
 const Startseite: React.FC = () => (
   <div className="startseite">
-    <Hero />
-    <Features />
-    <CTA />
-  </div>
+  <section className="section"><Hero/></section>
+  <section className="section"><Features/></section>
+  <section className="section"><CTA/></section>
+</div>
 );
 
 export default Startseite;

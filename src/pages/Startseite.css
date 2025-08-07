@@ -16,9 +16,14 @@ img {
 
 /* Scroll Snap Container */
 .startseite {
+  height: 100vh;               /* volle Höhe */
+  overflow-y: auto;            /* macht scrollbar */
   scroll-snap-type: y mandatory;
-  overflow-y: scroll;
-  height: 100vh;
+}
+
+.section{
+  scroll-snap-align: start;
+  height: 100vh; 
 }
 
 /* Hero */
@@ -29,7 +34,6 @@ img {
   justify-content: center;    /* horizontal zentrieren */
   align-items: center;        /* vertikal zentrieren */
   height: 100vh;
-  scroll-snap-align: start;
 }
 
 .hero__img {
@@ -113,7 +117,6 @@ img {
   text-align: center;
   background-color: var(--color-bg);
   height: 100vh;
-  scroll-snap-align: start;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -189,7 +192,6 @@ img {
   width: 100%;
   padding: calc(var(--spacing) * 2) 0;
   height: 100vh;
-  scroll-snap-align: start;
   display: flex;
   align-items: center;
   justify-content: center;
