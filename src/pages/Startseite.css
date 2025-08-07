@@ -14,16 +14,14 @@ img {
   object-fit: cover;
 }
 
-/* Scroll Snap Container */
+/* Startseite Container */
 .startseite {
   height: 100vh;               /* volle Höhe */
   overflow-y: auto;            /* macht scrollbar */
-  scroll-snap-type: y mandatory;
 }
 
 .section{
-  scroll-snap-align: start;
-  height: 100vh; 
+  height: 100vh;
 }
 
 /* Hero */
