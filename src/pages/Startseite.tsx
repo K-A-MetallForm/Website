@@ -66,12 +66,12 @@ const CTA: React.FC = () => (
         <h2 className="cta__text">
           Nimm mit uns Kontakt auf
         </h2>
-        <p>
+        <p className='cta_text'>
         Hast du Interesse an einer Zusammenarbeit? Fülle bitte das Formular aus und 
         wir werden uns in Kürze bei dir melden. Wir freuen uns schon darauf, von dir zu hören.
         </p>
-        <Link to="/leistungen" className="btn btn--primary cta__button">
-          Kontakt aufnehmen
+        <Link to="/beratung" className="btn btn--accent-cta">
+          Kontakt
         </Link>
       </div>
       <div className="cta__image-container">
