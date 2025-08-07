@@ -79,7 +79,6 @@ export default function LeistungenSection() {
     <section
       className="leistungen-section"
       id="leistungen"
-      style={{ overflowY: 'scroll', height: '100vh' }}
     >
       {categories.map((category, index) => (
         <CategoryBlock

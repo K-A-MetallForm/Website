@@ -16,8 +16,7 @@ img {
 
 /* Startseite Container */
 .startseite {
-  height: 100vh;               /* volle Höhe */
-  overflow-y: auto;            /* macht scrollbar */
+  min-height: 100vh;           /* mindestens volle Höhe, kein eigener Scroll */
 }
 
 .section{
