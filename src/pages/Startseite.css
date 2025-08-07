@@ -7,6 +7,13 @@
   background-color: var(--color-bg);
 }
 
+/* Scroll Snap Container */
+.startseite {
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  height: 100vh;
+}
+
 /* Hero */
 .hero {
   position: relative;
@@ -15,6 +22,7 @@
   justify-content: center;    /* horizontal zentrieren */
   align-items: center;        /* vertikal zentrieren */
   height: 100vh;
+  scroll-snap-align: start;
 }
 
 .hero__img {
@@ -22,7 +30,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 100vh;              /* füllt den Hero-Container komplett */
+  height: 100%;              /* füllt den Hero-Container komplett */
   object-fit: cover;
   filter: brightness(0.35);
   z-index: 0;
@@ -97,6 +105,12 @@
   padding: 4rem var(--spacing);
   text-align: center;
   background-color: var(--color-bg);
+  height: 100vh;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .features__intro {
@@ -120,7 +134,7 @@
 
 .feature__img {
   width: 100%;
-  aspect-ratio: 4 / 3;
+  height: 100%;
   object-fit: cover;
   margin-bottom: 1rem;
 }
@@ -167,7 +181,11 @@
 .cta {
   width: 100%;
   padding: calc(var(--spacing) * 2) 0;
-  margin-bottom: calc(var(--spacing) * 2);
+  height: 100vh;
+  scroll-snap-align: start;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .cta__inner {
