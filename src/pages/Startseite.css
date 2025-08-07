@@ -85,6 +85,7 @@
   background-color: var(--color-accent);
   color: var(--color-text);
   width: fit-content;
+  margin: 0 auto;
 }
 
 .btn--accent-cta:hover {
