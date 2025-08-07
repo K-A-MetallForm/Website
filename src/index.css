@@ -1,9 +1,24 @@
+@font-face {
+  font-family: 'Instrument Serif';
+  src: url('/fonts/InstrumentSerif-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Newsreader';
+  src: url('/fonts/Newsreader.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
 :root {
   --color-bg: #eaeaee;
   --color-text: #000000;
   --color-accent: #8eb6dc;
   --color-accent-hover: #6c9ac7;
-  --font-base: 'Helvetica, Arial, sans-serif';
+  --font-base: 'Newsreader', serif;
+  --font-heading: 'Instrument Serif', serif;
   --spacing: 1rem;
   --footer-bg: var(--color-bg);
   --footer-text: var(--color-text);
@@ -17,6 +32,15 @@
   padding: 0;
   box-sizing: border-box;
   font-family: var(--font-base);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
 }
 
 html, body, #root {
