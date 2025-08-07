@@ -3,7 +3,7 @@
   width: 90%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: var(--spacing);
+  padding: var(--space-md);
   background-color: var(--color-bg);
 }
 
@@ -58,7 +58,7 @@ img {
   position: relative;         /* kein absolutes Positionieren nötig */
   z-index: 2;
   max-width: 800px;
-  padding: var(--spacing);
+  padding: var(--space-md);
   text-align: center;   
   background: none;
   color: white;      /* Text in der Mitte */
@@ -93,8 +93,7 @@ img {
 
 .cta_text{
   font-size: 1rem;
-  margin-bottom: 2rem;
-  margin-bottom: var(--spacing);
+  margin-bottom: var(--space-md);
   color: var(--color-text);
 }
 
@@ -111,7 +110,7 @@ img {
 
 /* Features */
 .features {
-  padding: 4rem var(--spacing);
+  padding: calc(var(--space-lg) * 2) var(--space-md);
   text-align: center;
   background-color: var(--color-bg);
   height: 100vh;
@@ -136,7 +135,7 @@ img {
 }
 
 .feature {
-  padding: 2rem;
+  padding: var(--space-lg);
   border-radius: 0.5rem;
 }
 
@@ -161,17 +160,17 @@ img {
 
 .references h2 {
   font-size: 2rem;
-  margin-bottom: 2rem;
+  margin-bottom: var(--space-lg);
   color: var(--color-text);
 }
 
 .references__logos {
   display: flex;
   flex-wrap: wrap;
-  gap: 2rem;
+  gap: var(--space-lg);
   justify-content: center;
   align-items: center;
-  margin-bottom: 2rem;
+  margin-bottom: var(--space-lg);
 }
 
 .references__logos img,
@@ -188,7 +187,7 @@ img {
 /* CTA */
 .cta {
   width: 100%;
-  padding: calc(var(--spacing) * 2) 0;
+  padding: calc(var(--space-md) * 2) 0;
   height: 100vh;
   display: flex;
   align-items: center;
@@ -202,10 +201,10 @@ img {
   flex-wrap: wrap;
   max-width: 1200px;
   margin: 0 auto;
-  gap: var(--spacing);
+  gap: var(--space-md);
   background: none;
   border-radius: 0.5rem;
-  padding: var(--spacing);
+  padding: var(--space-md);
 }
 
 .cta__text-container {
@@ -229,14 +228,13 @@ img {
 
 .cta__text {
   font-size: 2rem;
-  margin-bottom: 2rem;
-  margin-bottom: var(--spacing);
+  margin-bottom: var(--space-md);
   color: var(--color-text);
 }
 
 .cta__button {
   align-self: start;
-  margin-top: calc(var(--spacing) / 2);
+  margin-top: calc(var(--space-md) / 2);
 }
 
 /* Responsive Adjustments */
