@@ -25,31 +25,31 @@ const Hero: React.FC = () => (
 const Features: React.FC = () => {
   const items = [
     {
-      icon: '🔧',
+      img: '/Geländer_1.jpg',
       title: 'Individuelle Bauelemente',
       text: 'Planung und Fertigung von Treppen, Geländern, Balkonen und Überdachungen – passgenau auf Ihre Anforderungen abgestimmt',
     },
     {
-      icon: '⚙️',
+      img: '/Treppe_1.jpg',
       title: 'Präzisions-Schweiß- & Blechbearbeitung',
       text: 'Sonderanfertigungen aus Stahl, Edelstahl und Aluminium: effizient geschweißt, exakt zugeschnitten und oberflächenveredelt.',
     },
     {
-      icon: '⏱️',
+      img: '/Tor_1.jpg',
       title: 'Montage, Wartung & Reparatur',
       text: 'Fachgerechte Installation, Instandhaltung und punktuelle Reparaturen Ihrer Metallkonstruktionen – für dauerhafte Sicherheit und Funktion.',
     },
   ];
 
   return (
-    <section className="features container">
+    <section className="features">
       <h2>Unsere Dienstleistungen</h2>
       <div className="features__intro">
       </div>
       <div className="features__grid">
         {items.map((f, i) => (
           <div key={i} className="feature">
-            <div className="feature__icon">{f.icon}</div>
+            <img src={f.img} alt={f.title} className="feature__img" />
             <h3>{f.title}</h3>
             <p>{f.text}</p>
           </div>
