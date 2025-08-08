@@ -17,13 +17,11 @@ html, body {
 .app {
   display: flex;
   flex-direction: column;
-  height: 100vh; /* volle Viewport-Höhe */
-  overflow: hidden;
+  min-height: 100vh; /* volle Viewport-Höhe */
 }
 
 .app__content {
   flex: 1; /* füllt den verfügbaren Raum */
-  overflow-y: auto;
 }
 
 /* Bestehende Styles beibehalten */
