@@ -1,4 +1,3 @@
-//import { useState } from 'react'
 import './App.css'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import NavBar from './components/NavBar';
@@ -7,7 +6,6 @@ import Startseite from './pages/Startseite.tsx';
 import Leistungen from './pages/Leistungen';
 import Beratung from './pages/Beratung.tsx';
 import MetallForm from './pages/MetallForm.tsx';
-
 
 function App() {
   return (
@@ -29,4 +27,3 @@ function App() {
 }
 
 export default App
-

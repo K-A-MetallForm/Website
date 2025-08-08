@@ -22,28 +22,10 @@
   --space-sm: 0.5rem;
   --space-md: 1rem;
   --space-lg: 2rem;
-  --footer-bg: var(--color-bg);
-  --footer-text: var(--color-text);
-  --footer-link: var(--color-text);
-  --footer-link-hover: var(--color-accent);
-  --footer-accent: var(--color-accent);
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: var(--font-base);
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: var(--font-heading);
-}
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: var(--font-base); }
+h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); }
 
 html, body, #root {
   width: 100%;
@@ -52,3 +34,5 @@ html, body, #root {
   background-color: var(--color-bg);
   color: var(--color-text);
 }
+
+html { scroll-behavior: smooth; } /* optional, kein Snap */
