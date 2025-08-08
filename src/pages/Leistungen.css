@@ -1,10 +1,6 @@
 /* ===========================
    Variablen
    =========================== */
-   :root{
-    --nav-h: 80px;                         /* Fallback – echte Höhe setzt TSX */
-    --slide-h: calc(100vh - var(--nav-h)); /* sichtbarer Bereich unter der Nav */
-  }
   
   /* ===========================
      Reveal (Mobile & allgemein)
@@ -36,6 +32,8 @@
   
   /* Jede Slide füllt den Bereich unter der Nav & zentriert Inhalt */
   .fullpage .fullpage-slide{
+    --nav-h: 80px;                         /* Fallback – echte Höhe setzt TSX */
+    --slide-h: calc(100vh - var(--nav-h));
     height: var(--slide-h);
     min-height: var(--slide-h);
     display: flex;

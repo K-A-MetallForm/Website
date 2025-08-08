@@ -1,27 +1,28 @@
-import React from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import './Startseite.css';
 import { Link } from 'react-router-dom';
+import Footer from '../components/Footer';
 
-// Hero-Komponente
 const Hero: React.FC = () => (
-  <section className="hero" id="hero">
+  <section
+    className="hero fullpage-slide fullpage-slide--start-hero"
+    id="hero"
+    aria-label="Hero"
+  >
     <div className="hero-overlay" />
-    <img
-      src="/image_001.webp"
-      alt="Metallbau Präzision"
-      className="hero__img"
-    />
+    <img src="/image_001.png" alt="Metallbau Präzision" className="hero__img" />
     <div className="hero__content container">
       <h1>Ihr Projekt in Stahl und Metall</h1>
-      <p>Wenn Standard nicht ausreicht, entwickeln wir für Ihr Projekt in Stahl und Metall individuelle Konzepte, die solide durchdacht, präzise umgesetzt und auf höchste Qualität ausgerichtet sind. So entstehen Lösungen, die Ihren Ansprüchen dauerhaft standhalten.</p>
-      <Link to="/beratung" className="btn btn--accent">
-        Jetzt Angebot anfordern
-      </Link>
+      <p>
+        Wenn Standard nicht ausreicht, entwickeln wir für Ihr Projekt in Stahl und Metall
+        individuelle Konzepte, die solide durchdacht, präzise umgesetzt und auf höchste Qualität
+        ausgerichtet sind. So entstehen Lösungen, die Ihren Ansprüchen dauerhaft standhalten.
+      </p>
+      <Link to="/beratung" className="btn btn--accent">Jetzt Angebot anfordern</Link>
     </div>
   </section>
 );
 
-// Features-Komponente
 const Features: React.FC = () => {
   const items = [
     {
@@ -42,10 +43,8 @@ const Features: React.FC = () => {
   ];
 
   return (
-    <section className="features">
+    <section className="features fullpage-slide" id="features" aria-label="Unsere Dienstleistungen">
       <h2>Unsere Dienstleistungen</h2>
-      <div className="features__intro">
-      </div>
       <div className="features__grid">
         {items.map((f, i) => (
           <div key={i} className="feature">
@@ -60,38 +59,153 @@ const Features: React.FC = () => {
 };
 
 const CTA: React.FC = () => (
-  <section className="cta">
+  <section className="cta fullpage-slide" id="cta" aria-label="Kontakt">
     <div className="cta__inner container">
       <div className="cta__text-container">
-        <h2 className="cta__text">
-          Nimm mit uns Kontakt auf
-        </h2>
-        <p className='cta_text'>
-        Hast du Interesse an einer Zusammenarbeit? Fülle bitte das Formular aus und 
-        wir werden uns in Kürze bei dir melden. Wir freuen uns schon darauf, von dir zu hören.
+        <h2 className="cta__text">Nimm mit uns Kontakt auf</h2>
+        <p className="cta_text">
+          Hast du Interesse an einer Zusammenarbeit? Fülle bitte das Formular aus und
+          wir werden uns in Kürze bei dir melden. Wir freuen uns schon darauf, von dir zu hören.
         </p>
-        <Link to="/beratung" className="btn btn--accent-cta">
-          Kontakt
-        </Link>
+        <Link to="/beratung" className="btn btn--accent-cta">Kontakt</Link>
       </div>
       <div className="cta__image-container">
-        <img
-          src="/image_001.avif"
-          alt="Unsere Leistungen"
-          className="cta__image"
-        />
+        <img src="/image_001.avif" alt="Unsere Leistungen" className="cta__image" />
       </div>
     </div>
   </section>
 );
 
-// Startseite-Komponente ohne Footer
-const Startseite: React.FC = () => (
-  <div className="startseite">
-  <section className="section"><Hero/></section>
-  <section className="section"><Features/></section>
-  <section className="section"><CTA/></section>
-</div>
-);
+function useMediaQuery(q: string) {
+  const mq = useMemo(() => window.matchMedia(q), [q]);
+  const [matches, setMatches] = useState(mq.matches);
+  useEffect(() => {
+    const h = () => setMatches(mq.matches);
+    mq.addEventListener?.('change', h);
+    return () => mq.removeEventListener?.('change', h);
+  }, [mq]);
+  return matches;
+}
 
-export default Startseite;
+export default function Startseite() {
+  const isDesktop = useMediaQuery('(min-width: 1024px)');
+  const reduced   = useMediaQuery('(prefers-reduced-motion: reduce)');
+  const isFullpage = isDesktop && !reduced;
+
+  const [index, setIndex] = useState(0);
+  const [isAnimating, setAnimating] = useState(false);
+
+  // Nav-Höhe speichern + Transparenz je nach Slide
+  useEffect(() => {
+    const nav = document.querySelector('.navbar') as HTMLElement | null;
+    const update = () => {
+      if (nav) {
+        document.documentElement.style.setProperty('--nav-h', `${nav.getBoundingClientRect().height}px`);
+      }
+    };
+    update();
+    window.addEventListener('resize', update);
+
+    // Transparenzsteuerung
+    if (nav) {
+      if (index === 0) nav.classList.add('navbar--transparent');
+      else nav.classList.remove('navbar--transparent');
+    }
+
+    return () => window.removeEventListener('resize', update);
+  }, [index]);
+
+  // Fullpage Mode toggle
+  useEffect(() => {
+    const root = document.documentElement;
+    if (isFullpage) root.classList.add('start-fullpage');
+    else root.classList.remove('start-fullpage');
+    return () => root.classList.remove('start-fullpage');
+  }, [isFullpage]);
+
+  const slides = ['hero', 'features', 'cta', 'footer'];
+  const dotSlides = ['hero', 'features', 'cta'];
+
+  // Scrollsteuerung Desktop
+  useEffect(() => {
+    if (!isFullpage) return;
+
+    const total = slides.length;
+
+    const onWheel = (e: WheelEvent) => {
+      if (isAnimating) return;
+      if (Math.abs(e.deltaY) < 10) return;
+      e.preventDefault();
+      setAnimating(true);
+      setIndex(prev => Math.max(0, Math.min(total - 1, prev + (e.deltaY > 0 ? 1 : -1))));
+      window.setTimeout(() => setAnimating(false), 700);
+    };
+
+    const onKey = (e: KeyboardEvent) => {
+      if (isAnimating) return;
+      if (['ArrowDown','PageDown',' '].includes(e.key)) { e.preventDefault(); setIndex(i => Math.min(total - 1, i + 1)); setAnimating(true); window.setTimeout(()=>setAnimating(false),700); }
+      if (['ArrowUp','PageUp'].includes(e.key))        { e.preventDefault(); setIndex(i => Math.max(0, i - 1));       setAnimating(true); window.setTimeout(()=>setAnimating(false),700); }
+    };
+
+    window.addEventListener('wheel', onWheel, { passive: false });
+    window.addEventListener('keydown', onKey);
+    return () => {
+      window.removeEventListener('wheel', onWheel as any);
+      window.removeEventListener('keydown', onKey);
+    };
+  }, [isFullpage, isAnimating]);
+
+  const handleDotClick = (i: number) => (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (!isFullpage) {
+      document.getElementById(dotSlides[i])?.scrollIntoView({ behavior: 'smooth' });
+      return;
+    }
+    setIndex(i);
+  };
+
+  const scrollTop = () => {
+    if (isFullpage) setIndex(0);
+    else window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  return (
+    <div className={`startseite ${isFullpage ? 'fullpage' : ''}`}>
+      {isFullpage && (
+        <nav className="dots" aria-label="Sektionen">
+          {dotSlides.map((id, i) => (
+            <a
+              key={id}
+              href={`#${id}`}
+              onClick={handleDotClick(i)}
+              className={i === index ? 'active' : ''}
+              aria-label={id}
+            />
+          ))}
+        </nav>
+      )}
+
+      <div
+        className="slides"
+        style={isFullpage ? { transform: `translateY(calc(-${index} * var(--slide-h)))` } : undefined}
+      >
+        <Hero />
+        <Features />
+        <CTA />
+
+        {isFullpage && (
+          <section className="fullpage-slide footer-slide" id="footer" aria-label="Footer">
+            <button className="to-top" onClick={scrollTop} aria-label="Nach oben">
+              <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true">
+                <polyline points="5,14 12,7 19,14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </button>
+            <div className="footer-slide__inner">
+              <Footer />
+            </div>
+          </section>
+        )}
+      </div>
+    </div>
+  );
+}
