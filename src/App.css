@@ -1,14 +1,21 @@
-html, body { height: 100%; }
-#root { height: 100%; width: 100%; text-align: center; }
-
-.app {
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
+/* Grundlayout nur hier definieren; keine harten 100%-Höhen auf html/body */
+#root {
+  width: 100%;
+  text-align: center;
+  background: var(--color-bg);
 }
 
-/* Main scrollt NICHT selbst – ganz normaler Body-Scroll */
+/* App-Container füllt die Viewhöhe robust aus */
+.app {
+  min-height: 100dvh;         /* robuster als 100vh */
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg);
+}
+
+/* Main-Inhalt flexibel, keine eigenen Scrollbars erzwingen */
 .app__content {
   flex: 1;
   min-height: 0;
+  background: var(--color-bg);
 }

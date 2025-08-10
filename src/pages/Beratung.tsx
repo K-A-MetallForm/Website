@@ -1,57 +1,77 @@
 import './Beratung.css';
-
-const steps = [
-  'Anfrage',
-  'Vor-Ort-Termin',
-  '3D-Planung & Angebot',
-  'Fertigung & Montage',
-];
-
-const Timeline = () => (
-  <ol className="timeline">
-    {steps.map((step, index) => (
-      <li key={step}>
-        <span>{step}</span>
-        {index < steps.length - 1 && <span className="arrow">→</span>}
-      </li>
-    ))}
-  </ol>
-);
+import { useState } from 'react';
 
 export default function BeratungSection() {
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState('');
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+    setSuccess(false);
+
+    const formData = new FormData(e.currentTarget);
+    const payload = {
+      name: formData.get('name'),
+      email: formData.get('email'),
+      phone: formData.get('phone'),
+      message: formData.get('message'),
+    };
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await res.json();
+      if (res.ok && data.ok) {
+        setSuccess(true);
+        e.currentTarget.reset();
+      } else {
+        setError(data.error || 'Es ist ein Fehler aufgetreten.');
+      }
+    } catch {
+      setError('Es konnte keine Verbindung zum Server hergestellt werden.');
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <section className="beratung-section" id="beratung">
-      <h2>Beratung</h2>
-      <Timeline />
-      <form className="beratung-form">
-        <div className="form-field">
-          <label htmlFor="name">Name</label>
-          <input id="name" type="text" />
-        </div>
-        <div className="form-field">
-          <label htmlFor="email">E-Mail</label>
-          <input id="email" type="email" />
-        </div>
-        <div className="form-field">
-          <label htmlFor="phone">Telefon</label>
-          <input id="phone" type="tel" />
-        </div>
-        <div className="form-field">
-          <label htmlFor="service">Leistung</label>
-          <select id="service">
-            <option>Stahlkonstruktionen</option>
-            <option>Schweißarbeiten</option>
-            <option>Treppen & Geländer</option>
-            <option>Fahrzeugbau</option>
-          </select>
-        </div>
-        <div className="form-field">
-          <label htmlFor="message">Freitext</label>
-          <textarea id="message" rows={4} />
-        </div>
-        <button type="submit" className="submit-button">Absenden</button>
-      </form>
+      <div className="form-container">
+        <h2>Beratung</h2>
+        <p className="form-description">
+          Beschreibe kurz dein Vorhaben – wir melden uns zeitnah.
+        </p>
+        <form className="beratung-form" onSubmit={handleSubmit}>
+          <div className="form-field">
+            <label htmlFor="name">Name*</label>
+            <input id="name" name="name" type="text" required />
+          </div>
+          <div className="form-field">
+            <label htmlFor="email">E-Mail*</label>
+            <input id="email" name="email" type="email" required />
+          </div>
+          <div className="form-field">
+            <label htmlFor="phone">Telefon</label>
+            <input id="phone" name="phone" type="tel" />
+          </div>
+          <div className="form-field">
+            <label htmlFor="message">Nachricht*</label>
+            <textarea id="message" name="message" rows={4} required />
+          </div>
+          <button type="submit" className="submit-button" disabled={loading}>
+            {loading ? 'Sende...' : 'Absenden'}
+          </button>
+          {success && <p className="form-success">✅ Nachricht erfolgreich gesendet!</p>}
+          {error && <p className="form-error">❌ {error}</p>}
+        </form>
+      </div>
     </section>
   );
 }
-

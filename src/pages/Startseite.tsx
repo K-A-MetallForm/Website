@@ -5,7 +5,7 @@ import Footer from '../components/Footer';
 
 const Hero: React.FC = () => (
   <section
-    className="hero fullpage-slide fullpage-slide--start-hero"
+    className="hero fullpage-slide fullpage-slide--start-hero reveal"
     id="hero"
     aria-label="Hero"
   >
@@ -43,23 +43,32 @@ const Features: React.FC = () => {
   ];
 
   return (
-    <section className="features fullpage-slide" id="features" aria-label="Unsere Dienstleistungen">
+    <section
+      className="features fullpage-slide fullpage-slide--features reveal"
+      id="features"
+      aria-label="Unsere Dienstleistungen"
+    >
       <h2>Unsere Dienstleistungen</h2>
+
       <div className="features__grid">
         {items.map((f, i) => (
-          <div key={i} className="feature">
+          <article
+            key={i}
+            className={`feature reveal feature--${i + 1}`}
+            aria-label={f.title}
+          >
             <img src={f.img} alt={f.title} className="feature__img" />
             <h3>{f.title}</h3>
             <p>{f.text}</p>
-          </div>
+          </article>
         ))}
       </div>
     </section>
   );
 };
 
-const CTA: React.FC = () => (
-  <section className="cta fullpage-slide" id="cta" aria-label="Kontakt">
+const CTA: React.FC<{ scrollTop: () => void }> = ({ scrollTop }) => (
+  <section className="cta fullpage-slide reveal" id="cta" aria-label="Kontakt">
     <div className="cta__inner container">
       <div className="cta__text-container">
         <h2 className="cta__text">Nimm mit uns Kontakt auf</h2>
@@ -72,6 +81,11 @@ const CTA: React.FC = () => (
       <div className="cta__image-container">
         <img src="/image_001.avif" alt="Unsere Leistungen" className="cta__image" />
       </div>
+    </div>
+
+    {/* Footer direkt unten und full width */}
+    <div className="footer-inline">
+      <Footer />
     </div>
   </section>
 );
@@ -106,12 +120,10 @@ export default function Startseite() {
     update();
     window.addEventListener('resize', update);
 
-    // Transparenzsteuerung
     if (nav) {
       if (index === 0) nav.classList.add('navbar--transparent');
       else nav.classList.remove('navbar--transparent');
     }
-
     return () => window.removeEventListener('resize', update);
   }, [index]);
 
@@ -123,13 +135,30 @@ export default function Startseite() {
     return () => root.classList.remove('start-fullpage');
   }, [isFullpage]);
 
-  const slides = ['hero', 'features', 'cta', 'footer'];
-  const dotSlides = ['hero', 'features', 'cta'];
+  // Reveal (Mobile & generell) – beobachtet alle .reveal-Elemente (inkl. einzelner Feature-Karten)
+  useEffect(() => {
+    if (reduced || typeof IntersectionObserver === 'undefined') {
+      document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+      return;
+    }
+    const obs = new IntersectionObserver((entries, o) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          (e.target as HTMLElement).classList.add('visible');
+          o.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.2, rootMargin: '0px 0px -5% 0px' });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+    return () => obs.disconnect();
+  }, [reduced]);
 
-  // Scrollsteuerung Desktop
+  const slides = ['hero', 'features', 'cta'];
+  const dotSlides = slides;
+
+  // Scrollsteuerung Desktop (Fullpage)
   useEffect(() => {
     if (!isFullpage) return;
-
     const total = slides.length;
 
     const onWheel = (e: WheelEvent) => {
@@ -191,20 +220,7 @@ export default function Startseite() {
       >
         <Hero />
         <Features />
-        <CTA />
-
-        {isFullpage && (
-          <section className="fullpage-slide footer-slide" id="footer" aria-label="Footer">
-            <button className="to-top" onClick={scrollTop} aria-label="Nach oben">
-              <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true">
-                <polyline points="5,14 12,7 19,14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </button>
-            <div className="footer-slide__inner">
-              <Footer />
-            </div>
-          </section>
-        )}
+        <CTA scrollTop={scrollTop} />
       </div>
     </div>
   );
