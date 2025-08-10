@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import './Leistungen.css';
-import Footer from '../components/Footer';
 
 interface Category {
   id: string;

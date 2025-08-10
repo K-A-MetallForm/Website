@@ -67,7 +67,7 @@ const Features: React.FC = () => {
   );
 };
 
-const CTA: React.FC<{ scrollTop: () => void }> = ({ scrollTop }) => (
+const CTA: React.FC = () => (
   <section className="cta fullpage-slide reveal" id="cta" aria-label="Kontakt">
     <div className="cta__inner container">
       <div className="cta__text-container">
@@ -83,7 +83,6 @@ const CTA: React.FC<{ scrollTop: () => void }> = ({ scrollTop }) => (
       </div>
     </div>
 
-    {/* Footer direkt unten und full width */}
     <div className="footer-inline">
       <Footer />
     </div>
@@ -109,7 +108,6 @@ export default function Startseite() {
   const [index, setIndex] = useState(0);
   const [isAnimating, setAnimating] = useState(false);
 
-  // Nav-Höhe speichern + Transparenz je nach Slide
   useEffect(() => {
     const nav = document.querySelector('.navbar') as HTMLElement | null;
     const update = () => {
@@ -127,7 +125,6 @@ export default function Startseite() {
     return () => window.removeEventListener('resize', update);
   }, [index]);
 
-  // Fullpage Mode toggle
   useEffect(() => {
     const root = document.documentElement;
     if (isFullpage) root.classList.add('start-fullpage');
@@ -135,7 +132,6 @@ export default function Startseite() {
     return () => root.classList.remove('start-fullpage');
   }, [isFullpage]);
 
-  // Reveal (Mobile & generell) – beobachtet alle .reveal-Elemente (inkl. einzelner Feature-Karten)
   useEffect(() => {
     if (reduced || typeof IntersectionObserver === 'undefined') {
       document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
@@ -156,7 +152,6 @@ export default function Startseite() {
   const slides = ['hero', 'features', 'cta'];
   const dotSlides = slides;
 
-  // Scrollsteuerung Desktop (Fullpage)
   useEffect(() => {
     if (!isFullpage) return;
     const total = slides.length;
@@ -193,11 +188,6 @@ export default function Startseite() {
     setIndex(i);
   };
 
-  const scrollTop = () => {
-    if (isFullpage) setIndex(0);
-    else window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
   return (
     <div className={`startseite ${isFullpage ? 'fullpage' : ''}`}>
       {isFullpage && (
@@ -220,7 +210,7 @@ export default function Startseite() {
       >
         <Hero />
         <Features />
-        <CTA scrollTop={scrollTop} />
+        <CTA />
       </div>
     </div>
   );
