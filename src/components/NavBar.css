@@ -89,7 +89,7 @@
 /* ---------- Mobile Dropdown ---------- */
 @media (max-width: 767px) {
   /* Dropdown-Paneel */
-  .navbar__links.open {
+  .navbar--open .navbar__links {
     display: flex;
     flex-direction: column;
     position: fixed;
@@ -108,7 +108,7 @@
     display: none;
     pointer-events: none;
   }
-  .navbar__backdrop.open {
+  .navbar--open .navbar__backdrop {
     display: block;
     pointer-events: auto;
     position: fixed;
