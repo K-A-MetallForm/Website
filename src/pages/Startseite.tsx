@@ -16,6 +16,7 @@ const Hero: React.FC = () => (
       alt="Metallbau Präzision"
       className="hero__img"
       fetchPriority="high"
+      draggable={false}
     />
     <div className="hero__content container">
       <h1>Ihr Projekt in Stahl und Metall</h1>
@@ -64,7 +65,13 @@ const Features: React.FC = () => {
             aria-label={f.title}
           >
             {/* FIX: defer offscreen feature images */}
-            <img src={f.img} alt={f.title} className="feature__img" loading="lazy" />
+            <img
+              src={f.img}
+              alt={f.title}
+              className="feature__img"
+              loading="lazy"
+              draggable={false}
+            />
             <h3>{f.title}</h3>
             <p>{f.text}</p>
           </article>
@@ -87,7 +94,13 @@ const CTA: React.FC = () => (
       </div>
       <div className="cta__image-container">
         {/* FIX: lazy-load CTA illustration */}
-        <img src="/image_001.avif" alt="Unsere Leistungen" className="cta__image" loading="lazy" />
+        <img
+          src="/image_001.avif"
+          alt="Unsere Leistungen"
+          className="cta__image"
+          loading="lazy"
+          draggable={false}
+        />
       </div>
     </div>
 

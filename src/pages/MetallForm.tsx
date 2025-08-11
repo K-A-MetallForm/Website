@@ -26,6 +26,7 @@ export default function MetallForm() {
                 src="./image_002.jpg"
                 alt="Metallbau-Werkstatt mit Funkenflug beim Schweißen"
                 loading="lazy"
+                draggable={false}
               />
             </figure>
           </div>
