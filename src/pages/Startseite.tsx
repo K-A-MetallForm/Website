@@ -5,7 +5,7 @@ import Footer from '../components/Footer';
 
 const Hero: React.FC = () => (
   <section
-    className="hero fullpage-slide fullpage-slide--start-hero reveal"
+    className="hero fullpage-slide fullpage-slide--start-hero"
     id="hero"
     aria-label="Hero"
   >
@@ -50,7 +50,7 @@ const Features: React.FC = () => {
 
   return (
     <section
-      className="features fullpage-slide fullpage-slide--features reveal"
+      className="features fullpage-slide fullpage-slide--features"
       id="features"
       aria-label="Unsere Dienstleistungen"
     >
@@ -60,7 +60,7 @@ const Features: React.FC = () => {
         {items.map((f, i) => (
           <article
             key={i}
-            className={`feature reveal feature--${i + 1}`}
+            className={`feature feature--${i + 1}`}
             aria-label={f.title}
           >
             <img
@@ -80,7 +80,7 @@ const Features: React.FC = () => {
 };
 
 const CTA: React.FC = () => (
-  <section className="cta fullpage-slide reveal" id="cta" aria-label="Kontakt">
+  <section className="cta fullpage-slide" id="cta" aria-label="Kontakt">
     <div className="cta__inner container">
       <div className="cta__text-container">
         <h2 className="cta__text">Nimm mit uns Kontakt auf</h2>
@@ -107,7 +107,7 @@ const CTA: React.FC = () => (
   </section>
 );
 
-function useMQ(q: string) {
+function useMediaQuery(q: string) {
   const mq = useMemo(() => window.matchMedia(q), [q]);
   const [matches, setMatches] = useState(mq.matches);
   useEffect(() => {
@@ -119,10 +119,9 @@ function useMQ(q: string) {
 }
 
 export default function Startseite() {
-  // Fullpage nur bei Desktop UND präzisem Zeiger (keine Touch-Geräte)
-  const supportsFullpage = useMQ('(min-width: 1024px) and (pointer: fine)');
-  const reduced          = useMQ('(prefers-reduced-motion: reduce)');
-  const isFullpage       = supportsFullpage && !reduced;
+  const isDesktop = useMediaQuery('(min-width: 1024px)');
+  const reduced   = useMediaQuery('(prefers-reduced-motion: reduce)');
+  const isFullpage = isDesktop && !reduced;
 
   const [index, setIndex] = useState(0);
   const [isAnimating, setAnimating] = useState(false);
@@ -151,24 +150,8 @@ export default function Startseite() {
     return () => root.classList.remove('start-fullpage');
   }, [isFullpage]);
 
-  useEffect(() => {
-    if (reduced || typeof IntersectionObserver === 'undefined') {
-      document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
-      return;
-    }
-    const obs = new IntersectionObserver((entries, o) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          (e.target as HTMLElement).classList.add('visible');
-          o.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.2, rootMargin: '0px 0px -5% 0px' });
-    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-    return () => obs.disconnect();
-  }, [reduced]);
-
   const slides = ['hero', 'features', 'cta'];
+  const dotSlides = slides;
 
   useEffect(() => {
     if (!isFullpage) return;
@@ -200,7 +183,7 @@ export default function Startseite() {
   const handleDotClick = (i: number) => (e: React.MouseEvent) => {
     e.preventDefault();
     if (!isFullpage) {
-      document.getElementById(slides[i])?.scrollIntoView({ behavior: 'smooth' });
+      document.getElementById(dotSlides[i])?.scrollIntoView({ behavior: 'smooth' });
       return;
     }
     setIndex(i);
@@ -210,7 +193,7 @@ export default function Startseite() {
     <div className={`startseite ${isFullpage ? 'fullpage' : ''}`}>
       {isFullpage && (
         <nav className="dots" aria-label="Sektionen">
-          {slides.map((id, i) => (
+          {dotSlides.map((id, i) => (
             <a
               key={id}
               href={`#${id}`}

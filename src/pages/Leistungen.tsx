@@ -1,5 +1,6 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import './Leistungen.css';
+import Footer from '../components/Footer';
 
 interface Category {
   id: string;
@@ -9,86 +10,56 @@ interface Category {
 }
 
 const categories: Category[] = [
-  { id: 'tore', title: 'Tore', texts: [
+  {
+    id: 'tore',
+    title: 'Tore',
+    texts: [
       'Wir planen und fertigen Gartentore, Hoftore und Industrietore aus Stahl oder Edelstahl – passgenau nach Maß und passend zur Architektur.',
       'Oberflächen erhalten auf Wunsch eine Feuerverzinkung und/oder Pulverbeschichtung. Integration von Schließsystemen, Briefkästen und Klingel-/Sprechanlagen ist möglich.',
       'Von der Vor-Ort-Maßaufnahme über die Konstruktion bis zur Montage kommt alles aus einer Hand.',
-    ], images: ['/Tor_1.jpg', '/Tor_2.jpg', '/Tor_3.jpg', '/Tor_4.jpg'],
+    ],
+    images: ['/Tor_1.jpg', '/Tor_2.jpg', '/Tor_3.jpg', '/Tor_4.jpg'],
   },
-  { id: 'gelaender', title: 'Geländer', texts: [
+  {
+    id: 'gelaender',
+    title: 'Geländer',
+    texts: [
       'Stabile, langlebige Geländer für Treppen, Balkone und Terrassen – innen wie außen.',
       'Wir kombinieren Metall mit Holz, Glas oder Lochblech und liefern normgerechte Lösungen inklusive statischer Auslegung.',
       'Oberflächen: roh, geschliffen, verzinkt, pulverbeschichtet – ganz nach Einsatzort und Optik.',
-    ], images: ['/Geländer_1.jpg', '/Geländer_2.jpg', '/Geländer_3.jpg', '/Geländer_4.jpg'],
+    ],
+    images: ['/Geländer_1.jpg', '/Geländer_2.jpg', '/Geländer_3.jpg', '/Geländer_4.jpg'],
   },
-  { id: 'treppen', title: 'Treppen', texts: [
+  {
+    id: 'treppen',
+    title: 'Treppen',
+    texts: [
       'Maßgeschneiderte Metalltreppen: gerade, gewendelt oder als Faltwerktreppe – für Wohn- und Gewerbebauten.',
       'Stufen aus Holz, Gitterrost, Blech mit Rutschhemmung oder Glas. Auf Wunsch inkl. Planung der Unterkonstruktion und Montage.',
-    ], images: ['/Treppe_1.jpg', '/Treppe_2.jpg', '/Treppe_3.jpg'],
+    ],
+    images: ['/Treppe_1.jpg', '/Treppe_2.jpg', '/Treppe_3.jpg'],
   },
-  { id: 'vitrinen', title: 'Vitrinen', texts: [
+  {
+    id: 'vitrinen',
+    title: 'Vitrinen',
+    texts: [
       'Elegante Vitrinen und Schaukästen aus Metall – mit klaren Fugenbildern und hochwertigen Beschlägen.',
       'Beleuchtung, Glasvarianten und Schloss-Systeme stimmen wir mit Ihnen ab.',
-    ], images: ['/Vitrinen_1.jpg', '/Vitrinen_2.jpg', '/Vitrinen_3.jpg'],
+    ],
+    images: ['/Vitrinen_1.jpg', '/Vitrinen_2.jpg', '/Vitrinen_3.jpg'],
   },
-  { id: 'sonstiges', title: 'Sonderlösungen', texts: [
+  {
+    id: 'sonstiges',
+    title: 'Sonderlösungen',
+    texts: [
       'Individuelle Metallarbeiten, Reparaturen und Sonderlösungen.',
       'Fragen Sie uns auch für Möbelgestelle, Sichtschutzrahmen, Abdeckungen, Konsolen oder kleine Serien an.',
-    ], images: ['Sonderlösung_1.jpg', 'Sonderlösung_2.jpg', 'Sonderlösung_3.jpg', 'Sonderlösung_4.jpg', 'Sonderlösung_5.jpg', 'Sonderlösung_6.jpg'],
+    ],
+    images: ['Sonderlösung_1.jpg', 'Sonderlösung_2.jpg', 'Sonderlösung_3.jpg', 'Sonderlösung_4.jpg', 'Sonderlösung_5.jpg', 'Sonderlösung_6.jpg'],
   },
 ];
 
-type CategoryBlockProps = Category & { showInlineFooter?: boolean };
-
-const CategoryBlock = ({ id, title, texts, images, showInlineFooter }: CategoryBlockProps) => {
-  const sectionRef = useRef<HTMLElement | null>(null);
-
-  return (
-    <section
-      ref={sectionRef}
-      id={id}
-      className={`service-section reveal fullpage-slide ${showInlineFooter ? 'fullpage-slide--with-footer' : ''}`}
-      aria-labelledby={`${id}-heading`}
-    >
-      <div className="service-inner">
-        <div className="service-main">
-          {images[0] && (
-            <img
-              className="main-image"
-              src={images[0]}
-              alt={`${title} Bild 1`}
-              loading="lazy"
-              draggable={false}
-            />
-          )}
-          <div className="service-text">
-            <h3 id={`${id}-heading`}>{title}</h3>
-            {texts.map((t, i) => <p key={i}>{t}</p>)}
-          </div>
-        </div>
-
-        <div className="thumbnail-row">
-          {images.slice(1, 5).map((src, i) => (
-            <img
-              key={src}
-              src={src}
-              alt={`${title} Bild ${i + 2}`}
-              loading="lazy"
-              draggable={false}
-            />
-          ))}
-        </div>
-      </div>
-
-      {showInlineFooter && (
-        <div className="footer-inline">
-        </div>
-      )}
-    </section>
-  );
-};
-
-function useMQ(q: string) {
+function useMediaQuery(q: string) {
   const mq = useMemo(() => window.matchMedia(q), [q]);
   const [matches, setMatches] = useState(mq.matches);
   useEffect(() => {
@@ -99,16 +70,62 @@ function useMQ(q: string) {
   return matches;
 }
 
+type CategoryBlockProps = Category & { showInlineFooter?: boolean };
+
+const CategoryBlock = ({ id, title, texts, images, showInlineFooter }: CategoryBlockProps) => (
+  <section
+    id={id}
+    className={`service-section fullpage-slide ${showInlineFooter ? 'fullpage-slide--with-footer' : ''}`}
+    aria-labelledby={`${id}-heading`}
+  >
+    <div className="service-inner">
+      <div className="service-main">
+        {images[0] && (
+          <img
+            className="main-image"
+            src={images[0]}
+            alt={`${title} Bild 1`}
+            loading="lazy"
+            draggable={false}
+          />
+        )}
+
+        <div className="service-text">
+          <h3 id={`${id}-heading`}>{title}</h3>
+          {texts.map((t, i) => <p key={i}>{t}</p>)}
+        </div>
+      </div>
+
+      <div className="thumbnail-row">
+        {images.slice(1, 5).map((src, i) => (
+          <img
+            key={src}
+            src={src}
+            alt={`${title} Bild ${i + 2}`}
+            loading="lazy"
+            draggable={false}
+          />
+        ))}
+      </div>
+    </div>
+
+    {showInlineFooter && (
+      <div className="footer-inline">
+        <Footer />
+      </div>
+    )}
+  </section>
+);
+
 export default function Leistungen() {
-  // Fullpage nur Desktop & präziser Zeiger
-  const supportsFullpage = useMQ('(min-width: 1024px) and (pointer: fine)');
-  const reduced          = useMQ('(prefers-reduced-motion: reduce)');
-  const isFullpage       = supportsFullpage && !reduced;
+  const isDesktop = useMediaQuery('(min-width: 1024px)');
+  const reduced   = useMediaQuery('(prefers-reduced-motion: reduce)');
+  const isFullpage = isDesktop && !reduced;
 
   const [index, setIndex] = useState(0);
   const [isAnimating, setAnimating] = useState(false);
 
-  // Nav-Höhe → --nav-h
+  /* Nav-Höhe → --nav-h */
   useEffect(() => {
     const update = () => {
       const nav = document.querySelector('.navbar') as HTMLElement | null;
@@ -119,7 +136,7 @@ export default function Leistungen() {
     return () => window.removeEventListener('resize', update);
   }, []);
 
-  // globalen Footer verstecken, wenn Fullpage an (Footer inline in letzter Slide)
+  /* Body-Klasse für globalen Footer (ausblenden bei Fullpage) */
   useEffect(() => {
     const root = document.documentElement;
     if (isFullpage) root.classList.add('leistungen-fullpage');
@@ -127,28 +144,10 @@ export default function Leistungen() {
     return () => root.classList.remove('leistungen-fullpage');
   }, [isFullpage]);
 
-  // Reveal
-  useEffect(() => {
-    if (reduced || typeof IntersectionObserver === 'undefined') {
-      document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
-      return;
-    }
-    const obs = new IntersectionObserver((entries, o) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          (e.target as HTMLElement).classList.add('visible');
-          o.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.2 });
-    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-    return () => obs.disconnect();
-  }, [reduced]);
-
-  // Page-by-page (nur Desktop)
+  /* Page-by-page (nur Desktop) */
   useEffect(() => {
     if (!isFullpage) return;
-    const totalSlides = categories.length; // Footer inline
+    const totalSlides = categories.length; // Footer ist inline in letzter Slide
 
     const goTo = (next: number) => {
       const max = totalSlides - 1;
