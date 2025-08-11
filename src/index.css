@@ -94,10 +94,10 @@ img, svg, video, canvas {
   -webkit-user-drag: none;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
+  pointer-events: none;
 }
 
 /* FIX: Decorative layers must not intercept touches */
-.hero__img,
 .hero-overlay {
   pointer-events: none;
 }

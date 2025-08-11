@@ -95,7 +95,15 @@ const CategoryBlock = ({ id, title, texts, images, showInlineFooter }: CategoryB
     >
       <div className="service-inner">
         <div className="service-main">
-          {images[0] && <img className="main-image" src={images[0]} alt={`${title} Bild 1`} loading="lazy" />}
+          {images[0] && (
+            <img
+              className="main-image"
+              src={images[0]}
+              alt={`${title} Bild 1`}
+              loading="lazy"
+              draggable={false}
+            />
+          )}
           <div className="service-text">
             <h3 id={`${id}-heading`}>{title}</h3>
             {texts.map((t, i) => <p key={i}>{t}</p>)}
@@ -104,7 +112,13 @@ const CategoryBlock = ({ id, title, texts, images, showInlineFooter }: CategoryB
 
         <div className="thumbnail-row">
           {images.slice(1, 5).map((src, i) => (
-            <img key={src} src={src} alt={`${title} Bild ${i + 2}`} loading="lazy" />
+            <img
+              key={src}
+              src={src}
+              alt={`${title} Bild ${i + 2}`}
+              loading="lazy"
+              draggable={false}
+            />
           ))}
         </div>
       </div>
