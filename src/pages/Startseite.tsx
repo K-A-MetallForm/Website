@@ -10,7 +10,13 @@ const Hero: React.FC = () => (
     aria-label="Hero"
   >
     <div className="hero-overlay" />
-    <img src="/image_001.png" alt="Metallbau Präzision" className="hero__img" />
+    {/* FIX: ensure hero loads immediately but doesn't block scrolling */}
+    <img
+      src="/image_001.png"
+      alt="Metallbau Präzision"
+      className="hero__img"
+      fetchPriority="high"
+    />
     <div className="hero__content container">
       <h1>Ihr Projekt in Stahl und Metall</h1>
       <p>
@@ -57,7 +63,8 @@ const Features: React.FC = () => {
             className={`feature reveal feature--${i + 1}`}
             aria-label={f.title}
           >
-            <img src={f.img} alt={f.title} className="feature__img" />
+            {/* FIX: defer offscreen feature images */}
+            <img src={f.img} alt={f.title} className="feature__img" loading="lazy" />
             <h3>{f.title}</h3>
             <p>{f.text}</p>
           </article>
@@ -79,7 +86,8 @@ const CTA: React.FC = () => (
         <Link to="/beratung" className="btn btn--accent-cta">Kontakt</Link>
       </div>
       <div className="cta__image-container">
-        <img src="/image_001.avif" alt="Unsere Leistungen" className="cta__image" />
+        {/* FIX: lazy-load CTA illustration */}
+        <img src="/image_001.avif" alt="Unsere Leistungen" className="cta__image" loading="lazy" />
       </div>
     </div>
 

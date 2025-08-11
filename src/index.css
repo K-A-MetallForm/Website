@@ -35,6 +35,11 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
 }
 
+/* FIX: prevent horizontal scroll from long words/URLs */
+p, li {
+  overflow-wrap: anywhere;
+}
+
 /* Kein hartes height:100% auf html/body/#root -> vermeidet 1px-Gaps */
 html, body, #root {
   width: 100%;
