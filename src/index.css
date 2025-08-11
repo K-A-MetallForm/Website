@@ -43,6 +43,8 @@ html, body, #root {
   overflow-x: hidden;
   background-color: var(--color-bg);
   color: var(--color-text);
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
 }
 
 /* Angenehmes Scrollen global (optional) */
@@ -54,4 +56,24 @@ html {
 img, svg, video, canvas {
   display: block;           /* vermeidet Inline-Gaps */
   max-width: 100%;
+}
+
+/* Enable vertical panning for main sections */
+.page,
+.section,
+.hero,
+.features,
+.cta,
+.content-wrapper,
+.app,
+.app__content,
+.startseite,
+.fullpage,
+.fullpage-slide,
+.leistungen-page,
+.service-section,
+.about,
+.about__section,
+.navbar {
+  touch-action: pan-y;
 }
