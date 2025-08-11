@@ -11,8 +11,9 @@
 }
 
 /* Fullpage Rahmen */
+/* FIX: replace 100vh with 100svh to account for mobile browser UI */
 .fullpage {
-  height: 100vh;
+  height: 100svh;
   overflow: hidden;
   position: relative;
 }
@@ -26,7 +27,8 @@
 /* Jede Slide */
 .fullpage .fullpage-slide {
   --nav-h: 80px;
-  --slide-h: calc(100vh - var(--nav-h));
+  /* FIX: dynamic viewport height for slide calculations */
+  --slide-h: calc(100svh - var(--nav-h));
   height: var(--slide-h);
   min-height: var(--slide-h);
   display: flex;

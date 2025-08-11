@@ -1,6 +1,7 @@
+/* FIX: use dynamic viewport unit to avoid mobile 100vh issues */
 :root {
   --nav-h: 80px;
-  --slide-h: calc(100vh - var(--nav-h));
+  --slide-h: calc(100svh - var(--nav-h));
 }
 
 .container {
@@ -10,11 +11,13 @@
   padding: var(--space-md);
   background-color: transparent;
 }
-.startseite { min-height: 100vh; }
-.section { height: 100vh; }
+/* FIX: allow full height without iOS browser chrome jumps */
+.startseite { min-height: 100svh; }
+.section { height: 100svh; }
 
 /* Fullpage Desktop */
-.fullpage { height: 100vh; overflow: hidden; position: relative; }
+/* FIX: svh prevents cut off on mobile Safari */
+.fullpage { height: 100svh; overflow: hidden; position: relative; }
 .fullpage .slides { height: 100%; transition: transform 700ms ease; will-change: transform; }
 .fullpage .fullpage-slide {
   height: var(--slide-h);
@@ -29,9 +32,10 @@
 }
 
 /* Hero auf Startseite volle Höhe */
+/* FIX: respect dynamic viewport height */
 .fullpage-slide--start-hero {
-  height: 100vh !important;
-  min-height: 100vh !important;
+  height: 100svh !important;
+  min-height: 100svh !important;
   padding-top: 0 !important;
 }
 
