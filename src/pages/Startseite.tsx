@@ -10,7 +10,6 @@ const Hero: React.FC = () => (
     aria-label="Hero"
   >
     <div className="hero-overlay" />
-    {/* FIX: ensure hero loads immediately but doesn't block scrolling */}
     <img
       src="/image_001.png"
       alt="Metallbau Präzision"
@@ -64,7 +63,6 @@ const Features: React.FC = () => {
             className={`feature reveal feature--${i + 1}`}
             aria-label={f.title}
           >
-            {/* FIX: defer offscreen feature images */}
             <img
               src={f.img}
               alt={f.title}
@@ -93,7 +91,6 @@ const CTA: React.FC = () => (
         <Link to="/beratung" className="btn btn--accent-cta">Kontakt</Link>
       </div>
       <div className="cta__image-container">
-        {/* FIX: lazy-load CTA illustration */}
         <img
           src="/image_001.avif"
           alt="Unsere Leistungen"
@@ -110,7 +107,7 @@ const CTA: React.FC = () => (
   </section>
 );
 
-function useMediaQuery(q: string) {
+function useMQ(q: string) {
   const mq = useMemo(() => window.matchMedia(q), [q]);
   const [matches, setMatches] = useState(mq.matches);
   useEffect(() => {
@@ -122,9 +119,10 @@ function useMediaQuery(q: string) {
 }
 
 export default function Startseite() {
-  const isDesktop = useMediaQuery('(min-width: 1024px)');
-  const reduced   = useMediaQuery('(prefers-reduced-motion: reduce)');
-  const isFullpage = isDesktop && !reduced;
+  // Fullpage nur bei Desktop UND präzisem Zeiger (keine Touch-Geräte)
+  const supportsFullpage = useMQ('(min-width: 1024px) and (pointer: fine)');
+  const reduced          = useMQ('(prefers-reduced-motion: reduce)');
+  const isFullpage       = supportsFullpage && !reduced;
 
   const [index, setIndex] = useState(0);
   const [isAnimating, setAnimating] = useState(false);
@@ -171,7 +169,6 @@ export default function Startseite() {
   }, [reduced]);
 
   const slides = ['hero', 'features', 'cta'];
-  const dotSlides = slides;
 
   useEffect(() => {
     if (!isFullpage) return;
@@ -203,7 +200,7 @@ export default function Startseite() {
   const handleDotClick = (i: number) => (e: React.MouseEvent) => {
     e.preventDefault();
     if (!isFullpage) {
-      document.getElementById(dotSlides[i])?.scrollIntoView({ behavior: 'smooth' });
+      document.getElementById(slides[i])?.scrollIntoView({ behavior: 'smooth' });
       return;
     }
     setIndex(i);
@@ -213,7 +210,7 @@ export default function Startseite() {
     <div className={`startseite ${isFullpage ? 'fullpage' : ''}`}>
       {isFullpage && (
         <nav className="dots" aria-label="Sektionen">
-          {dotSlides.map((id, i) => (
+          {slides.map((id, i) => (
             <a
               key={id}
               href={`#${id}`}

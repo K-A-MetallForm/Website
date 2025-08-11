@@ -9,52 +9,32 @@ interface Category {
 }
 
 const categories: Category[] = [
-  {
-    id: 'tore',
-    title: 'Tore',
-    texts: [
+  { id: 'tore', title: 'Tore', texts: [
       'Wir planen und fertigen Gartentore, Hoftore und Industrietore aus Stahl oder Edelstahl – passgenau nach Maß und passend zur Architektur.',
       'Oberflächen erhalten auf Wunsch eine Feuerverzinkung und/oder Pulverbeschichtung. Integration von Schließsystemen, Briefkästen und Klingel-/Sprechanlagen ist möglich.',
       'Von der Vor-Ort-Maßaufnahme über die Konstruktion bis zur Montage kommt alles aus einer Hand.',
-    ],
-    images: ['/Tor_1.jpg', '/Tor_2.jpg', '/Tor_3.jpg', '/Tor_4.jpg'],
+    ], images: ['/Tor_1.jpg', '/Tor_2.jpg', '/Tor_3.jpg', '/Tor_4.jpg'],
   },
-  {
-    id: 'gelaender',
-    title: 'Geländer',
-    texts: [
+  { id: 'gelaender', title: 'Geländer', texts: [
       'Stabile, langlebige Geländer für Treppen, Balkone und Terrassen – innen wie außen.',
       'Wir kombinieren Metall mit Holz, Glas oder Lochblech und liefern normgerechte Lösungen inklusive statischer Auslegung.',
       'Oberflächen: roh, geschliffen, verzinkt, pulverbeschichtet – ganz nach Einsatzort und Optik.',
-    ],
-    images: ['/Geländer_1.jpg', '/Geländer_2.jpg', '/Geländer_3.jpg', '/Geländer_4.jpg'],
+    ], images: ['/Geländer_1.jpg', '/Geländer_2.jpg', '/Geländer_3.jpg', '/Geländer_4.jpg'],
   },
-  {
-    id: 'treppen',
-    title: 'Treppen',
-    texts: [
+  { id: 'treppen', title: 'Treppen', texts: [
       'Maßgeschneiderte Metalltreppen: gerade, gewendelt oder als Faltwerktreppe – für Wohn- und Gewerbebauten.',
       'Stufen aus Holz, Gitterrost, Blech mit Rutschhemmung oder Glas. Auf Wunsch inkl. Planung der Unterkonstruktion und Montage.',
-    ],
-    images: ['/Treppe_1.jpg', '/Treppe_2.jpg', '/Treppe_3.jpg'],
+    ], images: ['/Treppe_1.jpg', '/Treppe_2.jpg', '/Treppe_3.jpg'],
   },
-  {
-    id: 'vitrinen',
-    title: 'Vitrinen',
-    texts: [
+  { id: 'vitrinen', title: 'Vitrinen', texts: [
       'Elegante Vitrinen und Schaukästen aus Metall – mit klaren Fugenbildern und hochwertigen Beschlägen.',
       'Beleuchtung, Glasvarianten und Schloss-Systeme stimmen wir mit Ihnen ab.',
-    ],
-    images: ['/Vitrinen_1.jpg', '/Vitrinen_2.jpg', '/Vitrinen_3.jpg'],
+    ], images: ['/Vitrinen_1.jpg', '/Vitrinen_2.jpg', '/Vitrinen_3.jpg'],
   },
-  {
-    id: 'sonstiges',
-    title: 'Sonderlösungen',
-    texts: [
+  { id: 'sonstiges', title: 'Sonderlösungen', texts: [
       'Individuelle Metallarbeiten, Reparaturen und Sonderlösungen.',
       'Fragen Sie uns auch für Möbelgestelle, Sichtschutzrahmen, Abdeckungen, Konsolen oder kleine Serien an.',
-    ],
-    images: ['Sonderlösung_1.jpg', 'Sonderlösung_2.jpg', 'Sonderlösung_3.jpg', 'Sonderlösung_4.jpg', 'Sonderlösung_5.jpg', 'Sonderlösung_6.jpg'],
+    ], images: ['Sonderlösung_1.jpg', 'Sonderlösung_2.jpg', 'Sonderlösung_3.jpg', 'Sonderlösung_4.jpg', 'Sonderlösung_5.jpg', 'Sonderlösung_6.jpg'],
   },
 ];
 
@@ -62,29 +42,6 @@ type CategoryBlockProps = Category & { showInlineFooter?: boolean };
 
 const CategoryBlock = ({ id, title, texts, images, showInlineFooter }: CategoryBlockProps) => {
   const sectionRef = useRef<HTMLElement | null>(null);
-  const footerRef = useRef<HTMLDivElement | null>(null);
-
-  // Miss die Footer-Höhe und reserviere Platz in der Slide
-  useEffect(() => {
-    if (!showInlineFooter) return;
-    const sec = sectionRef.current;
-    const foot = footerRef.current;
-    if (!sec || !foot) return;
-
-    const setH = () => {
-      const h = Math.ceil(foot.getBoundingClientRect().height) + 1; // +1px gegen Rundungsprobleme
-      sec.style.setProperty('--footer-h', `${Math.max(200, h)}px`);
-    };
-
-    setH();
-    const ro = new ResizeObserver(setH);
-    ro.observe(foot);
-    window.addEventListener('resize', setH);
-    return () => {
-      ro.disconnect();
-      window.removeEventListener('resize', setH);
-    };
-  }, [showInlineFooter]);
 
   return (
     <section
@@ -124,15 +81,14 @@ const CategoryBlock = ({ id, title, texts, images, showInlineFooter }: CategoryB
       </div>
 
       {showInlineFooter && (
-        <div ref={footerRef} className="footer-inline">
-          {/* <Footer /> */}
+        <div className="footer-inline">
         </div>
       )}
     </section>
   );
 };
 
-function useMediaQuery(q: string) {
+function useMQ(q: string) {
   const mq = useMemo(() => window.matchMedia(q), [q]);
   const [matches, setMatches] = useState(mq.matches);
   useEffect(() => {
@@ -144,9 +100,10 @@ function useMediaQuery(q: string) {
 }
 
 export default function Leistungen() {
-  const isDesktop = useMediaQuery('(min-width: 1024px)');
-  const reduced   = useMediaQuery('(prefers-reduced-motion: reduce)');
-  const isFullpage = isDesktop && !reduced;
+  // Fullpage nur Desktop & präziser Zeiger
+  const supportsFullpage = useMQ('(min-width: 1024px) and (pointer: fine)');
+  const reduced          = useMQ('(prefers-reduced-motion: reduce)');
+  const isFullpage       = supportsFullpage && !reduced;
 
   const [index, setIndex] = useState(0);
   const [isAnimating, setAnimating] = useState(false);
@@ -162,7 +119,7 @@ export default function Leistungen() {
     return () => window.removeEventListener('resize', update);
   }, []);
 
-  // globalen Footer verstecken, wenn Fullpage an ist (wir zeigen ihn inline)
+  // globalen Footer verstecken, wenn Fullpage an (Footer inline in letzter Slide)
   useEffect(() => {
     const root = document.documentElement;
     if (isFullpage) root.classList.add('leistungen-fullpage');
@@ -170,7 +127,7 @@ export default function Leistungen() {
     return () => root.classList.remove('leistungen-fullpage');
   }, [isFullpage]);
 
-  // Reveal (Mobile & generell)
+  // Reveal
   useEffect(() => {
     if (reduced || typeof IntersectionObserver === 'undefined') {
       document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
@@ -191,7 +148,7 @@ export default function Leistungen() {
   // Page-by-page (nur Desktop)
   useEffect(() => {
     if (!isFullpage) return;
-    const totalSlides = categories.length; // Footer ist inline
+    const totalSlides = categories.length; // Footer inline
 
     const goTo = (next: number) => {
       const max = totalSlides - 1;
