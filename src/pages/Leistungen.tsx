@@ -88,7 +88,7 @@ const CategoryBlock = ({ id, title, texts, images, showInlineFooter }: CategoryB
 
   return (
     <section
-      ref={sectionRef as any}
+      ref={sectionRef}
       id={id}
       className={`service-section reveal fullpage-slide ${showInlineFooter ? 'fullpage-slide--with-footer' : ''}`}
       aria-labelledby={`${id}-heading`}
@@ -189,14 +189,14 @@ export default function Leistungen() {
     };
 
     const onWheel = (e: WheelEvent) => {
-      if (isAnimating) return;
+      if (!isFullpage || isAnimating) return;
       if (Math.abs(e.deltaY) < 10) return;
       e.preventDefault();
       goTo(index + (e.deltaY > 0 ? 1 : -1));
     };
 
     const onKey = (e: KeyboardEvent) => {
-      if (isAnimating) return;
+      if (!isFullpage || isAnimating) return;
       if (['ArrowDown','PageDown',' '].includes(e.key)) { e.preventDefault(); goTo(index + 1); }
       if (['ArrowUp','PageUp'].includes(e.key))        { e.preventDefault(); goTo(index - 1); }
     };
@@ -204,7 +204,7 @@ export default function Leistungen() {
     window.addEventListener('wheel', onWheel, { passive: false });
     window.addEventListener('keydown', onKey);
     return () => {
-      window.removeEventListener('wheel', onWheel as any);
+      window.removeEventListener('wheel', onWheel);
       window.removeEventListener('keydown', onKey);
     };
   }, [isFullpage, index, isAnimating]);

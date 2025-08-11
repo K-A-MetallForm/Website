@@ -69,6 +69,7 @@ img, svg, video, canvas {
 .app__content,
 .startseite,
 .fullpage,
+.slides,
 .fullpage-slide,
 .leistungen-page,
 .service-section,
@@ -76,4 +77,22 @@ img, svg, video, canvas {
 .about__section,
 .navbar {
   touch-action: pan-y;
+}
+
+/* FIX: Images shouldn’t block scroll on mobile */
+.hero__img,
+.feature__img,
+.main-image,
+.cta__image,
+.thumbnail-row img {
+  touch-action: pan-y;
+  -webkit-user-drag: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* FIX: Decorative layers must not intercept touches */
+.hero__img,
+.hero-overlay {
+  pointer-events: none;
 }
