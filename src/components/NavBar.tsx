@@ -1,18 +1,17 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import './NavBar.css';
 
 const NavBar = () => {
+  const { pathname } = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
   const [isOverHero, setIsOverHero] = useState(true);
-  const { pathname } = useLocation();
-  const navRef = useRef<HTMLElement | null>(null);
 
-  const toggleMenu = () => setMenuOpen((prev) => !prev);
+  const toggleMenu = () => setMenuOpen(prev => !prev);
   const closeMenu = () => setMenuOpen(false);
 
-  // Hero-Overlay (Transparente Navbar auf Home, sonst solide)
+  // Beobachte, ob wir über der Hero-Sektion sind (nur auf der Startseite)
   useEffect(() => {
     if (pathname !== '/') {
       setIsOverHero(false);
@@ -21,15 +20,20 @@ const NavBar = () => {
     const hero = document.getElementById('hero');
     if (!hero) return;
 
-    const observer = new IntersectionObserver(
+    const obs = new IntersectionObserver(
       ([entry]) => setIsOverHero(entry.isIntersecting),
       { threshold: 0.1 }
     );
-    observer.observe(hero);
-    return () => observer.disconnect();
+    obs.observe(hero);
+    return () => obs.disconnect();
   }, [pathname]);
 
-  // ESC schließt das Menü
+  // Menü schließen bei Routenwechsel
+  useEffect(() => {
+    closeMenu();
+  }, [pathname]);
+
+  // ESC schließt Menü
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') closeMenu();
@@ -38,53 +42,58 @@ const NavBar = () => {
     return () => window.removeEventListener('keydown', onKey);
   }, []);
 
-  // Klick außerhalb der offenen Navigation schließt das Menü (robuster)
+  // Ab 768px aufwärts Menü schließen (Layoutwechsel)
   useEffect(() => {
-    if (!menuOpen) return;
-    const onClickOutside = (e: MouseEvent) => {
-      const nav = navRef.current;
-      if (!nav) return;
-      const target = e.target as Node | null;
-      if (target && nav.contains(target)) return; // Klick IN der Nav -> nichts tun
-      closeMenu();
+    const onResize = () => {
+      if (window.innerWidth >= 768) closeMenu();
     };
-    document.addEventListener('click', onClickOutside);
-    return () => document.removeEventListener('click', onClickOutside);
-  }, [menuOpen]);
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
 
   // Body-Scroll sperren, wenn Mobile-Menü offen
   useEffect(() => {
-    const original = document.body.style.overflow;
-    document.body.style.overflow = menuOpen ? 'hidden' : original || '';
+    const { body } = document;
+    if (menuOpen) {
+      body.style.overflow = 'hidden';
+    } else {
+      body.style.overflow = '';
+    }
     return () => {
-      document.body.style.overflow = original || '';
+      body.style.overflow = '';
     };
   }, [menuOpen]);
 
   return (
     <nav
-      ref={navRef}
-      className={`navbar ${isOverHero ? 'navbar--over-hero' : 'navbar--solid'} ${menuOpen ? 'navbar--open' : ''}`}
+      className={[
+        'navbar',
+        isOverHero ? 'navbar--over-hero' : 'navbar--solid',
+        menuOpen ? 'navbar--open' : ''
+      ].join(' ')}
     >
       <div className="navbar__container">
-        <Link to="/" className="navbar__logo" onClick={closeMenu}>
+        <Link to="/" className="navbar__logo" onClick={closeMenu} aria-label="Startseite">
           <img src="/Logo-Photoroom.png" alt="Logo" />
         </Link>
 
-        {/* Desktop-Links / Mobile-Dropdown */}
+        {/* Navigation-Links */}
         <ul
           id="mobile-menu"
-          className="navbar__links"
-          aria-hidden={!menuOpen}
+          className={`navbar__links ${menuOpen ? 'open' : ''}`}
+          role="menu"
+          aria-label="Hauptnavigation"
         >
-          <li><Link to="/" onClick={closeMenu} className="navbar__link">Home</Link></li>
-          <li><Link to="/leistungen" onClick={closeMenu} className="navbar__link">Leistungen</Link></li>
-          <li><Link to="/beratung" onClick={closeMenu} className="navbar__link">Beratung</Link></li>
-          <li><Link to="/metallform" onClick={closeMenu} className="navbar__link">MetallForm</Link></li>
+          <li role="none"><Link role="menuitem" to="/" onClick={closeMenu} className="navbar__link">Home</Link></li>
+          <li role="none"><Link role="menuitem" to="/leistungen" onClick={closeMenu} className="navbar__link">Leistungen</Link></li>
+          <li role="none"><Link role="menuitem" to="/beratung" onClick={closeMenu} className="navbar__link">Beratung</Link></li>
+          <li role="none"><Link role="menuitem" to="/metallform" onClick={closeMenu} className="navbar__link">MetallForm</Link></li>
         </ul>
 
+        {/* Menü-Button */}
         <div className="navbar__actions">
           <button
+            type="button"
             onClick={toggleMenu}
             className="navbar__menu-button"
             aria-label={menuOpen ? 'Menü schließen' : 'Menü öffnen'}
@@ -96,11 +105,11 @@ const NavBar = () => {
         </div>
       </div>
 
-      {/* Backdrop für Mobile-Menü */}
+      {/* Backdrop */}
       <div
-        className="navbar__backdrop"
-        onClick={closeMenu}
+        className={`navbar__backdrop ${menuOpen ? 'open' : ''}`}
         aria-hidden="true"
+        onClick={closeMenu}
       />
     </nav>
   );
