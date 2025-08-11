@@ -10,13 +10,6 @@
   padding: var(--space-md);
   background-color: transparent;
 }
-
-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
 .startseite { min-height: 100vh; }
 .section { height: 100vh; }
 
@@ -99,8 +92,9 @@ img {
   object-fit: cover;
   filter: brightness(0.3);
   z-index: 0;
+  pointer-events: none;
 }
-.hero-overlay { position: absolute; inset: 0; z-index: 1; }
+.hero-overlay { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
 .hero__content {
   position: relative; z-index: 2;
   max-width: 800px; padding: var(--space-md);
@@ -185,7 +179,15 @@ img {
 .start-fullpage .app > footer { display: none !important; }
 
 /* Scrollbar ausblenden */
-html, body { background: transparent !important; margin: 0; padding: 0; height: 100%; overflow-y: scroll; }
+html, body {
+  background: transparent !important;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+}
 ::-webkit-scrollbar { display: none; }
 html { scrollbar-width: none; }
 
