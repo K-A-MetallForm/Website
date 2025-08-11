@@ -37,7 +37,7 @@ export default function BeratungSection() {
       });
 
       // Robust parsen (falls aus irgendeinem Grund kein valides JSON kommt)
-      let data: any = null;
+      let data: { ok?: boolean; error?: string } | null = null;
       const ct = res.headers.get('content-type') || '';
       if (ct.includes('application/json')) {
         data = await res.json();
