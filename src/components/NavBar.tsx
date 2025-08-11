@@ -63,7 +63,7 @@ const NavBar = () => {
 
   return (
     <nav
-      ref={navRef as any}
+      ref={navRef}
       className={`navbar ${isOverHero ? 'navbar--over-hero' : 'navbar--solid'} ${menuOpen ? 'navbar--open' : ''}`}
     >
       <div className="navbar__container">
@@ -74,7 +74,8 @@ const NavBar = () => {
         {/* Desktop-Links / Mobile-Dropdown */}
         <ul
           id="mobile-menu"
-          className={`navbar__links ${menuOpen ? 'open' : ''}`}
+          className="navbar__links"
+          aria-hidden={!menuOpen}
         >
           <li><Link to="/" onClick={closeMenu} className="navbar__link">Home</Link></li>
           <li><Link to="/leistungen" onClick={closeMenu} className="navbar__link">Leistungen</Link></li>
@@ -97,7 +98,7 @@ const NavBar = () => {
 
       {/* Backdrop für Mobile-Menü */}
       <div
-        className={`navbar__backdrop ${menuOpen ? 'open' : ''}`}
+        className="navbar__backdrop"
         onClick={closeMenu}
         aria-hidden="true"
       />
