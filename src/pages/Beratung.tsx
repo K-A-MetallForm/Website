@@ -94,8 +94,8 @@ export default function BeratungSection() {
 
           {/* Meldungen */}
           <div className="form-status" aria-live="polite">
-            {success && <p className="form-success">✅ Nachricht erfolgreich gesendet!</p>}
-            {error && <p className="form-error">❌ {error}</p>}
+            {success && <p className="form-success">Nachricht erfolgreich gesendet!</p>}
+            {error && <p className="form-error">{error}</p>}
           </div>
         </form>
       </div>
