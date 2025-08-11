@@ -157,7 +157,7 @@ export default function Startseite() {
     const total = slides.length;
 
     const onWheel = (e: WheelEvent) => {
-      if (isAnimating) return;
+      if (!isFullpage || isAnimating) return;
       if (Math.abs(e.deltaY) < 10) return;
       e.preventDefault();
       setAnimating(true);
@@ -166,7 +166,7 @@ export default function Startseite() {
     };
 
     const onKey = (e: KeyboardEvent) => {
-      if (isAnimating) return;
+      if (!isFullpage || isAnimating) return;
       if (['ArrowDown','PageDown',' '].includes(e.key)) { e.preventDefault(); setIndex(i => Math.min(total - 1, i + 1)); setAnimating(true); window.setTimeout(()=>setAnimating(false),700); }
       if (['ArrowUp','PageUp'].includes(e.key))        { e.preventDefault(); setIndex(i => Math.max(0, i - 1));       setAnimating(true); window.setTimeout(()=>setAnimating(false),700); }
     };
@@ -174,7 +174,7 @@ export default function Startseite() {
     window.addEventListener('wheel', onWheel, { passive: false });
     window.addEventListener('keydown', onKey);
     return () => {
-      window.removeEventListener('wheel', onWheel as any);
+      window.removeEventListener('wheel', onWheel);
       window.removeEventListener('keydown', onKey);
     };
   }, [isFullpage, isAnimating]);
