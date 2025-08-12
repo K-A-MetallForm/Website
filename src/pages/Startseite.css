@@ -106,7 +106,7 @@
   display: flex; flex-direction: column; justify-content: center; align-items: center;
 }
 .features h2 { font-size: 2rem; margin-bottom: 2rem; color: var(--color-text); }
-.features__grid { display: grid; gap: 2rem; }
+  .features__grid { display: grid; gap: 2rem; overflow: hidden; }
 .feature {
   padding: var(--space-lg);
   border-radius: 0.5rem;
@@ -149,19 +149,6 @@
   border-top: 1px solid rgba(0,0,0,0.1);
 }
 .footer-inline .to-top { display: none !important; }
-
-/* Scrollbar ausblenden */
-html, body {
-  background: transparent !important;
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  overflow-y: scroll;
-  -webkit-overflow-scrolling: touch;
-  touch-action: pan-y;
-}
-::-webkit-scrollbar { display: none; }
-html { scrollbar-width: none; }
 
 /* Responsive */
 @media (min-width: 320px) {
