@@ -125,17 +125,6 @@ export default function Leistungen() {
   const [index, setIndex] = useState(0);
   const [isAnimating, setAnimating] = useState(false);
 
-  /* Nav-Höhe → --nav-h */
-  useEffect(() => {
-    const update = () => {
-      const nav = document.querySelector('.navbar') as HTMLElement | null;
-      if (nav) document.documentElement.style.setProperty('--nav-h', `${nav.getBoundingClientRect().height}px`);
-    };
-    update();
-    window.addEventListener('resize', update);
-    return () => window.removeEventListener('resize', update);
-  }, []);
-
   /* Body-Klasse für globalen Footer (ausblenden bei Fullpage) */
   useEffect(() => {
     const root = document.documentElement;
@@ -206,7 +195,7 @@ export default function Leistungen() {
 
       <div
         className="slides"
-        style={isFullpage ? { transform: `translateY(calc(-${index} * var(--slide-h)))` } : undefined}
+        style={isFullpage && index > 0 ? { transform: `translateY(calc(-${index} * var(--slide-h)))` } : undefined}
       >
         {categories.map((c, i) => (
           <CategoryBlock

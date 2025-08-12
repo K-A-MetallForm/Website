@@ -22,6 +22,8 @@
   --space-sm: 0.5rem;
   --space-md: 1rem;
   --space-lg: 2rem;
+  --nav-h: 80px;
+  --slide-h: calc(100svh - var(--nav-h));
 }
 
 /* Reset + Typo */

@@ -127,23 +127,6 @@ export default function Startseite() {
   const [isAnimating, setAnimating] = useState(false);
 
   useEffect(() => {
-    const nav = document.querySelector('.navbar') as HTMLElement | null;
-    const update = () => {
-      if (nav) {
-        document.documentElement.style.setProperty('--nav-h', `${nav.getBoundingClientRect().height}px`);
-      }
-    };
-    update();
-    window.addEventListener('resize', update);
-
-    if (nav) {
-      if (index === 0) nav.classList.add('navbar--transparent');
-      else nav.classList.remove('navbar--transparent');
-    }
-    return () => window.removeEventListener('resize', update);
-  }, [index]);
-
-  useEffect(() => {
     const root = document.documentElement;
     if (isFullpage) root.classList.add('start-fullpage');
     else root.classList.remove('start-fullpage');
@@ -207,7 +190,7 @@ export default function Startseite() {
 
       <div
         className="slides"
-        style={isFullpage ? { transform: `translateY(calc(-${index} * var(--slide-h)))` } : undefined}
+        style={isFullpage && index > 0 ? { transform: `translateY(calc(-${index} * var(--slide-h)))` } : undefined}
       >
         <Hero />
         <Features />

@@ -3,7 +3,6 @@
   height: 100svh;
   overflow: hidden;
   position: relative;
-  padding-top: var(--nav-h);            /* Nav-Offset sitzt jetzt auf dem Wrapper */
 }
 
 .fullpage .slides {
@@ -15,8 +14,6 @@
 
 /* Jede Slide */
 .fullpage .fullpage-slide {
-  --nav-h: 80px;
-  --slide-h: calc(100svh - var(--nav-h));
   height: var(--slide-h);
   min-height: var(--slide-h);
   display: flex;

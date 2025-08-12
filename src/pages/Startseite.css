@@ -1,8 +1,4 @@
 /* dynamische Viewport-Höhe für mobile Browser */
-:root {
-  --nav-h: 80px;
-  --slide-h: calc(100svh - var(--nav-h));
-}
 
 .container {
   width: 90%;
@@ -26,7 +22,7 @@
   justify-content: center;
   box-sizing: border-box;
   background: var(--color-bg);
-  padding-top: calc(var(--nav-h) + 3rem);
+  padding-top: 3rem;
   overflow: hidden;
 }
 

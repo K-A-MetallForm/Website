@@ -6,27 +6,55 @@ import './NavBar.css';
 const NavBar = () => {
   const { pathname } = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
-  const [isOverHero, setIsOverHero] = useState(true);
+  const [isHeroVisible, setHeroVisible] = useState(pathname === '/');
 
   const toggleMenu = () => setMenuOpen(prev => !prev);
   const closeMenu = () => setMenuOpen(false);
 
-  // Beobachte, ob wir über der Hero-Sektion sind (nur auf der Startseite)
+  // Route-Klasse auf <html>
+  useEffect(() => {
+    const root = document.documentElement;
+    const isHome = pathname === '/';
+    root.classList.toggle('route-home', isHome);
+    root.classList.toggle('is-hero', isHome);
+  }, [pathname]);
+
+  // IntersectionObserver auf Hero -> Transparenz & Padding steuern
   useEffect(() => {
     if (pathname !== '/') {
-      setIsOverHero(false);
+      setHeroVisible(false);
+      document.documentElement.classList.remove('is-hero');
       return;
     }
     const hero = document.getElementById('hero');
     if (!hero) return;
 
-    const obs = new IntersectionObserver(
-      ([entry]) => setIsOverHero(entry.isIntersecting),
-      { threshold: 0.1 }
-    );
+    const obs = new IntersectionObserver(([entry]) => {
+      const visible = entry.intersectionRatio >= 0.3;
+      setHeroVisible(visible);
+      document.documentElement.classList.toggle('is-hero', visible);
+    }, { threshold: 0.3 });
     obs.observe(hero);
     return () => obs.disconnect();
   }, [pathname]);
+
+  // --nav-h dynamisch setzen
+  useEffect(() => {
+    const update = () => {
+      const nav = document.querySelector('.navbar') as HTMLElement | null;
+      if (nav) {
+        document.documentElement.style.setProperty('--nav-h', `${nav.getBoundingClientRect().height}px`);
+      }
+    };
+    update();
+    window.addEventListener('resize', update);
+    window.addEventListener('orientationchange', update);
+    document.fonts?.ready.then(update);
+    return () => {
+      window.removeEventListener('resize', update);
+      window.removeEventListener('orientationchange', update);
+    };
+  }, []);
 
   // Menü schließen bei Routenwechsel
   useEffect(() => {
@@ -68,12 +96,12 @@ const NavBar = () => {
     <nav
       className={[
         'navbar',
-        isOverHero ? 'navbar--over-hero' : 'navbar--solid',
+        isHeroVisible ? 'navbar--transparent' : 'navbar--solid',
         menuOpen ? 'navbar--open' : ''
       ].join(' ')}
     >
       <div className="navbar__container">
-        <Link to="/" className="navbar__logo" onClick={closeMenu} aria-label="Startseite">
+      <Link to="/" className="navbar__logo" onClick={closeMenu} aria-label="Startseite">
           <img src="/Logo-Photoroom.png" alt="Logo" />
         </Link>
 
@@ -104,13 +132,6 @@ const NavBar = () => {
           </button>
         </div>
       </div>
-
-      {/* Backdrop */}
-      <div
-        className={`navbar__backdrop ${menuOpen ? 'open' : ''}`}
-        aria-hidden="true"
-        onClick={closeMenu}
-      />
     </nav>
   );
 };
