@@ -11,7 +11,8 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test:visual": "playwright test"
   },
   "dependencies": {
     "nodemailer": "^7.0.5",
@@ -27,6 +28,7 @@
     "@types/react-dom": "^19.1.6",
     "@vercel/node": "^2.3.0",
     "@vitejs/plugin-react": "^4.6.0",
+    "@playwright/test": "^1.49.0",
     "eslint": "^9.30.1",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",

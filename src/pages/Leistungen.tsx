@@ -193,17 +193,19 @@ export default function Leistungen() {
         </nav>
       )}
 
-      <div
-        className="slides"
-        style={isFullpage && index > 0 ? { transform: `translateY(calc(-${index} * var(--slide-h)))` } : undefined}
-      >
-        {categories.map((c, i) => (
-          <CategoryBlock
-            key={c.id}
-            {...c}
-            showInlineFooter={isFullpage && i === categories.length - 1}
-          />
-        ))}
+      <div className="slides">
+        <div
+          className="slides__inner"
+          style={isFullpage && index > 0 ? { transform: `translateY(calc(-${index} * var(--slide-h)))` } : undefined}
+        >
+          {categories.map((c, i) => (
+            <CategoryBlock
+              key={c.id}
+              {...c}
+              showInlineFooter={isFullpage && i === categories.length - 1}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

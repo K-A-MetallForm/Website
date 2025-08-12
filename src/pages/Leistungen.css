@@ -7,9 +7,15 @@
 
 .fullpage .slides {
   height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Transform only on inner wrapper so outer keeps overflow clipping */
+.fullpage .slides__inner {
+  height: 100%;
   transition: transform 700ms ease;
   will-change: transform;
-  overflow: visible;
 }
 
 /* Jede Slide */
@@ -22,9 +28,12 @@
   box-sizing: border-box;
   background: var(--color-bg);
   /* vorher: padding-top: calc(var(--nav-h) + 3rem); */
-  padding-top: 3rem;                    /* nur noch optischer Abstand */
-  overflow: visible;
-}
+    padding-top: 3rem;                    /* nur noch optischer Abstand */
+    overflow: hidden;
+    overflow: clip;
+    position: relative;
+    contain: layout paint;
+  }
 
 /* Letzte Slide mit Footer unten (Footer wird nach unten gedrückt) */
 .fullpage .fullpage-slide--with-footer {
@@ -79,7 +88,7 @@
 .service-text h3{ margin-bottom: 1rem; font-size: 2rem; }
 .service-text p { line-height: 1.65; font-size: 1.05rem; margin-bottom: .6rem; }
 
-.thumbnail-row{ display: flex; gap: .85rem; align-items: stretch; flex-wrap: wrap; }
+.thumbnail-row{ display: flex; gap: .85rem; align-items: stretch; flex-wrap: wrap; overflow: hidden; }
 .thumbnail-row img{ width: 240px; height: 155px; object-fit: cover; border-radius: 8px; }
 
 /* Responsive */
