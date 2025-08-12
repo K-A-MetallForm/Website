@@ -255,7 +255,7 @@ export default function Startseite() {
           className="slides__inner"
           style={
             isFullpage && index > 0
-              ? { transform: `translateY(calc(-${index} * var(--slide-h) - var(--nav-h)))` }
+              ? { transform: `translateY(calc(-${index} * var(--slide-h)))` } // kein Abzug der Navbar-Höhe
               : undefined
           }
         >

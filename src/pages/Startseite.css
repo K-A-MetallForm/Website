@@ -80,7 +80,7 @@
 .btn { display: inline-block; padding: .75rem 1.5rem; text-decoration: none; border-radius: 2rem; transition: transform .3s; }
 .btn--accent { background-color: var(--color-accent); color: var(--color-text); }
 .btn--accent:hover { transform: translateY(-3px); }
-.cta_text { font-size: 1rem; margin-bottom: var(--space-md); color: var(--color-text);}
+.cta_text { font-size: 1rem; margin-bottom: var(--space-md); color: var(--color-text); }
 .btn--accent-cta { background-color: var(--color-accent); color: var(--color-text); width: fit-content; margin: 0 auto; }
 .btn--accent-cta:hover { transform: translateY(-3px); }
 
@@ -97,10 +97,42 @@
 
 /* CTA (Desktop) */
 .cta { width: 100%; display: flex; flex-direction: column; justify-content: center; }
-.fullpage .fullpage-slide--cta { height: auto; min-height: var(--slide-h); overflow: visible; padding-top: var(--nav-h); }
-.cta__inner { display: flex; align-items: stretch; justify-content: center; gap: var(--space-lg); flex-wrap: nowrap; max-width: 1200px; margin: 0 auto; background: none; border-radius: .5rem; padding: var(--space-md); margin-top: 100px; }
-.cta__text-container { flex: 0 1 480px; display: flex; flex-direction: column; justify-content: center; text-align: center; }
-.cta__image-container { flex: 1 1 680px; position: relative; min-width: 520px; }
+
+/* WICHTIG: keine abgezogene Navbar-Höhe im Fullpage-Modus */
+.fullpage .fullpage-slide--cta {
+  height: auto;
+  min-height: var(--slide-h);
+  overflow: visible;
+  padding-top: 0;
+}
+
+/* Wrap-fähig + sinnvolle Minbreiten, damit nichts „verschwindet“ */
+.cta__inner {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: var(--space-lg);
+  flex-wrap: wrap;                 /* früher: nowrap -> hat den Text kollabieren lassen */
+  max-width: 1200px;
+  margin: 0 auto;
+  background: none;
+  border-radius: .5rem;
+  padding: var(--space-md);
+}
+.cta__text-container {
+  flex: 1 1 480px;
+  min-width: 360px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  color: var(--color-text);
+}
+.cta__image-container {
+  flex: 1 1 520px;
+  min-width: 360px;                /* runtergesetzt, damit früheres 520px-Minimum nicht blockiert */
+  position: relative;
+}
 .cta__image { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; }
 
 /* Footer inline */
@@ -122,7 +154,7 @@
     overflow-y: auto;
     overscroll-behavior-y: contain;
     scroll-snap-type: y mandatory;
-    scroll-padding-top: var(--nav-h); /* fixe Navbar kompensieren */
+    scroll-padding-top: var(--nav-h); /* fixe Navbar kompensieren, hier 0, weil oben --nav-h:0 */
     -webkit-overflow-scrolling: touch;
   }
 
@@ -180,22 +212,22 @@
   /* Snap-Slide stapelt Inhalte untereinander */
   .startseite.mobile .snap-slide {
     display: flex;
-    flex-direction: column;         /* <-- statt row */
-    align-items: center;            /* Karte zentrieren */
-    justify-content: flex-start;    /* oben beginnen */
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
   }
 
   /* Karte bleibt groß, bekommt unten Luft zum Footer */
   .startseite.mobile .snap-card {
     flex: 0 0 auto;
-    margin-bottom: var(--snap-gap); /* kleiner Abstand zur Footer-Sektion */
+    margin-bottom: var(--snap-gap);
   }
 
   /* Footer nimmt volle Breite ein und sitzt unter der Karte */
   .footer-inline--mobile {
-    order: 2;                       /* Sicherheit: nach der Karte */
+    order: 2;
     width: 100%;
-    max-width: 1000px;              /* analog zur Karte */
+    max-width: 1000px;
     margin: 0 auto var(--snap-gap);
     padding: var(--space-md) var(--space-md) 0;
   }
@@ -205,5 +237,29 @@
     width: 100%;
     max-width: none;
     margin: 0;
+  }
+}
+
+/* ---------- Sichtbarkeit im Mobile-Snap sicherstellen ---------- */
+@media (max-width: 1023.98px) {
+  /* Overlay unter Content erzwingen */
+  .startseite.mobile .snap__overlay { z-index: 1; }
+  .startseite.mobile .snap__content { z-index: 2; }
+
+  /* Auf dunklem Bild IMMER weiße Typo (Desktop bleibt unberührt) */
+  .startseite.mobile .snap__content,
+  .startseite.mobile .snap__content h1,
+  .startseite.mobile .snap__content h2,
+  .startseite.mobile .snap__content h3,
+  .startseite.mobile .snap__content p,
+  .startseite.mobile .cta_text {
+    color: #fff !important;
+    text-shadow: 0 1px 2px rgba(0,0,0,.35);
+  }
+
+  /* Falls der IntersectionObserver nicht feuert: CTA trotzdem zeigen */
+  .startseite.mobile #cta-mobile .snap-anim {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
