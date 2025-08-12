@@ -18,4 +18,9 @@
   flex: 1;
   min-height: 0;
   background: var(--color-bg);
+  padding-top: var(--nav-h);
+}
+
+.route-home.is-hero .app__content {
+  padding-top: 0;
 }
