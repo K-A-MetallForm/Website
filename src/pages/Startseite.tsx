@@ -43,8 +43,8 @@ const Features: React.FC = () => {
     },
     {
       img: '/Tor_1.jpg',
-      title: 'Montage, Wartung & Reparatur',
-      text: 'Fachgerechte Installation, Instandhaltung und punktuelle Reparaturen Ihrer Metallkonstruktionen – für dauerhafte Sicherheit und Funktion.',
+      title: 'Montage & Reparatur',
+      text: 'Fachgerechte Installation, Reparaturen Ihrer Metallkonstruktionen – für dauerhafte Sicherheit und Funktion.',
     },
   ];
 
@@ -58,11 +58,7 @@ const Features: React.FC = () => {
 
       <div className="features__grid">
         {items.map((f, i) => (
-          <article
-            key={i}
-            className={`feature feature--${i + 1}`}
-            aria-label={f.title}
-          >
+          <article key={i} className={`feature feature--${i + 1}`} aria-label={f.title}>
             <img
               src={f.img}
               alt={f.title}
@@ -80,7 +76,7 @@ const Features: React.FC = () => {
 };
 
 const CTA: React.FC = () => (
-  <section className="cta fullpage-slide" id="cta" aria-label="Kontakt">
+  <section className="cta fullpage-slide fullpage-slide--cta" id="cta" aria-label="Kontakt">
     <div className="cta__inner container">
       <div className="cta__text-container">
         <h2 className="cta__text">Nimm mit uns Kontakt auf</h2>
@@ -119,9 +115,9 @@ function useMediaQuery(q: string) {
 }
 
 export default function Startseite() {
-  const isDesktop = useMediaQuery('(min-width: 1024px)');
-  const reduced   = useMediaQuery('(prefers-reduced-motion: reduce)');
-  const isFullpage = isDesktop && !reduced;
+  const isDesktop   = useMediaQuery('(min-width: 1024px)');
+  const reduced     = useMediaQuery('(prefers-reduced-motion: reduce)');
+  const isFullpage  = isDesktop && !reduced;
 
   const [index, setIndex] = useState(0);
   const [isAnimating, setAnimating] = useState(false);
@@ -191,11 +187,11 @@ export default function Startseite() {
       <div className="slides">
         <div
           className="slides__inner"
-          // only inner wrapper moves; outer keeps clipping to hide browser scrollbars
-          style=
-            {isFullpage && index > 0
+          style={
+            isFullpage && index > 0
               ? { transform: `translateY(calc(-${index} * var(--slide-h) - var(--nav-h)))` }
-              : undefined}
+              : undefined
+          }
         >
           <Hero />
           <Features />

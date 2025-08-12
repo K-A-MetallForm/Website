@@ -1,10 +1,23 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './Beratung.css';
 
 export default function BeratungSection() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
+
+  // Ref für auto-resize des Textareas
+  const messageRef = useRef<HTMLTextAreaElement | null>(null);
+
+  // Hilfsfunktion: passt die Höhe an den Inhalt an
+  const autoGrow = (el: HTMLTextAreaElement) => {
+    el.style.height = 'auto';                   // zurücksetzen
+    el.style.height = `${el.scrollHeight}px`;   // an Inhalt anpassen
+  };
+
+  useEffect(() => {
+    if (messageRef.current) autoGrow(messageRef.current);
+  }, []);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -22,7 +35,6 @@ export default function BeratungSection() {
       message: String(formData.get('message') || '').trim(),
     };
 
-    // Optional: super-kurze Client-Validierung
     if (!payload.name || !payload.email || !payload.message) {
       setError('Bitte Name, E-Mail und Nachricht ausfüllen.');
       setLoading(false);
@@ -36,7 +48,6 @@ export default function BeratungSection() {
         body: JSON.stringify(payload),
       });
 
-      // Robust parsen (falls aus irgendeinem Grund kein valides JSON kommt)
       let data: { ok?: boolean; error?: string } | null = null;
       const ct = res.headers.get('content-type') || '';
       if (ct.includes('application/json')) {
@@ -49,6 +60,14 @@ export default function BeratungSection() {
       if (res.ok && data?.ok) {
         setSuccess(true);
         form.reset();
+        // Textarea-Höhe auf Startzustand (rows) zurücksetzen
+        if (messageRef.current) {
+          messageRef.current.style.height = '';
+          // optional: einmal neu anstoßen (falls Browser den rows-Wert anders rendert)
+          requestAnimationFrame(() => {
+            if (messageRef.current) autoGrow(messageRef.current);
+          });
+        }
       } else {
         setError(data?.error || `Es ist ein Fehler aufgetreten (Status ${res.status}).`);
       }
@@ -85,14 +104,20 @@ export default function BeratungSection() {
 
           <div className="form-field">
             <label htmlFor="message">Nachricht*</label>
-            <textarea id="message" name="message" rows={4} required />
+            <textarea
+              id="message"
+              name="message"
+              rows={4}
+              required
+              ref={messageRef}
+              onInput={(e) => autoGrow(e.currentTarget)}
+            />
           </div>
 
           <button type="submit" className="submit-button" disabled={loading}>
             {loading ? 'Sende…' : 'Absenden'}
           </button>
 
-          {/* Meldungen */}
           <div className="form-status" aria-live="polite">
             {success && <p className="form-success">Nachricht erfolgreich gesendet!</p>}
             {error && <p className="form-error">{error}</p>}

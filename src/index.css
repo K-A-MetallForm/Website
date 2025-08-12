@@ -23,7 +23,9 @@
   --space-md: 1rem;
   --space-lg: 2rem;
   --nav-h: 80px;
-  --slide-h: calc(100svh - var(--nav-h));
+
+  /* WICHTIG: Slides sind volle Höhe, kein Abzug der Navbar! */
+  --slide-h: 100svh;
 }
 
 /* Reset + Typo */
@@ -55,14 +57,14 @@ html, body, #root {
   touch-action: pan-y;
 }
 
-/* Angenehmes Scrollen global (optional) */
+/* Globales Smooth-Scroll (im Fullpage-Modus schalten wir es aus) */
 html {
   scroll-behavior: smooth;
 }
 
-/* Kleine Layout-Glättungen */
+/* Medien */
 img, svg, video, canvas {
-  display: block;           /* vermeidet Inline-Gaps */
+  display: block;
   max-width: 100%;
   height: auto;
 }
@@ -109,12 +111,12 @@ section {
 }
 
 /* FIX: Decorative layers must not intercept touches */
-.hero-overlay {
-  pointer-events: none;
-}
+.hero-overlay { pointer-events: none; }
 
+/* Desktop: nutze 100dvh für verlässliche Höhe */
 @media (min-width: 1024px) {
   :root {
-    --slide-h: calc(100dvh - var(--nav-h));
+    /* WICHTIG: kein Abzug der Navbar */
+    --slide-h: 100dvh;
   }
 }

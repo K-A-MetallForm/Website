@@ -20,7 +20,7 @@
 .footer__section {
   flex: 1 1 200px;
   min-width: 180px;
-  text-align: center;
+  text-align: center; /* mobil zentriert */
 }
 
 .footer__title {
@@ -31,47 +31,49 @@
 
 .footer__address,
 .footer__imprint p {
-line-height: 1.5;
+  line-height: 1.5;
 }
 
 .footer__list {
-list-style: none;
-padding: 0;
-margin: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .footer__list li {
-margin-bottom: 0.3rem;
+  margin-bottom: 0.3rem;
 }
 
 .footer__link {
-color: var(--footer-link);
-text-decoration: none;
+  color: var(--footer-link);
+  text-decoration: none;
 }
 
 .footer__link:hover,
 .footer__link:focus {
-color: var(--footer-link-hover);
-text-decoration: underline;
+  color: var(--footer-link-hover);
+  text-decoration: underline;
 }
 
+/* Icons-Reihe zentrieren */
 .footer__social-icons {
   display: flex;
   gap: 0.8rem;
   align-items: center;
+  justify-content: center; /* <— zentriert die Icons */
 }
 
 .footer__social-link {
-font-size: 1.2rem;
-color: var(--footer-link);
-display: inline-flex;
-align-items: center;
-justify-content: center;
+  font-size: 1.2rem;
+  color: var(--footer-link);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .footer__social-link:hover,
 .footer__social-link:focus {
-color: var(--footer-accent);
+  color: var(--footer-accent);
 }
 
 .footer__bottom {
@@ -91,6 +93,14 @@ color: var(--footer-accent);
   }
 
   .footer__section {
-    text-align: left;
+    text-align: left; /* Standard: linksbündig auf Desktop */
+  }
+
+  /* Ausnahme: Social-Spalte bleibt zentriert */
+  .footer__social {
+    text-align: center;
+  }
+  .footer__social .footer__social-icons {
+    justify-content: center;
   }
 }

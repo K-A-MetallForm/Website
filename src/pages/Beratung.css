@@ -49,8 +49,17 @@
   border: 1px solid #ccc;
   border-radius: 6px;
   font-size: 1rem;
+  width: 100%;
 }
 
+/* Textarea: nicht manuell resizable, und kein Scrollbalken – wächst automatisch per JS */
+.form-field textarea {
+  resize: none;          /* keine seitlichen/vertikalen Griffe */
+  overflow: hidden;      /* keine Scrollbars, wir passen Höhe per JS an */
+  line-height: 1.5;      /* für sauberes autoGrow */
+}
+
+/* Focus-State */
 .form-field input:focus,
 .form-field textarea:focus {
   border-color: var(--color-accent);
