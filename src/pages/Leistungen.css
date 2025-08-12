@@ -20,8 +20,8 @@
 
 /* Jede Slide: übernimmt Clipping, kein innerer Scroll */
 .fullpage .fullpage-slide {
-  height: var(--slide-h);
-  min-height: var(--slide-h);
+  height: auto;
+  min-height: calc(100dvh - var(--nav-h)); /* statt fester Höhe */
   padding: 2rem 0 1rem;
   position: relative;
   overflow: hidden; /* fallback for overflow: clip */
