@@ -196,6 +196,7 @@ export default function Leistungen() {
       <div className="slides">
         <div
           className="slides__inner"
+          // transform on inner wrapper keeps outer overflow hidden
           style={isFullpage && index > 0 ? { transform: `translateY(calc(-${index} * var(--slide-h)))` } : undefined}
         >
           {categories.map((c, i) => (
