@@ -188,13 +188,18 @@ export default function Startseite() {
         </nav>
       )}
 
-      <div
-        className="slides"
-        style={isFullpage && index > 0 ? { transform: `translateY(calc(-${index} * var(--slide-h)))` } : undefined}
-      >
-        <Hero />
-        <Features />
-        <CTA />
+      <div className="slides">
+        <div
+          className="slides__inner"
+          style=
+            {isFullpage && index > 0
+              ? { transform: `translateY(calc(-${index} * var(--slide-h) - var(--nav-h)))` }
+              : undefined}
+        >
+          <Hero />
+          <Features />
+          <CTA />
+        </div>
       </div>
     </div>
   );

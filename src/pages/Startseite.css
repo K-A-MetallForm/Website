@@ -13,7 +13,8 @@
 
 /* Fullpage Desktop */
 .fullpage { height: 100svh; overflow: hidden; position: relative; }
-.fullpage .slides { height: 100%; transition: transform 700ms ease; will-change: transform; }
+.fullpage .slides { position: relative; overflow: hidden; height: 100%; }
+.fullpage .slides__inner { height: 100%; transition: transform 700ms ease; will-change: transform; }
 .fullpage .fullpage-slide {
   height: var(--slide-h);
   min-height: var(--slide-h);
@@ -24,6 +25,7 @@
   background: var(--color-bg);
   padding-top: 3rem;
   overflow: hidden;
+  overflow: clip;
 }
 
 /* Hero volle Höhe */
@@ -59,6 +61,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  contain: paint;
+  will-change: auto;
 }
 .hero__img {
   position: absolute;
@@ -173,7 +177,7 @@ html { scrollbar-width: none; }
 }
 @media (max-width: 1024px) {
   .fullpage { height: auto; overflow: visible; }
-  .slides { transform: none !important; }
+  .slides__inner { transform: none !important; }
   .fullpage .fullpage-slide { height: auto; min-height: unset; padding-top: 0; }
   .dots { display: none; }
   .start-fullpage .app > footer { display: block !important; }
