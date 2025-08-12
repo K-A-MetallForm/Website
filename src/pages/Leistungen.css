@@ -3,7 +3,9 @@
   height: 100svh;
   overflow: hidden;
   position: relative;
+  padding-top: var(--nav-h);            /* Nav-Offset sitzt jetzt auf dem Wrapper */
 }
+
 .fullpage .slides {
   height: 100%;
   transition: transform 700ms ease;
@@ -22,22 +24,24 @@
   justify-content: center;
   box-sizing: border-box;
   background: var(--color-bg);
-  padding-top: calc(var(--nav-h) + 3rem);
+  /* vorher: padding-top: calc(var(--nav-h) + 3rem); */
+  padding-top: 3rem;                    /* nur noch optischer Abstand */
   overflow: visible;
 }
 
-/* Letzte Slide mit Footer unten (im Flow) */
+/* Letzte Slide mit Footer unten (Footer wird nach unten gedrückt) */
 .fullpage .fullpage-slide--with-footer {
+  height: var(--slide-h);
+  min-height: var(--slide-h);
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  min-height: var(--slide-h);
   padding-bottom: 0;
 }
 
-/* Footer inline */
+/* Footer inline (innerhalb der letzten Slide) */
 .footer-inline {
-  margin-top: auto;
+  margin-top: auto;                     /* schiebt Footer an unteren Rand */
   width: 100%;
   border-top: 1px solid rgba(0,0,0,0.1);
   background: var(--color-bg);
@@ -55,54 +59,58 @@
 
 /* Dots */
 .dots{
-  position:fixed; right:16px; top:50%; transform:translateY(-50%);
-  display:flex; flex-direction:column; gap:10px; z-index:10;
+  position: fixed; right: 16px; top: 50%; transform: translateY(-50%);
+  display: flex; flex-direction: column; gap: 10px; z-index: 10;
 }
 .dots a{
-  width:8px; height:8px; border-radius:50%;
-  background:rgba(0,0,0,.35); display:block;
-  transition:transform .2s ease, background-color .2s ease;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: rgba(0,0,0,.35); display: block;
+  transition: transform .2s ease, background-color .2s ease;
 }
-.dots a:hover{ transform:scale(1.2); }
-.dots a.active{ background:var(--color-accent); transform:scale(1.4); }
+.dots a:hover{ transform: scale(1.2); }
+.dots a.active{ background: var(--color-accent); transform: scale(1.4); }
 
 /* Basis-Layout (auch Mobile) */
-.service-section{ display:flex; flex-direction:column; padding:3rem 0; background:var(--color-bg); }
-.service-section + .service-section{ margin-top:0; }
-.leistungen-page{ position:relative; }
+.service-section{ display: flex; flex-direction: column; padding: 3rem 0; background: var(--color-bg); }
+.service-section + .service-section{ margin-top: 0; }
+.leistungen-page{ position: relative; }
 
-.service-inner{ max-width:1080px; margin:0 auto; padding:0 1rem; display:flex; flex-direction:column; gap:1rem; flex:1; min-height:0; }
-.service-main { display:flex; flex-direction:row; align-items:flex-start; gap:2rem; margin-bottom:1rem; flex-wrap:nowrap; }
-.main-image   { flex:1 1 60%; width:100%; height:auto; max-height:450px; object-fit:cover; border-radius:12px; }
-.service-text { flex:1 1 40%; display:flex; flex-direction:column; justify-content:center; text-align:left; min-width:0; }
-.service-text h3{ margin-bottom:1rem; font-size:2rem; }
-.service-text p { line-height:1.65; font-size:1.05rem; margin-bottom:.6rem; }
+.service-inner{ max-width: 1080px; margin: 0 auto; padding: 0 1rem; display: flex; flex-direction: column; gap: 1rem; flex: 1; min-height: 0; }
+.service-main { display: flex; flex-direction: row; align-items: flex-start; gap: 2rem; margin-bottom: 1rem; flex-wrap: nowrap; }
+.main-image   { flex: 1 1 60%; width: 100%; height: auto; max-height: 450px; object-fit: cover; border-radius: 12px; }
+.service-text { flex: 1 1 40%; display: flex; flex-direction: column; justify-content: center; text-align: left; min-width: 0; }
+.service-text h3{ margin-bottom: 1rem; font-size: 2rem; }
+.service-text p { line-height: 1.65; font-size: 1.05rem; margin-bottom: .6rem; }
 
-.thumbnail-row{ display:flex; gap:.85rem; align-items:stretch; flex-wrap:wrap; }
-.thumbnail-row img{ width:240px; height:155px; object-fit:cover; border-radius:8px; }
+.thumbnail-row{ display: flex; gap: .85rem; align-items: stretch; flex-wrap: wrap; }
+.thumbnail-row img{ width: 240px; height: 155px; object-fit: cover; border-radius: 8px; }
 
 /* Responsive */
 @media (max-width:1024px){
-  .fullpage { height:auto; overflow:visible; }
-  .slides   { transform:none !important; }
+  .fullpage { height: auto; overflow: visible; padding-top: 0; }  /* Fullpage-Layout aus */
+  .slides   { transform: none !important; }
+
   .fullpage .fullpage-slide,
-  .fullpage .fullpage-slide--with-footer { height:auto; min-height:unset; padding-top:0; }
+  .fullpage .fullpage-slide--with-footer {
+    height: auto; min-height: unset;
+    padding-top: 0;                       /* Offset entfällt mobil */
+  }
 
-  .dots { display:none; }
-  .leistungen-fullpage .app > footer { display:block !important; }
+  .dots { display: none; }
+  .leistungen-fullpage .app > footer { display: block !important; }
 
-  .service-main{ flex-direction:column; gap:1rem; align-items:stretch; text-align:left; }
-  .service-text{ align-items:flex-start; }
-  .main-image{ max-height:380px; }
-  .service-text h3{ font-size:1.75rem; }
-  .thumbnail-row img{ width:220px; height:145px; }
+  .service-main{ flex-direction: column; gap: 1rem; align-items: stretch; text-align: left; }
+  .service-text{ align-items: flex-start; }
+  .main-image{ max-height: 380px; }
+  .service-text h3{ font-size: 1.75rem; }
+  .thumbnail-row img{ width: 220px; height: 145px; }
 
   .footer-inline { position: static; padding-top: 2rem; }
 }
 
 @media (max-width:768px){
-  .thumbnail-row{ flex-wrap:wrap; }
-  .thumbnail-row img{ width:calc(50% - .5rem); height:140px; }
+  .thumbnail-row{ flex-wrap: wrap; }
+  .thumbnail-row img{ width: calc(50% - .5rem); height: 140px; }
 }
 
 /* Ankeroffset für mobile Anker-Links */
