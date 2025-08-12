@@ -1,5 +1,5 @@
-#root {
-  --nav-h: 0px; /* Höhe der Navbar */
+.startseite.mobile {
+  --nav-h: 0px;
 }
 
 /* Basis-Container */
@@ -80,7 +80,7 @@
 .btn { display: inline-block; padding: .75rem 1.5rem; text-decoration: none; border-radius: 2rem; transition: transform .3s; }
 .btn--accent { background-color: var(--color-accent); color: var(--color-text); }
 .btn--accent:hover { transform: translateY(-3px); }
-.cta_text { font-size: 1rem; margin-bottom: var(--space-md); color: white;}
+.cta_text { font-size: 1rem; margin-bottom: var(--space-md); color: var(--color-text);}
 .btn--accent-cta { background-color: var(--color-accent); color: var(--color-text); width: fit-content; margin: 0 auto; }
 .btn--accent-cta:hover { transform: translateY(-3px); }
 
