@@ -161,7 +161,7 @@ export default function Startseite() {
       window.removeEventListener('wheel', onWheel);
       window.removeEventListener('keydown', onKey);
     };
-  }, [isFullpage, isAnimating]);
+  }, [isFullpage, isAnimating, slides.length]);
 
   const handleDotClick = (i: number) => (e: React.MouseEvent) => {
     e.preventDefault();
@@ -191,6 +191,7 @@ export default function Startseite() {
       <div className="slides">
         <div
           className="slides__inner"
+          // only inner wrapper moves; outer keeps clipping to hide browser scrollbars
           style=
             {isFullpage && index > 0
               ? { transform: `translateY(calc(-${index} * var(--slide-h) - var(--nav-h)))` }
