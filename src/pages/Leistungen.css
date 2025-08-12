@@ -108,6 +108,10 @@
 .thumbnail-row { display: flex; gap: .85rem; align-items: stretch; flex-wrap: wrap; margin-top: .5rem; }
 .thumbnail-row img { width: 240px; height: 155px; object-fit: cover; border-radius: 8px; }
 
+/* Clickable */
+.img-clickable { cursor: zoom-in; }
+.img-clickable:focus { outline: 2px solid var(--color-accent); outline-offset: 2px; border-radius: 8px; }
+
 /* Fullpage: Layout kompakter, damit alles in die Viewhöhe passt */
 .fullpage .service-inner { max-width: 1080px; margin: 0 auto; padding: 0 1rem; display: flex; flex-direction: column; gap: .75rem; }
 .fullpage .service-main  { display: grid; grid-template-columns: minmax(0, 640px) 1fr; gap: 1rem; align-items: start; }
@@ -216,4 +220,96 @@
 .leistungen-fullpage .slides {
   height: 100%;
   overflow: clip;
+}
+
+/* ───────── Lightbox ───────── */
+.lb {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.85);
+  z-index: 2000;
+  display: grid;
+  grid-template-columns: 80px 1fr 80px;
+  grid-template-rows: 1fr;
+  align-items: center;
+  justify-items: center;
+  gap: 0;
+}
+.lb__stage {
+  max-width: 92vw;
+  max-height: 92vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .5rem;
+}
+.lb__img {
+  max-width: 92vw;
+  max-height: 85vh;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 12px 40px rgba(0,0,0,.4);
+  user-select: none;
+}
+.lb__caption {
+  color: #fff;
+  font-size: .95rem;
+  opacity: .9;
+  text-align: center;
+}
+
+.lb__nav {
+  background: rgba(255,255,255,.1);
+  border: 0;
+  width: 56px; height: 56px;
+  border-radius: 999px;
+  color: #fff;
+  font-size: 2rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .2s ease, transform .1s ease;
+}
+.lb__nav:hover { background: rgba(255,255,255,.2); }
+.lb__nav:active { transform: scale(.95); }
+
+.lb__prev { justify-self: end; }
+.lb__next { justify-self: start; }
+
+.lb__close {
+  position: fixed;
+  top: 14px; right: 14px;
+  width: 44px; height: 44px;
+  border-radius: 999px;
+  border: 0;
+  background: rgba(255,255,255,.15);
+  color: #fff;
+  font-size: 1.6rem;
+  cursor: pointer;
+  transition: background .2s ease, transform .1s ease;
+  z-index: 2001;
+}
+.lb__close:hover { background: rgba(255,255,255,.25); }
+.lb__close:active { transform: scale(.95); }
+
+@media (max-width: 768px) {
+  .lb {
+    grid-template-columns: 1fr;
+  }
+  .lb__prev, .lb__next {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .lb__prev { left: 8px; }
+  .lb__next { right: 8px; }
+}
+
+/* Lightbox-Trigger: Klicks wieder erlauben */
+.leistungen-page .service-section .img-clickable {
+  pointer-events: auto !important;   /* hebt den globalen block auf */
+  cursor: zoom-in;
+  -webkit-user-drag: none;
+  user-select: none;
 }

@@ -19,7 +19,6 @@ const NavBar = () => {
     root.classList.toggle('is-hero', isHome);
   }, [pathname]);
 
-  // IntersectionObserver auf Hero -> Transparenz & Padding steuern
   useEffect(() => {
     if (pathname !== '/') {
       setHeroVisible(false);
@@ -92,6 +91,12 @@ const NavBar = () => {
     };
   }, [menuOpen]);
 
+  // Logo je nach Kontext: über Hero = weiß, sonst schwarz.
+  // Wenn das Mobile-Menü offen ist, immer das schwarze Logo (solider Hintergrund).
+  const logoSrc = (isHeroVisible && !menuOpen)
+    ? '/Logo-Weiß.png'
+    : '/Logo-Schwarz.png';
+
   return (
     <nav
       className={[
@@ -101,8 +106,8 @@ const NavBar = () => {
       ].join(' ')}
     >
       <div className="navbar__container">
-      <Link to="/" className="navbar__logo" onClick={closeMenu} aria-label="Startseite">
-          <img src="/Logo-Photoroom.png" alt="Logo" />
+        <Link to="/" className="navbar__logo" onClick={closeMenu} aria-label="Startseite">
+          <img src={logoSrc} alt="K.A. MetallForm Logo" />
         </Link>
 
         {/* Navigation-Links */}
@@ -112,10 +117,18 @@ const NavBar = () => {
           role="menu"
           aria-label="Hauptnavigation"
         >
-          <li role="none"><Link role="menuitem" to="/" onClick={closeMenu} className="navbar__link">Home</Link></li>
-          <li role="none"><Link role="menuitem" to="/leistungen" onClick={closeMenu} className="navbar__link">Leistungen</Link></li>
-          <li role="none"><Link role="menuitem" to="/beratung" onClick={closeMenu} className="navbar__link">Beratung</Link></li>
-          <li role="none"><Link role="menuitem" to="/metallform" onClick={closeMenu} className="navbar__link">MetallForm</Link></li>
+          <li role="none">
+            <Link role="menuitem" to="/" onClick={closeMenu} className="navbar__link">Home</Link>
+          </li>
+          <li role="none">
+            <Link role="menuitem" to="/leistungen" onClick={closeMenu} className="navbar__link">Leistungen</Link>
+          </li>
+          <li role="none">
+            <Link role="menuitem" to="/beratung" onClick={closeMenu} className="navbar__link">Beratung</Link>
+          </li>
+          <li role="none">
+            <Link role="menuitem" to="/metallform" onClick={closeMenu} className="navbar__link">MetallForm</Link>
+          </li>
         </ul>
 
         {/* Menü-Button */}

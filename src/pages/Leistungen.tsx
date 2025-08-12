@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, useRef } from 'react';
 import './Leistungen.css';
 import Footer from '../components/Footer';
 
@@ -18,7 +18,7 @@ const categories: Category[] = [
       'Oberflächen erhalten auf Wunsch eine Feuerverzinkung und/oder Pulverbeschichtung. Integration von Schließsystemen, Briefkästen und Klingel-/Sprechanlagen ist möglich.',
       'Von der Vor-Ort-Maßaufnahme über die Konstruktion bis zur Montage kommt alles aus einer Hand.',
     ],
-    images: ['/Tor_1.jpg', '/Tor_2.jpg', '/Tor_3.jpg', '/Tor_4.jpg'],
+    images: ['/Tor_3.jpg', '/Tor_2.jpg', '/Tor_1.jpg', '/Tor_4.jpg'],
   },
   {
     id: 'gelaender',
@@ -28,7 +28,7 @@ const categories: Category[] = [
       'Wir kombinieren Metall mit Holz, Glas oder Lochblech und liefern normgerechte Lösungen inklusive statischer Auslegung.',
       'Oberflächen: roh, geschliffen, verzinkt, pulverbeschichtet – ganz nach Einsatzort und Optik.',
     ],
-    images: ['/Geländer_1.jpg', '/Geländer_2.jpg', '/Geländer_3.jpg', '/Geländer_4.jpg'],
+    images: ['/Geländer_3.jpg', '/Geländer_2.jpg', '/Geländer_1.jpg', '/Geländer_4.jpg'],
   },
   {
     id: 'treppen',
@@ -59,6 +59,7 @@ const categories: Category[] = [
   },
 ];
 
+/* ───────── Utils ───────── */
 function useMediaQuery(q: string) {
   const mq = useMemo(() => window.matchMedia(q), [q]);
   const [matches, setMatches] = useState(mq.matches);
@@ -69,10 +70,78 @@ function useMediaQuery(q: string) {
   }, [mq]);
   return matches;
 }
+const normalizeSrc = (s: string) => (s.startsWith('/') ? s : `/${s}`);
 
-type CategoryBlockProps = Category & { showInlineFooter?: boolean };
+/* ───────── Lightbox ───────── */
+type LightboxProps = {
+  images: string[];
+  index: number;
+  title: string;
+  onClose: () => void;
+  onPrev: () => void;
+  onNext: () => void;
+};
 
-const CategoryBlock = ({ id, title, texts, images, showInlineFooter }: CategoryBlockProps) => (
+function Lightbox({ images, index, title, onClose, onPrev, onNext }: LightboxProps) {
+  const startX = useRef<number | null>(null);
+
+  // ESC, ← →
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+      if (e.key === 'ArrowLeft') onPrev();
+      if (e.key === 'ArrowRight') onNext();
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [onClose, onPrev, onNext]);
+
+  // Body scroll lock
+  useEffect(() => {
+    const { body } = document;
+    const prev = body.style.overflow;
+    body.style.overflow = 'hidden';
+    return () => { body.style.overflow = prev; };
+  }, []);
+
+  const onTouchStart: React.TouchEventHandler = (e) => {
+    startX.current = e.touches[0].clientX;
+  };
+  const onTouchEnd: React.TouchEventHandler = (e) => {
+    if (startX.current == null) return;
+    const dx = e.changedTouches[0].clientX - startX.current;
+    if (dx > 40) onPrev();
+    if (dx < -40) onNext();
+    startX.current = null;
+  };
+
+  return (
+    <div className="lb" onClick={onClose} onTouchStart={onTouchStart} onTouchEnd={onTouchEnd} role="dialog" aria-modal="true" aria-label={`${title} – Bild ${index + 1} von ${images.length}`}>
+      <button className="lb__close" aria-label="Schließen" onClick={onClose}>×</button>
+      <button className="lb__nav lb__prev" aria-label="Vorheriges Bild" onClick={(e)=>{e.stopPropagation(); onPrev();}}>‹</button>
+      <div className="lb__stage" onClick={(e)=>e.stopPropagation()}>
+        <img
+          src={images[index]}
+          alt={`${title} – Bild ${index + 1} / ${images.length}`}
+          className="lb__img"
+          draggable={false}
+        />
+        <div className="lb__caption">
+          {title} — Bild {index + 1} / {images.length}
+        </div>
+      </div>
+      <button className="lb__nav lb__next" aria-label="Nächstes Bild" onClick={(e)=>{e.stopPropagation(); onNext();}}>›</button>
+    </div>
+  );
+}
+
+/* ───────── Kategorien-Block ───────── */
+type CategoryBlockProps = Category & {
+  showInlineFooter?: boolean;
+  onOpenLightbox: (images: string[], startIndex: number, title: string) => void;
+};
+
+const CategoryBlock = ({ id, title, texts, images, showInlineFooter, onOpenLightbox }: CategoryBlockProps) => (
   <section
     id={id}
     className={`service-section fullpage-slide ${showInlineFooter ? 'fullpage-slide--with-footer' : ''}`}
@@ -82,11 +151,15 @@ const CategoryBlock = ({ id, title, texts, images, showInlineFooter }: CategoryB
       <div className="service-main">
         {images[0] && (
           <img
-            className="main-image"
-            src={images[0]}
+            className="main-image img-clickable"
+            src={normalizeSrc(images[0])}
             alt={`${title} Bild 1`}
             loading="lazy"
             draggable={false}
+            onClick={() => onOpenLightbox(images.map(normalizeSrc), 0, title)}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && onOpenLightbox(images.map(normalizeSrc), 0, title)}
           />
         )}
 
@@ -100,10 +173,15 @@ const CategoryBlock = ({ id, title, texts, images, showInlineFooter }: CategoryB
         {images.slice(1, 5).map((src, i) => (
           <img
             key={src}
-            src={src}
+            src={normalizeSrc(src)}
             alt={`${title} Bild ${i + 2}`}
             loading="lazy"
             draggable={false}
+            className="img-clickable"
+            onClick={() => onOpenLightbox(images.map(normalizeSrc), i + 1, title)}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && onOpenLightbox(images.map(normalizeSrc), i + 1, title)}
           />
         ))}
       </div>
@@ -117,6 +195,7 @@ const CategoryBlock = ({ id, title, texts, images, showInlineFooter }: CategoryB
   </section>
 );
 
+/* ───────── Seite ───────── */
 export default function Leistungen() {
   const isDesktop = useMediaQuery('(min-width: 1024px)');
   const reduced   = useMediaQuery('(prefers-reduced-motion: reduce)');
@@ -124,6 +203,22 @@ export default function Leistungen() {
 
   const [index, setIndex] = useState(0);
   const [isAnimating, setAnimating] = useState(false);
+
+  /* Lightbox State */
+  const [lbOpen, setLbOpen] = useState(false);
+  const [lbImages, setLbImages] = useState<string[]>([]);
+  const [lbIndex, setLbIndex] = useState(0);
+  const [lbTitle, setLbTitle] = useState('');
+
+  const openLightbox = (images: string[], startIndex: number, title: string) => {
+    setLbImages(images);
+    setLbIndex(startIndex);
+    setLbTitle(title);
+    setLbOpen(true);
+  };
+  const closeLightbox = () => setLbOpen(false);
+  const lbPrev = () => setLbIndex(i => (i - 1 + lbImages.length) % lbImages.length);
+  const lbNext = () => setLbIndex(i => (i + 1) % lbImages.length);
 
   /* Body-Klasse für globalen Footer (ausblenden bei Fullpage) */
   useEffect(() => {
@@ -136,7 +231,7 @@ export default function Leistungen() {
   /* Page-by-page (nur Desktop) */
   useEffect(() => {
     if (!isFullpage) return;
-    const totalSlides = categories.length; // Footer ist inline in letzter Slide
+    const totalSlides = categories.length;
 
     const goTo = (next: number) => {
       const max = totalSlides - 1;
@@ -148,14 +243,14 @@ export default function Leistungen() {
     };
 
     const onWheel = (e: WheelEvent) => {
-      if (!isFullpage || isAnimating) return;
+      if (!isFullpage || isAnimating || lbOpen) return;  // Lightbox blockiert
       if (Math.abs(e.deltaY) < 10) return;
       e.preventDefault();
       goTo(index + (e.deltaY > 0 ? 1 : -1));
     };
 
     const onKey = (e: KeyboardEvent) => {
-      if (!isFullpage || isAnimating) return;
+      if (!isFullpage || isAnimating || lbOpen) return;
       if (['ArrowDown','PageDown',' '].includes(e.key)) { e.preventDefault(); goTo(index + 1); }
       if (['ArrowUp','PageUp'].includes(e.key))        { e.preventDefault(); goTo(index - 1); }
     };
@@ -166,7 +261,7 @@ export default function Leistungen() {
       window.removeEventListener('wheel', onWheel);
       window.removeEventListener('keydown', onKey);
     };
-  }, [isFullpage, index, isAnimating]);
+  }, [isFullpage, index, isAnimating, lbOpen]);
 
   const handleDotClick = (i: number) => (e: React.MouseEvent) => {
     e.preventDefault();
@@ -196,7 +291,6 @@ export default function Leistungen() {
       <div className="slides">
         <div
           className="slides__inner"
-          // transform on inner wrapper keeps outer overflow hidden
           style={isFullpage && index > 0 ? { transform: `translateY(calc(-${index} * var(--slide-h)))` } : undefined}
         >
           {categories.map((c, i) => (
@@ -204,10 +298,22 @@ export default function Leistungen() {
               key={c.id}
               {...c}
               showInlineFooter={isFullpage && i === categories.length - 1}
+              onOpenLightbox={openLightbox}
             />
           ))}
         </div>
       </div>
+
+      {lbOpen && (
+        <Lightbox
+          images={lbImages}
+          index={lbIndex}
+          title={lbTitle}
+          onClose={closeLightbox}
+          onPrev={lbPrev}
+          onNext={lbNext}
+        />
+      )}
     </div>
   );
 }
