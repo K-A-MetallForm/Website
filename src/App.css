@@ -1,26 +1,34 @@
-/* Grundlayout nur hier definieren; keine harten 100%-Höhen auf html/body */
+/* Grundlayout */
 #root {
   width: 100%;
   text-align: center;
   background: var(--color-bg);
 }
 
-/* App-Container füllt die Viewhöhe robust aus */
 .app {
-  min-height: 100dvh;         /* robuster als 100vh */
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
   background: var(--color-bg);
 }
 
-/* Main-Inhalt flexibel, keine eigenen Scrollbars erzwingen */
 .app__content {
   flex: 1;
   min-height: 0;
   background: var(--color-bg);
-  padding-top: var(--nav-h);
+  padding-top: var(--nav-h); /* Standard: Platz für fixed Navbar */
 }
 
+/* Home-Hero: kein Top-Padding (Navbar über dem Hero) */
 .route-home.is-hero .app__content {
   padding-top: 0;
+}
+
+/* ── Mobile Startseite: app__content scrollt NICHT; Scroller ist .startseite.mobile ── */
+@media (max-width: 1023.98px) {
+  .route-home .app__content {
+    padding-top: 0;   /* Hero wirklich unter der Navbar */
+    height: auto;
+    overflow: hidden; /* wichtig: kein eigener Scroll hier! */
+  }
 }

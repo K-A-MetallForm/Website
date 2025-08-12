@@ -8,7 +8,7 @@ export default function MetallForm() {
       <section className="about__hero" aria-label="Unternehmensvorstellung">
         <div className="about__container about__hero-grid">
           <div className="about__hero-text">
-            <h1>Metallbau K.A. MetallForm in Karlsruhe</h1>
+            <h1>K.A. MetallForm in Karlsruhe</h1>
             <p className="about__lead">
               Frisches Handwerk mit viel Herz: Wir sind ein junges Metallbau-Unternehmen und
               verbinden präzise Verarbeitung mit modernen Ideen – für Treppen, Geländer,

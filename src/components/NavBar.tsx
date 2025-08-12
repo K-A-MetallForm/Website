@@ -3,22 +3,39 @@ import { Link, useLocation } from 'react-router-dom';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import './NavBar.css';
 
+function useMediaQuery(q: string) {
+  const [match, setMatch] = useState(() => window.matchMedia(q).matches);
+  useEffect(() => {
+    const mq = window.matchMedia(q);
+    const onChange = (e: MediaQueryListEvent) => setMatch(e.matches);
+    mq.addEventListener?.('change', onChange);
+    return () => mq.removeEventListener?.('change', onChange);
+  }, [q]);
+  return match;
+}
+
 const NavBar = () => {
   const { pathname } = useLocation();
+  const isMobile = useMediaQuery('(max-width: 1023.98px)');
+
   const [menuOpen, setMenuOpen] = useState(false);
+
+  // Sichtbarkeit: Desktop = Hero sichtbar; Mobile = Footer NICHT sichtbar
   const [isHeroVisible, setHeroVisible] = useState(pathname === '/');
+  const [isFooterInView, setFooterInView] = useState(false);
 
   const toggleMenu = () => setMenuOpen(prev => !prev);
   const closeMenu = () => setMenuOpen(false);
 
-  // Route-Klasse auf <html>
+  // Route-Klasse auf <html> (u.a. für padding-top:0 am Home-Hero)
   useEffect(() => {
     const root = document.documentElement;
     const isHome = pathname === '/';
     root.classList.toggle('route-home', isHome);
-    root.classList.toggle('is-hero', isHome);
+    root.classList.toggle('is-hero', isHome); // initial
   }, [pathname]);
 
+  // Desktop: Hero beobachten (Navbar transparent nur über Hero)
   useEffect(() => {
     if (pathname !== '/') {
       setHeroVisible(false);
@@ -33,11 +50,29 @@ const NavBar = () => {
       setHeroVisible(visible);
       document.documentElement.classList.toggle('is-hero', visible);
     }, { threshold: 0.3 });
+
     obs.observe(hero);
     return () => obs.disconnect();
   }, [pathname]);
 
-  // --nav-h dynamisch setzen
+  // Mobile: Footer beobachten (Navbar nur bis zum Footer transparent)
+  useEffect(() => {
+    if (pathname !== '/') {
+      setFooterInView(false);
+      return;
+    }
+    const footer = document.getElementById('footer');
+    if (!footer) return;
+
+    const obs = new IntersectionObserver(([entry]) => {
+      setFooterInView(entry.isIntersecting);
+    }, { threshold: 0.01 });
+
+    obs.observe(footer);
+    return () => obs.disconnect();
+  }, [pathname]);
+
+  // --nav-h dynamisch setzen (für Layout)
   useEffect(() => {
     const update = () => {
       const nav = document.querySelector('.navbar') as HTMLElement | null;
@@ -81,27 +116,26 @@ const NavBar = () => {
   // Body-Scroll sperren, wenn Mobile-Menü offen
   useEffect(() => {
     const { body } = document;
-    if (menuOpen) {
-      body.style.overflow = 'hidden';
-    } else {
-      body.style.overflow = '';
-    }
-    return () => {
-      body.style.overflow = '';
-    };
+    if (menuOpen) body.style.overflow = 'hidden';
+    else body.style.overflow = '';
+    return () => { body.style.overflow = ''; };
   }, [menuOpen]);
 
-  // Logo je nach Kontext: über Hero = weiß, sonst schwarz.
-  // Wenn das Mobile-Menü offen ist, immer das schwarze Logo (solider Hintergrund).
-  const logoSrc = (isHeroVisible && !menuOpen)
-    ? '/Logo-Weiß.png'
-    : '/Logo-Schwarz.png';
+  // Transparent-Logik:
+  // - nicht Home => solid
+  // - Mobile (Home): transparent solange Footer NICHT in Sicht
+  // - Desktop (Home): transparent solange Hero sichtbar
+  const wantsTransparentOnHome = isMobile ? !isFooterInView : isHeroVisible;
+  const isTransparent = pathname === '/' && wantsTransparentOnHome && !menuOpen;
+
+  // Logo je nach Kontext
+  const logoSrc = isTransparent ? '/Logo-Weiß.png' : '/Logo-Schwarz.png';
 
   return (
     <nav
       className={[
         'navbar',
-        isHeroVisible ? 'navbar--transparent' : 'navbar--solid',
+        isTransparent ? 'navbar--transparent' : 'navbar--solid',
         menuOpen ? 'navbar--open' : ''
       ].join(' ')}
     >

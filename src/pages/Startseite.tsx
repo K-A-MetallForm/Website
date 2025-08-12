@@ -3,6 +3,24 @@ import './Startseite.css';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 
+const featureItems = [
+  {
+    img: '/Geländer_1.jpg',
+    title: 'Individuelle Bauelemente',
+    text: 'Planung und Fertigung von Treppen, Geländern, Balkonen und Überdachungen – passgenau auf Ihre Anforderungen abgestimmt',
+  },
+  {
+    img: '/Treppe_1.jpg',
+    title: 'Präzisions-Schweiß- & Blechbearbeitung',
+    text: 'Sonderanfertigungen aus Stahl, Edelstahl und Aluminium: effizient geschweißt, exakt zugeschnitten und oberflächenveredelt.',
+  },
+  {
+    img: '/Tor_1.jpg',
+    title: 'Montage & Reparatur',
+    text: 'Fachgerechte Installation, Reparaturen Ihrer Metallkonstruktionen – für dauerhafte Sicherheit und Funktion.',
+  },
+];
+
 const Hero: React.FC = () => (
   <section
     className="hero fullpage-slide fullpage-slide--start-hero"
@@ -29,51 +47,50 @@ const Hero: React.FC = () => (
   </section>
 );
 
-const Features: React.FC = () => {
-  const items = [
-    {
-      img: '/Geländer_1.jpg',
-      title: 'Individuelle Bauelemente',
-      text: 'Planung und Fertigung von Treppen, Geländern, Balkonen und Überdachungen – passgenau auf Ihre Anforderungen abgestimmt',
-    },
-    {
-      img: '/Treppe_1.jpg',
-      title: 'Präzisions-Schweiß- & Blechbearbeitung',
-      text: 'Sonderanfertigungen aus Stahl, Edelstahl und Aluminium: effizient geschweißt, exakt zugeschnitten und oberflächenveredelt.',
-    },
-    {
-      img: '/Tor_1.jpg',
-      title: 'Montage & Reparatur',
-      text: 'Fachgerechte Installation, Reparaturen Ihrer Metallkonstruktionen – für dauerhafte Sicherheit und Funktion.',
-    },
-  ];
+/* Desktop-Features (Grid) */
+const FeaturesDesktop: React.FC = () => (
+  <section
+    className="features fullpage-slide fullpage-slide--features"
+    id="features"
+    aria-label="Unsere Dienstleistungen"
+  >
+    <h2>Unsere Dienstleistungen</h2>
 
-  return (
-    <section
-      className="features fullpage-slide fullpage-slide--features"
-      id="features"
-      aria-label="Unsere Dienstleistungen"
-    >
-      <h2>Unsere Dienstleistungen</h2>
+    <div className="features__grid">
+      {featureItems.map((f, i) => (
+        <article key={i} className={`feature feature--${i + 1}`} aria-label={f.title}>
+          <img
+            src={f.img}
+            alt={f.title}
+            className="feature__img"
+            loading="lazy"
+            draggable={false}
+          />
+          <h3>{f.title}</h3>
+          <p>{f.text}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+);
 
-      <div className="features__grid">
-        {items.map((f, i) => (
-          <article key={i} className={`feature feature--${i + 1}`} aria-label={f.title}>
-            <img
-              src={f.img}
-              alt={f.title}
-              className="feature__img"
-              loading="lazy"
-              draggable={false}
-            />
+/* Mobile-Features: je Dienstleistung eine Snap-Slide mit Rand und zentriertem Inhalt */
+const FeaturesMobile: React.FC = () => (
+  <>
+    {featureItems.map((f, i) => (
+      <section key={i} className="snap-slide" aria-label={f.title}>
+        <div className="snap-card">
+          <div className="snap__bg" style={{ backgroundImage: `url(${f.img})` }} aria-hidden="true" />
+          <div className="snap__overlay" aria-hidden="true" />
+          <div className="snap__content snap-anim">
             <h3>{f.title}</h3>
             <p>{f.text}</p>
-          </article>
-        ))}
-      </div>
-    </section>
-  );
-};
+          </div>
+        </div>
+      </section>
+    ))}
+  </>
+);
 
 const CTA: React.FC = () => (
   <section className="cta fullpage-slide fullpage-slide--cta" id="cta" aria-label="Kontakt">
@@ -103,6 +120,29 @@ const CTA: React.FC = () => (
   </section>
 );
 
+/* Mobile-CTA im Snap-Stil + Footer */
+const CTAMobile: React.FC = () => (
+  <section className="snap-slide" id="cta-mobile" aria-label="Kontakt">
+    <div className="snap-card">
+      <div className="snap__bg" style={{ backgroundImage: `url(/image_001.avif)` }} aria-hidden="true" />
+      <div className="snap__overlay" aria-hidden="true" />
+      <div className="snap__content snap-anim">
+        <h2 className="cta__text">Nimm mit uns Kontakt auf</h2>
+        <p className="cta_text">
+          Hast du Interesse an einer Zusammenarbeit? Fülle bitte das Formular aus und
+          wir werden uns in Kürze bei dir melden. Wir freuen uns schon darauf, von dir zu hören.
+        </p>
+        <Link to="/beratung" className="btn btn--accent-cta">Kontakt</Link>
+      </div>
+    </div>
+
+    {/* Footer unter der Karte */}
+    <div className="footer-inline footer-inline--mobile">
+      <Footer />
+    </div>
+  </section>
+);
+
 function useMediaQuery(q: string) {
   const mq = useMemo(() => window.matchMedia(q), [q]);
   const [matches, setMatches] = useState(mq.matches);
@@ -118,10 +158,12 @@ export default function Startseite() {
   const isDesktop   = useMediaQuery('(min-width: 1024px)');
   const reduced     = useMediaQuery('(prefers-reduced-motion: reduce)');
   const isFullpage  = isDesktop && !reduced;
+  const isMobileSnap = !isDesktop;
 
   const [index, setIndex] = useState(0);
   const [isAnimating, setAnimating] = useState(false);
 
+  // Desktop Fullpage Klasse
   useEffect(() => {
     const root = document.documentElement;
     if (isFullpage) root.classList.add('start-fullpage');
@@ -129,6 +171,18 @@ export default function Startseite() {
     return () => root.classList.remove('start-fullpage');
   }, [isFullpage]);
 
+  // Mobile: Inview-Animationen
+  useEffect(() => {
+    if (isFullpage || reduced) return;
+    const slides = Array.from(document.querySelectorAll<HTMLElement>('.snap-slide'));
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('is-inview'); });
+    }, { threshold: 0.6 });
+    slides.forEach(s => obs.observe(s));
+    return () => obs.disconnect();
+  }, [isFullpage, reduced]);
+
+  // Desktop: Fullpage Wheel/Key
   const slides = ['hero', 'features', 'cta'];
   const dotSlides = slides;
 
@@ -168,6 +222,18 @@ export default function Startseite() {
     setIndex(i);
   };
 
+  /* MOBILE: Snap-Layout */
+  if (!isFullpage && isMobileSnap) {
+    return (
+      <div className="startseite mobile">
+        <Hero />
+        <FeaturesMobile />
+        <CTAMobile />
+      </div>
+    );
+  }
+
+  /* DESKTOP: Fullpage-Layout */
   return (
     <div className={`startseite ${isFullpage ? 'fullpage' : ''}`}>
       {isFullpage && (
@@ -194,7 +260,7 @@ export default function Startseite() {
           }
         >
           <Hero />
-          <Features />
+          <FeaturesDesktop />
           <CTA />
         </div>
       </div>

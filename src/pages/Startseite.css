@@ -1,3 +1,7 @@
+#root {
+  --nav-h: 0px; /* Höhe der Navbar */
+}
+
 /* Basis-Container */
 .container {
   width: 90%;
@@ -7,30 +11,22 @@
   background-color: transparent;
 }
 
-/* Fullpage Variablen für diese Seite (werden durch :root --slide-h genutzt) */
-.start-fullpage { --nav-h: 80px; }
-
-/* Seite */
-.startseite { min-height: 100svh; }
-
-/* Fullpage Desktop */
+/* Desktop Fullpage */
 .fullpage { height: 100svh; overflow: hidden; position: relative; }
 .fullpage .slides { height: 100%; overflow: hidden; position: relative; }
 .fullpage .slides__inner { height: 100%; transition: transform 700ms ease; will-change: transform; }
-
-/* Jede Slide: exakt --slide-h hoch */
 .fullpage .fullpage-slide {
   height: var(--slide-h);
   min-height: var(--slide-h);
-  padding: 0; /* Standard: kein zusätzliches Padding */
+  padding: 0;
   position: relative;
   overflow: clip;
   contain: layout paint;
   background: var(--color-bg);
 }
-
-/* HERO: volle Höhe, vollbreit */
 .fullpage .fullpage-slide--start-hero { height: var(--slide-h); min-height: var(--slide-h); padding-top: 0; }
+
+/* HERO */
 .hero {
   position: relative;
   min-height: var(--slide-h);
@@ -46,7 +42,7 @@
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover; /* volle Breite/Höhe */
+  object-fit: cover;
   object-position: center;
   filter: brightness(0.3);
   z-index: 0;
@@ -61,7 +57,7 @@
 .hero__content h1 { font-size: clamp(2rem, 3vw, 3rem); margin-bottom: 0.5rem; }
 .hero__content p  { font-size: clamp(1rem, 1.5vw, 1.5rem); margin-bottom: 1rem; }
 
-/* Dots */
+/* Dots (Desktop) */
 .dots {
   position: fixed;
   right: 16px;
@@ -81,182 +77,133 @@
 .dots a.active { background: var(--color-accent); transform: scale(1.4); }
 
 /* Buttons */
-.btn {
-  display: inline-block;
-  padding: 0.75rem 1.5rem;
-  text-decoration: none;
-  border-radius: 2rem;
-  transition: transform 0.3s;
-}
+.btn { display: inline-block; padding: .75rem 1.5rem; text-decoration: none; border-radius: 2rem; transition: transform .3s; }
 .btn--accent { background-color: var(--color-accent); color: var(--color-text); }
 .btn--accent:hover { transform: translateY(-3px); }
-.cta_text { font-size: 1rem; margin-bottom: var(--space-md); color: var(--color-text); }
+.cta_text { font-size: 1rem; margin-bottom: var(--space-md); color: white;}
 .btn--accent-cta { background-color: var(--color-accent); color: var(--color-text); width: fit-content; margin: 0 auto; }
 .btn--accent-cta:hover { transform: translateY(-3px); }
 
-/* FEATURES */
-.features {
-  padding: 0 var(--space-md);
-  text-align: center;
-  background-color: var(--color-bg);
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
+/* FEATURES (Desktop) */
+.features { padding: 0 var(--space-md); text-align: center; background-color: var(--color-bg); height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; }
 .features h2 { font-size: clamp(1.6rem, 2vw, 2rem); margin-bottom: 1.5rem; color: var(--color-text); }
-
-/* Desktop: nebeneinander */
-.features__grid {
-  display: grid;
-  gap: 1rem;
-}
+.features__grid { display: grid; gap: 1rem; }
 @media (min-width: 1024px) {
-  .features__grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    align-items: start;
-  }
+  .features__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: start; }
 }
-.feature {
-  padding: var(--space-md);
-  border-radius: 0.5rem;
-  background: transparent;
-  color: var(--color-text);
-  text-align: left;
-}
+.feature { padding: var(--space-md); border-radius: .5rem; background: transparent; color: var(--color-text); text-align: left; }
+.feature__img { display: block; width: 100%; height: clamp(200px, 28vh, 260px); aspect-ratio: 4 / 3; object-fit: cover; object-position: center; margin-bottom: .75rem; border-radius: 12px; }
+.feature h3 { font-size: clamp(1.2rem, 1.8vw, 1.5rem); margin-bottom: .5rem; }
 
-/* Einheitliche Bildgröße */
-.feature__img {
-  display: block;
-  width: 100%;
-  height: clamp(200px, 28vh, 260px);
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
-  object-position: center;
-  margin-bottom: 0.75rem;
-  border-radius: 12px;
-}
-.feature h3 { font-size: clamp(1.2rem, 1.8vw, 1.5rem); margin-bottom: 0.5rem; }
-
-/* CTA (Footer auf derselben Seite) */
-.cta {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-.fullpage .fullpage-slide--cta {
-  height: auto;
-  min-height: var(--slide-h);
-  overflow: visible;
-  padding-top: var(--nav-h); /* Abstand zur Navbar */
-}
-
-.cta__inner {
-  display: flex; align-items: stretch; justify-content: center; gap: var(--space-lg); flex-wrap: nowrap;
-  max-width: 1200px; margin: 0 auto; background: none; border-radius: 0.5rem; padding: var(--space-md); margin-top: 100px;
-}
-.cta__text-container {
-  flex: 0 1 480px; display: flex; flex-direction: column; justify-content: center; text-align: center;
-}
+/* CTA (Desktop) */
+.cta { width: 100%; display: flex; flex-direction: column; justify-content: center; }
+.fullpage .fullpage-slide--cta { height: auto; min-height: var(--slide-h); overflow: visible; padding-top: var(--nav-h); }
+.cta__inner { display: flex; align-items: stretch; justify-content: center; gap: var(--space-lg); flex-wrap: nowrap; max-width: 1200px; margin: 0 auto; background: none; border-radius: .5rem; padding: var(--space-md); margin-top: 100px; }
+.cta__text-container { flex: 0 1 480px; display: flex; flex-direction: column; justify-content: center; text-align: center; }
 .cta__image-container { flex: 1 1 680px; position: relative; min-width: 520px; }
 .cta__image { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; }
 
 /* Footer inline */
-.footer-inline {
-  margin-top: auto;
-  width: 100%;
-  padding: 2rem 0 0;
-  border-top: 1px solid rgba(0,0,0,0.1);
-}
+.footer-inline { margin-top: auto; width: 100%; padding: 2rem 0 0; border-top: 1px solid rgba(0,0,0,0.1); }
 .footer-inline .to-top { display: none !important; }
 
-/* Responsive */
-@media (max-width: 1024px) {
-  .fullpage { height: auto; overflow: visible; }
-  .slides__inner { transform: none !important; }
-  .fullpage .fullpage-slide { height: auto; min-height: unset; padding-top: 0; overflow: visible; }
-  .dots { display: none; }
+/* === Desktop-Fullpage-Lock === */
+.start-fullpage { height: 100dvh; overflow: hidden; overscroll-behavior: none; scroll-behavior: auto; }
+.start-fullpage body { height: 100%; overflow: hidden; overscroll-behavior-y: none; -webkit-overflow-scrolling: auto; }
+.start-fullpage #root, .start-fullpage .app, .start-fullpage .app__content { height: 100%; min-height: 0; overflow: clip; }
+.start-fullpage .fullpage, .start-fullpage .slides { height: 100%; overflow: clip; }
+.start-fullpage .fullpage .fullpage-slide { height: var(--slide-h) !important; min-height: var(--slide-h) !important; padding: 0 !important; }
 
-  .cta__inner { flex-wrap: wrap; gap: var(--space-md); }
-  .cta__image-container { order: -1; min-width: 0; flex: 1 1 auto; }
-  .footer-inline { margin-top: 3rem; }
-}
-@media (max-width: 768px) {
-  .features__grid { grid-template-columns: 1fr; }
-  .cta__inner { flex-direction: column; text-align: center; }
-  .cta__text-container, .cta__image-container { flex: 1 1 auto; }
-  .cta__text { font-size: 1rem; }
-}
+/* ───────── MOBILE: Scroll-Snap – Scroller ist .startseite.mobile ───────── */
+@media (max-width: 1023.98px) {
+  /* Scroller */
+  .startseite.mobile {
+    height: 100svh;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    scroll-snap-type: y mandatory;
+    scroll-padding-top: var(--nav-h); /* fixe Navbar kompensieren */
+    -webkit-overflow-scrolling: touch;
+  }
 
-/* === Fullpage: Browser-Scroll komplett sperren === */
-.start-fullpage {
-  height: 100dvh;
-  overflow: hidden;
-  overscroll-behavior: none;
-  scroll-behavior: auto;
-}
-.start-fullpage body {
-  height: 100%;
-  overflow: hidden;
-  overscroll-behavior-y: none;
-  -webkit-overflow-scrolling: auto;
-}
-.start-fullpage #root,
-.start-fullpage .app,
-.start-fullpage .app__content {
-  height: 100%;
-  min-height: 0;
-  overflow: clip;
-}
+  /* Snap-Elemente */
+  .startseite.mobile .hero,
+  .startseite.mobile .snap-slide {
+    min-height: 100svh;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-/* Sicherheitshalber auch Hülle dicht machen */
-.start-fullpage .fullpage,
-.start-fullpage .slides {
-  height: 100%;
-  overflow: clip;
-}
+  /* Karte mit kleinem Rand, zentriert */
+  .startseite.mobile { --snap-gap: .75rem; }
+  .snap-card {
+    position: relative;
+    margin: var(--snap-gap) auto;
+    border-radius: 14px;
+    overflow: hidden;
+    min-height: calc(100svh - (var(--snap-gap) * 2));
+    width: calc(100% - (var(--snap-gap) * 2));
+    max-width: 1000px;
+  }
 
-/* --- HERO & Slides wirklich vollbreit --- */
-.start-fullpage .startseite .fullpage,
-.start-fullpage .startseite .slides,
-.start-fullpage .startseite .fullpage-slide--start-hero,
-.start-fullpage .startseite .hero {
-  width: 100vw;
-  max-width: 100vw;
-  margin-left: calc(50% - 50vw);
-  margin-right: calc(50% - 50vw);
-}
-.start-fullpage .startseite .hero__img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-}
+  .snap__bg { position: absolute; inset: 0; background-size: cover; background-position: center; }
+  .snap__overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.7); }
 
-/* CTA: oben Luft zur Navbar – ohne Seiten-Padding */
-.start-fullpage .fullpage-slide--cta {
-  padding-top: var(--nav-h);
-  margin-left: calc(50% - 50vw);
-  margin-right: calc(50% - 50vw);
+  .snap__content {
+    position: relative; z-index: 2; color: #fff; text-align: center;
+    max-width: 800px; margin: 0 auto; padding: 1rem var(--space-md);
+    display: flex; flex-direction: column; justify-content: center; min-height: inherit;
+  }
+  .snap__content h3 { font-size: clamp(1.6rem, 4vw, 2.2rem); margin-bottom: .5rem; }
+  .snap__content p  { font-size: clamp(1rem, 3.2vw, 1.2rem); margin-bottom: 1rem; }
+  #cta-mobile .btn--accent-cta { margin-top: .5rem; }
+
+  /* In-View Animation */
+  @media (prefers-reduced-motion: no-preference) {
+    .snap-anim { opacity: 0; transform: translateY(8px) scale(.985); transition: opacity .6s ease, transform .6s ease; }
+    .snap-slide.is-inview .snap-anim { opacity: 1; transform: none; }
+  }
+
+  /* Desktop-Varianten auf Mobile ausblenden */
+  .features { display: none !important; }
+  .fullpage-slide--cta { display: none !important; }
+  .dots { display: none !important; }
+
+  /* Footer unter der mobilen CTA-Karte */
+  .footer-inline--mobile { padding-top: var(--space-md); }
 }
 
-/* Sicherheit: Body/Root im Fullpage-Modus nicht scrollen lassen */
-.start-fullpage,
-.start-fullpage body,
-.start-fullpage #root {
-  overflow: hidden;
-}
+@media (max-width: 1023.98px) {
+  /* Snap-Slide stapelt Inhalte untereinander */
+  .startseite.mobile .snap-slide {
+    display: flex;
+    flex-direction: column;         /* <-- statt row */
+    align-items: center;            /* Karte zentrieren */
+    justify-content: flex-start;    /* oben beginnen */
+  }
 
-/* ─────────────────────────────────────────────────────────────
-   Harter Fix: Fremd-Styles auf .fullpage .fullpage-slide neutralisieren
-   (bei dir setzen andere CSS height:auto + padding; das heben wir auf)
-   ───────────────────────────────────────────────────────────── */
-.start-fullpage .fullpage .fullpage-slide {
-  height: var(--slide-h) !important;
-  min-height: var(--slide-h) !important;
-  padding: 0 !important;
+  /* Karte bleibt groß, bekommt unten Luft zum Footer */
+  .startseite.mobile .snap-card {
+    flex: 0 0 auto;
+    margin-bottom: var(--snap-gap); /* kleiner Abstand zur Footer-Sektion */
+  }
+
+  /* Footer nimmt volle Breite ein und sitzt unter der Karte */
+  .footer-inline--mobile {
+    order: 2;                       /* Sicherheit: nach der Karte */
+    width: 100%;
+    max-width: 1000px;              /* analog zur Karte */
+    margin: 0 auto var(--snap-gap);
+    padding: var(--space-md) var(--space-md) 0;
+  }
+
+  /* Footer-Inhalt auf Mobile nicht eingeengt */
+  .footer-inline--mobile footer {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+  }
 }

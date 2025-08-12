@@ -120,3 +120,8 @@
 .navbar--solid .navbar__menu-button {
   color: var(--color-text);
 }
+
+.navbar--transparent{
+  background:transparent !important; /* Falls irgendein Style überlagert */
+  box-shadow:none !important;
+}
