@@ -5,7 +5,7 @@ import Footer from '../components/Footer';
 
 const featureItems = [
   {
-    img: '/Geländer_1.jpg',
+    img: '/Geländer_3.jpg',
     title: 'Individuelle Bauelemente',
     text: 'Planung und Fertigung von Treppen, Geländern, Balkonen und Überdachungen – passgenau auf Ihre Anforderungen abgestimmt',
   },
@@ -15,7 +15,7 @@ const featureItems = [
     text: 'Sonderanfertigungen aus Stahl, Edelstahl und Aluminium: effizient geschweißt, exakt zugeschnitten und oberflächenveredelt.',
   },
   {
-    img: '/Tor_1.jpg',
+    img: '/Tor_3.jpg',
     title: 'Montage & Reparatur',
     text: 'Fachgerechte Installation, Reparaturen Ihrer Metallkonstruktionen – für dauerhafte Sicherheit und Funktion.',
   },

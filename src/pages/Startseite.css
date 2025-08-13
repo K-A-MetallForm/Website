@@ -182,7 +182,7 @@
   }
 
   .snap__bg { position: absolute; inset: 0; background-size: cover; background-position: center; }
-  .snap__overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.7); }
+  .snap__overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.45); }
 
   .snap__content {
     position: relative; z-index: 2; color: #fff; text-align: center;
