@@ -5,6 +5,8 @@ import Startseite from './pages/Startseite.tsx';
 import Leistungen from './pages/Leistungen';
 import Beratung from './pages/Beratung.tsx';
 import MetallForm from './pages/MetallForm.tsx';
+import Impressum from './pages/Impressum.tsx';
+import Datenschutz from './pages/Datenschutz.tsx';
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
             <Route path="/leistungen" element={<Leistungen />} />
             <Route path="/beratung" element={<Beratung />} />
             <Route path="/metallform" element={<MetallForm />} />
+            <Route path="/impressum" element={<Impressum />} />
+            <Route path="/datenschutz" element={<Datenschutz />} />
           </Routes>
         </main>
       </div>

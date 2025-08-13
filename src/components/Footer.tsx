@@ -23,9 +23,8 @@ const Footer: React.FC = () => {
         <section className="footer__section footer__legal">
           <h2 className="footer__title">Rechtliches</h2>
           <ul className="footer__list">
-            <li><a href="#impressum" className="footer__link">Impressum</a></li>
-            <li><a href="#datenschutz" className="footer__link">Datenschutz</a></li>
-            <li><a href="#agb" className="footer__link">AGB</a></li>
+            <li><a href="/impressum" className="footer__link">Impressum</a></li>
+            <li><a href="/datenschutz" className="footer__link">Datenschutz</a></li>
           </ul>
           <div className="footer__imprint">
             <p>
