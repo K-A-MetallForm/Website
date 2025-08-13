@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState, useRef } from 'react';
 import './Leistungen.css';
-import Footer from '../components/Footer';
 
 interface Category {
   id: string;
@@ -189,7 +188,6 @@ const CategoryBlock = ({ id, title, texts, images, showInlineFooter, onOpenLight
 
     {showInlineFooter && (
       <div className="footer-inline">
-        <Footer />
       </div>
     )}
   </section>

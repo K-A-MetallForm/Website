@@ -59,4 +59,19 @@
   .legal-page > .footer {
     margin-top: auto;
   }
+
+  .legal-page{
+    --font-base: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans",
+    "Liberation Sans", sans-serif;
+    --font-heading: var(--font-base);
+    font-family: var(--font-base);
+  }
+
+  
+  .legal-page :where(h1, h2, h3, h4, h5, h6) {
+    letter-spacing: .01em;
+  }
+  .legal-page :where(p, li, a, address, small, span, strong) {
+    font-family: var(--font-base);
+  }
   

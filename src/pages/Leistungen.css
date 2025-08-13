@@ -149,8 +149,8 @@
   padding-bottom: .5rem; /* zusätzliche Luft über dem Footer */
 }
 
-/* ───────── MOBILE-OPTIMIERUNG ───────── */
-@media (max-width: 1024px) {
+/* ───────── TABLET + MOBILE ───────── */
+@media (max-width: 1023px) {
   .fullpage { height: auto; overflow: visible; }
   .slides__inner { transform: none !important; }
   .fullpage .fullpage-slide { height: auto; min-height: unset; padding-top: 0; overflow: visible; }
@@ -164,6 +164,28 @@
 
   .thumbnail-row { margin-top: .75rem; }
   .footer-inline { position: static; padding-top: 2rem; }
+
+  /* Dünner schwarzer Trenner zwischen Sektionen (Tablet+Mobile) */
+  .service-section {
+    border-bottom: 2px solid #000;
+  }
+  .service-section:last-of-type {
+    border-bottom: none;
+  }
+}
+
+/* Zusätzlicher vertikaler Abstand speziell zwischen 1024px und 769px */
+@media (min-width: 769px) and (max-width: 1023.98px) {
+  .service-section {
+    /* mehr Luft oben/unten, damit Sektionen nicht „kleben“ */
+    padding: 1.5rem 0 2.25rem;
+  }
+  .service-inner {
+    gap: 1.25rem;
+  }
+  .thumbnail-row {
+    margin-top: 1rem;
+  }
 }
 
 /* Handys: klare, konsistente Gutter */

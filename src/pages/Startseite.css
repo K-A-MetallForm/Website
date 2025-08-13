@@ -26,7 +26,7 @@
 }
 .fullpage .fullpage-slide--start-hero { height: var(--slide-h); min-height: var(--slide-h); padding-top: 0; }
 
-/* HERO */
+/* ───────── HERO ───────── */
 .hero {
   position: relative;
   min-height: var(--slide-h);
@@ -37,6 +37,7 @@
   background: #000;
   contain: paint;
 }
+
 .hero__img {
   position: absolute;
   inset: 0;
@@ -44,20 +45,37 @@
   height: 100%;
   object-fit: cover;
   object-position: center;
-  filter: brightness(0.4);
+  filter: brightness(0.35);
   z-index: 0;
   pointer-events: none;
 }
-.hero-overlay { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
-.hero__content {
-  position: relative; z-index: 2;
-  max-width: 800px; padding: var(--space-md);
-  text-align: center; background: none; color: white;
-}
-.hero__content h1 { font-size: clamp(2rem, 3vw, 3rem); margin-bottom: 0.5rem; }
-.hero__content p  { font-size: clamp(1rem, 1.5vw, 1.5rem); margin-bottom: 1rem; }
 
-/* Dots (Desktop) */
+.hero-overlay { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+
+/* Text mittig im Bild */
+.hero__content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  max-width: 900px;
+  padding: var(--space-md);
+  text-align: center;
+  background: none;
+  color: #fff;
+}
+
+.hero__content h1 {
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  margin-bottom: 1rem;
+}
+.hero__content p {
+  font-size: clamp(1.2rem, 1.8vw, 1.6rem);
+  margin-bottom: 1.5rem;
+}
+
+/* ───────── Dots (Desktop) ───────── */
 .dots {
   position: fixed;
   right: 16px;
@@ -76,7 +94,7 @@
 .dots a:hover { transform: scale(1.2); }
 .dots a.active { background: var(--color-accent); transform: scale(1.4); }
 
-/* Buttons */
+/* ───────── Buttons ───────── */
 .btn { display: inline-block; padding: .75rem 1.5rem; text-decoration: none; border-radius: 2rem; transition: transform .3s; }
 .btn--accent { background-color: var(--color-accent); color: var(--color-text); }
 .btn--accent:hover { transform: translateY(-3px); }
@@ -84,7 +102,7 @@
 .btn--accent-cta { background-color: var(--color-accent); color: var(--color-text); width: fit-content; margin: 0 auto; }
 .btn--accent-cta:hover { transform: translateY(-3px); }
 
-/* FEATURES (Desktop) */
+/* ───────── FEATURES (Desktop) ───────── */
 .features { padding: 0 var(--space-md); text-align: center; background-color: var(--color-bg); height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; }
 .features h2 { font-size: clamp(1.6rem, 2vw, 2rem); margin-bottom: 1.5rem; color: var(--color-text); }
 .features__grid { display: grid; gap: 1rem; }
@@ -95,10 +113,10 @@
 .feature__img { display: block; width: 100%; height: clamp(200px, 28vh, 260px); aspect-ratio: 4 / 3; object-fit: cover; object-position: center; margin-bottom: .75rem; border-radius: 12px; }
 .feature h3 { font-size: clamp(1.2rem, 1.8vw, 1.5rem); margin-bottom: .5rem; }
 
-/* CTA (Desktop) */
+/* ───────── CTA (Desktop) ───────── */
 .cta { width: 100%; display: flex; flex-direction: column; justify-content: center; }
 
-/* WICHTIG: keine abgezogene Navbar-Höhe im Fullpage-Modus */
+/* keine abgezogene Navbar-Höhe im Fullpage-Modus */
 .fullpage .fullpage-slide--cta {
   height: auto;
   min-height: var(--slide-h);
@@ -106,34 +124,44 @@
   padding-top: 0;
 }
 
-/* Wrap-fähig + sinnvolle Minbreiten, damit nichts „verschwindet“ */
+/* Grundlayout (Desktop) */
 .cta__inner {
   display: flex;
-  align-items: stretch;
+  align-items: center;          /* vertikal mittig */
   justify-content: center;
   gap: var(--space-lg);
-  flex-wrap: wrap;                 /* früher: nowrap -> hat den Text kollabieren lassen */
+  flex-wrap: nowrap;            /* zwei Spalten nebeneinander */
   max-width: 1200px;
   margin: 0 auto;
   background: none;
   border-radius: .5rem;
   padding: var(--space-md);
 }
+
+/* links: Text */
 .cta__text-container {
-  flex: 1 1 480px;
-  min-width: 360px;
+  flex: 1 1 auto;
+  min-width: 420px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  text-align: center;
+  text-align: left;             /* linksbündig */
   color: var(--color-text);
 }
+
+/* rechts: Bild (max 400px) */
 .cta__image-container {
-  flex: 1 1 520px;
-  min-width: 360px;                /* runtergesetzt, damit früheres 520px-Minimum nicht blockiert */
-  position: relative;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.cta__image { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; }
+.cta__image {
+  width: 100%;
+  height: auto;
+  max-width: 600px;
+  border-radius: 10px;
+}
 
 /* Footer inline */
 .footer-inline { margin-top: auto; width: 100%; padding: 2rem 0 0; border-top: 1px solid rgba(0,0,0,0.1); }
@@ -146,19 +174,16 @@
 .start-fullpage .fullpage, .start-fullpage .slides { height: 100%; overflow: clip; }
 .start-fullpage .fullpage .fullpage-slide { height: var(--slide-h) !important; min-height: var(--slide-h) !important; padding: 0 !important; }
 
-/* ───────── MOBILE: Scroll-Snap – Scroller ist .startseite.mobile ───────── */
+/* ───────── MOBILE: Scroll-Snap ───────── */
 @media (max-width: 1023.98px) {
-  /* Scroller */
   .startseite.mobile {
     height: 100svh;
     overflow-y: auto;
     overscroll-behavior-y: contain;
     scroll-snap-type: y mandatory;
-    scroll-padding-top: var(--nav-h); /* fixe Navbar kompensieren, hier 0, weil oben --nav-h:0 */
+    scroll-padding-top: var(--nav-h);
     -webkit-overflow-scrolling: touch;
   }
-
-  /* Snap-Elemente */
   .startseite.mobile .hero,
   .startseite.mobile .snap-slide {
     min-height: 100svh;
@@ -169,7 +194,6 @@
     justify-content: center;
   }
 
-  /* Karte mit kleinem Rand, zentriert */
   .startseite.mobile { --snap-gap: .75rem; }
   .snap-card {
     position: relative;
@@ -180,9 +204,8 @@
     width: calc(100% - (var(--snap-gap) * 2));
     max-width: 1000px;
   }
-
   .snap__bg { position: absolute; inset: 0; background-size: cover; background-position: center; }
-  .snap__overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.45); }
+  .snap__overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.5); }
 
   .snap__content {
     position: relative; z-index: 2; color: #fff; text-align: center;
@@ -193,7 +216,6 @@
   .snap__content p  { font-size: clamp(1rem, 3.2vw, 1.2rem); margin-bottom: 1rem; }
   #cta-mobile .btn--accent-cta { margin-top: .5rem; }
 
-  /* In-View Animation */
   @media (prefers-reduced-motion: no-preference) {
     .snap-anim { opacity: 0; transform: translateY(8px) scale(.985); transition: opacity .6s ease, transform .6s ease; }
     .snap-slide.is-inview .snap-anim { opacity: 1; transform: none; }
@@ -208,56 +230,37 @@
   .footer-inline--mobile { padding-top: var(--space-md); }
 }
 
+/* Mobile Footer fix / Anordnung */
 @media (max-width: 1023.98px) {
-  /* Snap-Slide stapelt Inhalte untereinander */
-  .startseite.mobile .snap-slide {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-  }
-
-  /* Karte bleibt groß, bekommt unten Luft zum Footer */
-  .startseite.mobile .snap-card {
-    flex: 0 0 auto;
-    margin-bottom: var(--snap-gap);
-  }
-
-  /* Footer nimmt volle Breite ein und sitzt unter der Karte */
+  .startseite.mobile .snap-slide { flex-direction: column; align-items: center; justify-content: flex-start; }
+  .startseite.mobile .snap-card { flex: 0 0 auto; margin-bottom: var(--snap-gap); }
   .footer-inline--mobile {
     order: 2;
     width: 100%;
     max-width: 1000px;
     margin: 0 auto var(--snap-gap);
     padding: var(--space-md) var(--space-md) 0;
-  }
-
-  /* Footer-Inhalt auf Mobile nicht eingeengt */
-  .footer-inline--mobile footer {
-    width: 100%;
-    max-width: none;
-    margin: 0;
-  }
+  }a
+  .footer-inline--mobile footer { width: 100%; max-width: none; margin: 0; }
 }
 
-/* ---------- Sichtbarkeit im Mobile-Snap sicherstellen ---------- */
+/* Sichtbarkeit im Mobile-Snap */
 @media (max-width: 1023.98px) {
-  /* Overlay unter Content erzwingen */
   .startseite.mobile .snap__overlay { z-index: 1; }
   .startseite.mobile .snap__content { z-index: 2; }
-
-  /* Auf dunklem Bild IMMER weiße Typo (Desktop bleibt unberührt) */
   .startseite.mobile .snap__content,
   .startseite.mobile .snap__content h1,
-  .startseite.mobile .snap__content h2,
+  .startseite.mobile,
   .startseite.mobile .snap__content h3,
   .startseite.mobile .snap__content p,
   .startseite.mobile .cta_text {
     color: #fff !important;
     text-shadow: 0 1px 2px rgba(0,0,0,.35);
+    font-size: 1.25rem;
   }
-
-  /* Falls der IntersectionObserver nicht feuert: CTA trotzdem zeigen */
+  .snap__content h2 {
+    font-size: 1.5rem;
+  }
   .startseite.mobile #cta-mobile .snap-anim {
     opacity: 1 !important;
     transform: none !important;
