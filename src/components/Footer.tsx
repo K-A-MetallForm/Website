@@ -37,7 +37,7 @@ const Footer: React.FC = () => {
         <section className="footer__section footer__social">
           <h2 className="footer__title">Folgen Sie uns</h2>
           <div className="footer__social-icons" aria-label="Social Media">
-            <a href="https://www.instagram.com/k.a.metall_form/" target="_blank" rel="noopener" title="Instagram" className="footer__social-link">
+            <a href="https://www.instagram.com/k.a.metallform/" target="_blank" rel="noopener" title="Instagram" className="footer__social-link">
               <FaInstagram />
             </a>
           </div>
