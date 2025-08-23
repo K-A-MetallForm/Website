@@ -28,7 +28,7 @@ const Footer: React.FC = () => {
           </ul>
           <div className="footer__imprint">
             <p>
-              Geschäftsführer: Kasim Avdija<br />
+              Inhaber: Kasim Avdija<br />
             </p>
           </div>
         </section>
