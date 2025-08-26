@@ -28,7 +28,6 @@
     font-size: clamp(1.15rem, 2vw, 1.35rem);
     margin: 1.25rem 0 .5rem;
     padding-left: .6rem;
-    border-left: 3px solid var(--color-accent);
   }
   
   .legal-container p {

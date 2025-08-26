@@ -5,7 +5,7 @@ import './Agb.css';
 
 const AGB: React.FC = () => {
   // Lege die PDF ins public/… Verzeichnis, z. B. public/docs/widerrufsbelehrung.pdf
-  const WIDERRUF_PDF = 'public/Widerrufsbelehrung.pdf';
+  const WIDERRUF_PDF = '/Widerrufsbelehrung.pdf';
   const stand = new Date().toLocaleDateString('de-DE');
 
   return (
