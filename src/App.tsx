@@ -7,6 +7,7 @@ import Beratung from './pages/Beratung.tsx';
 import MetallForm from './pages/MetallForm.tsx';
 import Impressum from './pages/Impressum.tsx';
 import Datenschutz from './pages/Datenschutz.tsx';
+import AGB from './pages/Agb.tsx';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <Route path="/metallform" element={<MetallForm />} />
             <Route path="/impressum" element={<Impressum />} />
             <Route path="/datenschutz" element={<Datenschutz />} />
+            <Route path="/agb" element={<AGB />} />
           </Routes>
         </main>
       </div>

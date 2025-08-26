@@ -25,6 +25,7 @@ const Footer: React.FC = () => {
           <ul className="footer__list">
             <li><a href="/impressum" className="footer__link">Impressum</a></li>
             <li><a href="/datenschutz" className="footer__link">Datenschutz</a></li>
+            <li><a href="/agb" className="footer__link">AGB</a></li>
           </ul>
           <div className="footer__imprint">
             <p>
