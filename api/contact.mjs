@@ -27,10 +27,9 @@ function json(res, status, obj, extraHeaders = {}) {
 }
 
 function allowCors(req, res) {
-  // Wenn du magst, setze ALLOW_ORIGIN auf deine Domain (z.B. https://www.ka-metallform.de)
   const origin = process.env.ALLOW_ORIGIN || '*';
   res.setHeader('Access-Control-Allow-Origin', origin);
-  res.setHeader('Vary', 'Origin'); // gut für CDN-Caches
+  res.setHeader('Vary', 'Origin');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 }

@@ -142,6 +142,7 @@ const NavBar = () => {
       <div className="navbar__container">
         <Link to="/" className="navbar__logo" onClick={closeMenu} aria-label="Startseite">
           <img src={logoSrc} alt="K.A. MetallForm Logo" />
+          <span className="navbar__badge">Meisterbetrieb</span>
         </Link>
 
         {/* Navigation-Links */}
