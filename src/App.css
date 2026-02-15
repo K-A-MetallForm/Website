@@ -16,7 +16,7 @@
   flex: 1;
   min-height: 0;
   background: var(--color-bg);
-  padding-top: var(--nav-h); /* Standard: Platz für fixed Navbar */
+  padding-top: var(--nav-h); /* Standard: Platz für fixed Navbar x*/
 }
 
 /* Home-Hero: kein Top-Padding (Navbar über dem Hero) */
