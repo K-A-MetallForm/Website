@@ -27,7 +27,7 @@ const categories: Category[] = [
       'Wir kombinieren Metall mit Holz, Glas oder Lochblech und liefern normgerechte Lösungen inklusive statischer Auslegung.',
       'Oberflächen: roh, geschliffen, verzinkt, pulverbeschichtet – ganz nach Einsatzort und Optik.',
     ],
-    images: ['/Geländer_3.jpg', '/Geländer_2.jpg', '/Geländer_1.jpg', '/Geländer_4.jpg'],
+    images: ['/Geländer_4.jpeg', '/Geländer_1.jpg', '/Geländer_2.jpg', 'Geländer_5.jpg'],
   },
   {
     id: 'treppen',
@@ -36,7 +36,7 @@ const categories: Category[] = [
       'Maßgeschneiderte Metalltreppen: gerade, gewendelt oder als Faltwerktreppe – für Wohn- und Gewerbebauten.',
       'Stufen aus Holz, Gitterrost, Blech mit Rutschhemmung oder Glas. Auf Wunsch inkl. Planung der Unterkonstruktion und Montage.',
     ],
-    images: ['/Treppe_1.jpg', '/Treppe_2.jpg', '/Treppe_3.jpg'],
+    images: ['/Treppe_1.jpg', '/Treppe_2.jpg', '/Treppe_3.jpeg', '/Treppe_4.jpg'],
   },
   {
     id: 'vitrinen',
@@ -54,7 +54,7 @@ const categories: Category[] = [
       'Individuelle Metallarbeiten, Reparaturen und Sonderlösungen.',
       'Fragen Sie uns auch für Möbelgestelle, Sichtschutzrahmen, Abdeckungen, Konsolen oder kleine Serien an.',
     ],
-    images: ['Sonderlösung_1.jpg', 'Sonderlösung_2.jpg', 'Sonderlösung_3.jpg', 'Sonderlösung_4.jpg', 'Sonderlösung_5.jpg', 'Sonderlösung_6.jpg'],
+    images: ['Sonderlösung_1.jpg', 'Sonderlösung_2.jpg', 'Sonderlösung_3.jpg', 'Sonderlösung_4.jpg', 'Sonderlösung_5.jpg', 'Sonderlösung_6.jpg', 'Sonderlösung_7.jpeg'],
   },
 ];
 
@@ -169,7 +169,7 @@ const CategoryBlock = ({ id, title, texts, images, showInlineFooter, onOpenLight
       </div>
 
       <div className="thumbnail-row">
-        {images.slice(1, 5).map((src, i) => (
+        {images.slice(1).map((src, i) => (
           <img
             key={src}
             src={normalizeSrc(src)}
