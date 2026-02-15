@@ -5,7 +5,7 @@ import Footer from '../components/Footer';
 
 const featureItems = [
   {
-    img: '/Geländer_3.jpg',
+    img: '/Treppe_4.jpg',
     title: 'Individuelle Bauelemente',
     text: 'Planung und Fertigung von Treppen, Geländern, Balkonen und Überdachungen – passgenau auf Ihre Anforderungen abgestimmt',
   },
