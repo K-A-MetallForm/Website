@@ -16,7 +16,7 @@ const AGB: React.FC = () => {
         <address className="legal-address">
           <strong>K.A. MetallForm</strong><br />
           Inhaber: <strong>Kasim Avdija</strong><br />
-          Neureuter Straße 5–7, 76185 Karlsruhe, Deutschland<br />
+          An der Tagweide 12, 76139 Karlsruhe, Deutschland<br />
           Tel.: <a href="tel:+491708750760">+49 (0)170&nbsp;875&nbsp;0760</a> ·{' '}
           E-Mail: <a href="mailto:info@ka-metallform.de">info@ka-metallform.de</a>
         </address>
