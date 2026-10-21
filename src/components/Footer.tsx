@@ -11,8 +11,8 @@ const Footer: React.FC = () => {
           <h2 className="footer__title">Kontakt</h2>
           <address className="footer__address">
             K.A. MetallForm<br />
-            Neureuter Straße 5-7<br />
-            76185 Karlsruhe<br />
+            An der Tagweide 12<br />
+            76139 Karlsruhe<br />
             <a href="tel:+491234567890" className="footer__link">Tel.: +49 (0)170 875 0760</a><br />
             <a href="mailto:info@kam-metallform.de" className="footer__link">info@ka-metallform.de</a>
           </address>
