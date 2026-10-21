@@ -14,8 +14,8 @@ const Impressum: React.FC = () => {
           <strong itemProp="name">K.A. MetallForm</strong><br />
           Inhaber: <strong itemProp="founder">Kasim Avdija</strong><br />
           <span itemProp="address" itemScope itemType="https://schema.org/PostalAddress">
-            <span itemProp="streetAddress">Neureuter Straße 5-7</span><br />
-            <span itemProp="postalCode">76185</span> <span itemProp="addressLocality">Karlsruhe</span>, Deutschland
+            <span itemProp="streetAddress">An der Tagweide 12</span><br />
+            <span itemProp="postalCode">76139</span> <span itemProp="addressLocality">Karlsruhe</span>, Deutschland
           </span>
         </address>
 
