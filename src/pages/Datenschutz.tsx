@@ -12,7 +12,7 @@ const Datenschutz: React.FC = () => {
 
         <h2>1. Verantwortlicher</h2>
         <p>
-          K.A. MetallForm, Inhaber: Kasim Avdija, Neureuter Straße 5-7, 76185 Karlsruhe, Deutschland<br />
+          K.A. MetallForm, Inhaber: Kasim Avdija, An der Tagweide 12, 76139 Karlsruhe, Deutschland<br />
           Tel.: <a href="tel:+491708750760">+49 (0)170 875 0760</a>, E-Mail: <a href="mailto:info@ka-metallform.de">info@ka-metallform.de</a>
         </p>
 
